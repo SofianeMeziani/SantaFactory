@@ -29,14 +29,12 @@
       <div @mouseenter="mouseEnter" @mouseleave="mouseLeave">
 
         <!-- Header -->
-        <div class="header-sidebar flex items-end justify-between" slot="header">
+        <div style="width: 100%" class="header-sidebar flex items-end justify-between" slot="header">
 
           <!-- Logo -->
-          <router-link tag="div" class="vx-logo cursor-pointer flex items-center" to="/">
-            <logo class="w-20 mr-4 fill-current text-primary"/>
-            <span class="vx-logo-text" :class="themeMode?'text-black':'text-white'" style="font-size: 20px"
-                  v-show="isMouseEnter || !reduce"
-                  v-if="title">{{ title }}</span>
+          <router-link style="width: 100%" tag="div" class="vx-logo cursor-pointer flex items-center" to="/">
+            <logo style="margin: 0 auto !important;" class="w-20 mr-4 fill-current text-primary"/>
+
           </router-link>
           <!-- /Logo -->
 
@@ -427,7 +425,7 @@ export default {
 
 
 [dir] .v-nav-menu .vs-sidebar .vs-sidebar--items {
-  //overflow: scroll;
+  overflow: scroll;
   padding: 0;
   border-radius: 15px;
 }
@@ -438,20 +436,6 @@ export default {
 
 [dir=ltr] .v-nav-menu .header-sidebar {
   padding: 20px 15px 0 15px;
-}
-
-@media screen and (max-width: 800px) {
-  .menu-social-links {
-    display: none;
-  }
-}
-
-.social-links button:hover {
-  background-color: #b9b9f3 !important;
-}
-
-.social-links button {
-  margin: 2px;
 }
 
 .circle {

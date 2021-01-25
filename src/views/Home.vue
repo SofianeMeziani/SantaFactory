@@ -1,8 +1,8 @@
 <template>
-  <div style="height: 100vh;">
+  <div>
 
     <Snowf
-        :amount="60"
+        :amount="70"
         :size="5"
         :speed="1.5"
         :wind="0"
@@ -16,57 +16,75 @@
     <div id="dashboard-analytics" style="height: auto">
 
       <template>
-        <div class="vx-row">
+        <div class="vx-row" style="align-items: center; justify-content: center ; display: flex">
 
-          <div class="vx-col w-full  mb-base">
+          <div style="align-items: center; justify-content: center ; display: flex" class="vx-col w-full  mb-base">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     class="text-center align-vs-card-home">
               <h1>La fabrique du Père Noël 🎅🏻</h1>
               <p>// La fabrique du pere noel // stats et pallette rouge </p>
             </vx-card>
           </div>
 
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
-               style='background-image: url("../assets/images/commandes.jpg")'>
+          <div style="align-items: center; justify-content: center ; display: flex"
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+          >
             <vx-card slot="no-body"
+                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_commandes + ')'"
+                     style="background-size: cover"
                      :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     class="text-center align-vs-card-home">
               <h1>Commandes</h1>
             </vx-card>
           </div>
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+          <div style="align-items: center; justify-content: center ; display: flex"
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_jouets + ')'"
+                     style="background-size: cover"
+                     class="text-center align-vs-card-home">
               <h1>Jouets</h1>
             </vx-card>
           </div>
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+          <div style="align-items: center; justify-content: center ; display: flex"
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_lutins + ')'"
+                     style="background-size: cover"
+                     class="text-center align-vs-card-home">
               <h1>Lutins</h1>
             </vx-card>
           </div>
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+          <div style="align-items: center; justify-content: center ; display: flex"
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_categories + ')'"
+                     style="background-size: cover"
+                     class="text-center align-vs-card-home">
               <h1>Catégories</h1>
             </vx-card>
           </div>
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+          <div style="align-items: center; justify-content: center ; display: flex"
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_competences + ')'"
+                     style="background-size: cover"
+                     class="text-center align-vs-card-home">
               <h1>Compétences</h1>
             </vx-card>
           </div>
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+          <div style="align-items: center; justify-content: center ; display: flex"
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center">
+                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_manuel + ')'"
+                     style="background-size: cover"
+                     class="text-center align-vs-card-home">
               <h1>Manuel</h1>
             </vx-card>
           </div>
@@ -91,6 +109,7 @@ export default {
   data() {
     return {
       output: "",
+
       loading: false,
       themeColors: ['#28C76F', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
       getTheme: "dark",
@@ -107,7 +126,12 @@ export default {
         }
       },
       card_bg_img_1: require('@/assets/images/pages/card-bg-image-demo-1.jpg'),
-      card_bg_img_2: require('@/assets/images/pages/card-bg-image-demo-2.jpg')
+      card_bg_commandes: require('@/assets/images/commandes.jpg'),
+      card_bg_jouets: require('@/assets/images/jouets.jpg'),
+      card_bg_lutins: require('@/assets/images/lutins.jpg'),
+      card_bg_competences: require('@/assets/images/competences.jpg'),
+      card_bg_categories: require('@/assets/images/categories.jpg'),
+      card_bg_manuel: require('@/assets/images/manuel.jpg'),
     }
   },
   components: {
@@ -218,7 +242,8 @@ export default {
 }
 
 .dashboard-card .vx-card {
-  min-height: 200px !important;
+  min-height: 180px !important;
+  cursor: pointer;
 }
 
 @keyframes floating {
@@ -233,5 +258,11 @@ export default {
     opacity: 1;
     transform: translateY(0px);
   }
+}
+
+.align-vs-card-home {
+  align-items: center;
+  justify-content: center;
+  display: flex
 }
 </style>
