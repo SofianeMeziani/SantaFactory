@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 5rem;">
     <h1 class="text-center" style="margin-bottom: 3rem">Conditions générales d'utilisation</h1>
-    <h3 class="text-center" style="margin-bottom: 3rem">FOX SPORTIF 🦊</h3>
+    <h3 class="text-center" style="margin-bottom: 3rem">Santa Factory 🦊</h3>
 
     <h4 style="margin-bottom: 1rem">Le but de cette politique de confidentialité</h4>
     <p>Le but de cette politique de confidentialité est d'informer les utilisateurs de notre site des données

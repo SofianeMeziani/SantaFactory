@@ -8,7 +8,7 @@
                   margin-top: 70px;
                   margin-left: 20px;
                   top: 2rem; z-index: 1; font-size: 20px"
-            >Fox Sportif</span>
+            >Santa Factory</span>
 
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="8">
                 <img :src="imgUrl"/>

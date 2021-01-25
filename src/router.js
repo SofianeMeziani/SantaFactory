@@ -64,14 +64,6 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/pronostic',
-                    name: 'pronostic',
-                    component: () => import('./views/pages/Pronostic'),
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
                     path: 'profile',
                     name: 'page-user-settings',
                     component: () => import('@/views/pages/user-settings/UserSettings.vue'),
@@ -116,14 +108,6 @@ const router = new Router({
                         rule: 'editor',
                         requiresLogged: true
 
-                    }
-                },
-                {
-                    path: '/cgu',
-                    name: 'cgu',
-                    component: () => import('./views/pages/Cgu.vue'),
-                    meta: {
-                        requiresAuth: false
                     }
                 },
                 {

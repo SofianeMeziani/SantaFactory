@@ -7,7 +7,7 @@
 const path = require('path')
 module.exports = {
     pwa: {
-        name: 'Fox Sportif',
+        name: 'Santa Factory',
         themeColor: '#7367F0',
         msTileColor: '#7367F0',
         appleMobileWebAppCapable: 'yes',

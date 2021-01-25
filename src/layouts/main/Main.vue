@@ -3,7 +3,7 @@
 
     <v-nav-menu
         :navMenuItems="navMenuItems"
-        title="Fox Sportif"
+        title="Santa Factory"
         parent=".layout--main"/>
 
     <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">

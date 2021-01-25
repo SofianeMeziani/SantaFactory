@@ -39,15 +39,15 @@
                     <span class=" mr-auto vx-logo-text "
                           :class="themeMode?'text-white':'text-dark'"
                           style="font-size: 35px;"
-                    >Fox Sportif</span>
+                    >Santa Factory</span>
                   </router-link>
 
                   <!--                                <div class="mr-auto  ml-auto ">-->
                   <!--                                    <h1 class="mr-auto  ml-auto mb-8" style="text-align: center; font-size: 50px">-->
-                  <!--                                        Fox Sportif</h1>-->
+                  <!--                                        Santa Factory</h1>-->
                   <!--                                </div>-->
 
-                  <!--                                <span class="vx-logo-text text-primary">Fox Sportif</span>-->
+                  <!--                                <span class="vx-logo-text text-primary">Santa Factory</span>-->
                   <div class="vx-card__title mb-10" style="text-align: center">
                     <h4 class="mb-4">Inscription (c'est gratuit 😊)</h4>
                     <p>Inscris toi pour voir le pronostic du jour</p>

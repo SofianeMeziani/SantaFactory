@@ -69,7 +69,7 @@
         <div class="text-center" style="padding: 0px 15px 10px 10px">
           <p class="font-semibold">@{{ activeUserInfo.username }}</p>
           <small>
-            Parieur 🏆 </small>
+            Père Noël 🎅🏻 </small>
         </div>
 
 
@@ -122,21 +122,6 @@
             </template>
 
           </template>
-          <div class="text-center social-links">
-            <vx-tooltip position="bottom" style="display: inline-block" text="Telegram">
-
-              <vs-button target :href="{url: 'https://t.me/FoxSportif'}" :class="themeMode?'text-black':'text-white'"
-                         color="primary"
-                         icon-pack="feather" icon="icon-send"
-                         type="flat"></vs-button>
-            </vx-tooltip>
-            <vx-tooltip position="bottom" style="display: inline-block" text="Instagram">
-              <vs-button target href="https://www.instagram.com/foxsportif.fr/"
-                         :class="themeMode?'text-black':'text-white'"
-                         color="primary" icon-pack="feather"
-                         icon="icon-instagram" type="flat"></vs-button>
-            </vx-tooltip>
-          </div>
 
         </component>
 

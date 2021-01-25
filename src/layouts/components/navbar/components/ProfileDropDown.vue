@@ -3,7 +3,7 @@
     <div class="text-right leading-tight hidden sm:block">
       <p style="margin-bottom: 5px" class="font-semibold">@{{ activeUserInfo.username }}</p>
       <small>
-        🏆 Parieur</small>
+        🎅🏻 Père Noël</small>
     </div>
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
 

@@ -17,13 +17,13 @@ export default [
     },
     {
         url: "/bilan",
-        name: "Bilan",
+        name: "Lutins",
         slug: "Bilan",
         icon: "ActivityIcon",
     },
     {
         url: "/contact",
-        name: "Contact",
+        name: "Commandes",
         slug: "Contact",
         icon: "MailIcon",
     },
@@ -33,12 +33,6 @@ export default [
         name: 'Profile',
         icon: 'UserIcon',
         i18n: 'UserSettings'
-    },
-    {
-        header: 'Réseaux sociaux',
-        icon: 'LayersIcon',
-        class: 'menu-social-links',
-        items: []
     }
 
 ]
