@@ -242,7 +242,7 @@ export default {
 }
 
 .dashboard-card .vx-card {
-  min-height: 180px !important;
+  min-height: 150px !important;
   cursor: pointer;
 }
 

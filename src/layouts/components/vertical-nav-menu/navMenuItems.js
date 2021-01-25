@@ -16,33 +16,33 @@ export default [
         icon: "HomeIcon",
     },
     {
-        url: "/bilan",
+        url: "/commandes",
         name: "Commandes",
-        slug: "Bilan",
+        slug: "Commandes",
         icon: "ClipboardIcon",
     },
     {
-        url: "/bilan",
+        url: "/lutins",
         name: "Lutins",
-        slug: "Bilan",
+        slug: "Lutins",
         icon: "UsersIcon",
     },
     {
-        url: "/bilan",
+        url: "/jouets",
         name: "Jouets",
-        slug: "Bilan",
+        slug: "Jouets",
         icon: "GiftIcon",
     },
     {
-        url: "/bilan",
+        url: "/categories",
         name: "Catégories",
-        slug: "Bilan",
+        slug: "Categories",
         icon: "ServerIcon",
     },
     {
-        url: "/bilan",
+        url: "/competences",
         name: "Compétences",
-        slug: "Bilan",
+        slug: "Competences",
         icon: "CheckCircleIcon",
     },
     {
@@ -53,8 +53,8 @@ export default [
         i18n: 'UserSettings'
     },
     {
-        url: '/profile',
-        slug: 'page-user-settings',
+        url: '/manuel',
+        slug: 'manuel',
         name: "Manuel d'utilisation",
         icon: 'BookOpenIcon',
         i18n: 'UserSettings'

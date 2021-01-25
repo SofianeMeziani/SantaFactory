@@ -40,25 +40,49 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/bilan',
-                    name: 'bilan',
-                    component: () => import('./views/pages/Bilan.vue'),
+                    path: '/categories',
+                    name: 'categories',
+                    component: () => import('./views/Categories.vue'),
                     meta: {
                         requiresAuth: true
                     }
                 },
                 {
-                    path: '/contact',
-                    name: 'contact',
-                    component: () => import('./views/pages/Contact'),
+                    path: '/commandes',
+                    name: 'commandes',
+                    component: () => import('./views/Commandes.vue'),
                     meta: {
                         requiresAuth: true
                     }
                 },
                 {
-                    path: '/users',
-                    name: 'users',
-                    component: () => import('./views/pages/Users'),
+                    path: '/competences',
+                    name: 'competences',
+                    component: () => import('./views/Competences.vue'),
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/jouets',
+                    name: 'jouets',
+                    component: () => import('./views/Jouets.vue'),
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/lutins',
+                    name: 'lutins',
+                    component: () => import('./views/Lutins.vue'),
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/manuel',
+                    name: 'manuel',
+                    component: () => import('./views/Manuel.vue'),
                     meta: {
                         requiresAuth: true
                     }
@@ -68,11 +92,6 @@ const router = new Router({
                     name: 'page-user-settings',
                     component: () => import('@/views/pages/user-settings/UserSettings.vue'),
                     meta: {
-                        // breadcrumb: [
-                        //     {title: 'Home', url: '/'},
-                        //     {title: 'Pages'},
-                        //     {title: 'User Settings', active: true}
-                        // ],
                         requiresAuth: true,
                         rule: 'editor'
                     }
