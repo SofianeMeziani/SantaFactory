@@ -21,13 +21,16 @@
           <div class="vx-col w-full  mb-base">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
                      class="text-center">
-              <h1>Welcome Santa ! 🎅🏻</h1>
+              <h1>La fabrique du Père Noël 🎅🏻</h1>
               <p>// La fabrique du pere noel // stats et pallette rouge </p>
             </vx-card>
           </div>
 
-          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
-            <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
+
+          <div class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               style='background-image: url("../assets/images/commandes.jpg")'>
+            <vx-card slot="no-body"
+                     :class="themeMode?'':'bg-primary-gradient'"
                      class="text-center">
               <h1>Commandes</h1>
             </vx-card>

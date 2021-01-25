@@ -17,7 +17,7 @@
       <p class="text-center" style="width: 100%">
         <span>COPYRIGHT &copy;</span>
         <span>{{ new Date().getFullYear() }} </span>
-        <b>Santa Factory 🎅🏻</b>
+        <b>La fabrique du père-noël 🎅🏻</b>
         <span class="hidden sm:inline-block"> • Université de Rouen • Tous droits reservés</span>
       </p>
     </footer>

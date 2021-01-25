@@ -11,27 +11,52 @@
 export default [
     {
         url: "/",
-        name: "Accueil",
+        name: "Dashboard",
         slug: "Dashboard",
         icon: "HomeIcon",
     },
     {
         url: "/bilan",
-        name: "Lutins",
+        name: "Commandes",
         slug: "Bilan",
-        icon: "ActivityIcon",
+        icon: "ClipboardIcon",
     },
     {
-        url: "/contact",
-        name: "Commandes",
-        slug: "Contact",
-        icon: "MailIcon",
+        url: "/bilan",
+        name: "Lutins",
+        slug: "Bilan",
+        icon: "UsersIcon",
+    },
+    {
+        url: "/bilan",
+        name: "Jouets",
+        slug: "Bilan",
+        icon: "GiftIcon",
+    },
+    {
+        url: "/bilan",
+        name: "Catégories",
+        slug: "Bilan",
+        icon: "ServerIcon",
+    },
+    {
+        url: "/bilan",
+        name: "Compétences",
+        slug: "Bilan",
+        icon: "CheckCircleIcon",
     },
     {
         url: '/profile',
         slug: 'page-user-settings',
         name: 'Profile',
         icon: 'UserIcon',
+        i18n: 'UserSettings'
+    },
+    {
+        url: '/profile',
+        slug: 'page-user-settings',
+        name: "Manuel d'utilisation",
+        icon: 'BookOpenIcon',
         i18n: 'UserSettings'
     }
 
