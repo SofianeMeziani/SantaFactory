@@ -20,6 +20,7 @@ const userDefaults = {
     pk: 0,          // From Auth
     username: "John Doe", // From Auth
     photoURL: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
+    avatar: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
     first_name: "online",
     last_name: "admin"
 }

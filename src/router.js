@@ -85,16 +85,6 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
-                {
-                    path: '/apps/chat',
-                    name: 'chat',
-                    component: () => import('./views/apps/chat/Chat.vue'),
-                    meta: {
-                        requiresAuth: true,
-                        rule: 'editor',
-                        no_scroll: true
-                    }
-                },
 
             ],
         },
