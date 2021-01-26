@@ -19,11 +19,17 @@
         <div class="vx-row" style="align-items: center; justify-content: center ; display: flex">
 
           <div style="align-items: center; justify-content: center ; display: flex" class="vx-col w-full  mb-base">
-            <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     class="text-center align-vs-card-home">
-              <h1>La fabrique du Père Noël 🎅🏻</h1>
-              <p>// La fabrique du pere noel // stats et pallette rouge </p>
+
+
+            <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'" class="greet-user">
+
+              <h1 class="mb-6 text-white w-100 text-center">La fabrique du Père Noël 🎅🏻</h1>
+              <p class="mx-auto text-white w-100 text-center">You have done
+                <strong>hello</strong> more sales today. Check your new badge in your profile.
+              </p>
             </vx-card>
+
+
           </div>
 
 
