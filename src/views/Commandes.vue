@@ -33,6 +33,13 @@
             statisticTitle="Terminées"
             color="success"/>
       </div>
+
+      <div class="vx-col w-full">
+        <vs-button class="mb-5" style="margin: auto" color="primary" type="gradient" icon-pack="feather"
+                   icon="icon-plus">
+          Nouvelle commande
+        </vs-button>
+      </div>
     </div>
     <div class="vx-row">
       <div class="vx-col w-full">
