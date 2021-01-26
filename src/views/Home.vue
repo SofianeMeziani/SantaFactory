@@ -21,49 +21,54 @@
           <div style="align-items: center; justify-content: center ; display: flex" class="vx-col w-full  mb-base">
 
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'" class="greet-user">
-              <h1 class="mb-6 text-white w-100 text-center">La fabrique du Père Noël 🎅🏻</h1>
+
+              <a class="weatherwidget-io" href="https://forecast7.com/fr/49d441d10/rouen/" data-label_1="ROUEN"
+                 data-label_2="Météo" data-font="Play" data-icons="Climacons Animated" data-days="5"
+                 data-theme="original" data-basecolor="rgb(22, 29, 49)" data-highcolor="#ffffff"
+                 data-cloudfill="#283046">ROUEN Météo</a>
+
               <div class="vx-row">
                 <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                   <statistics-card-line
                       hideChart
-                      class="mb-base"
-                      icon="ServerIcon"
+                      class="mt-5"
+                      icon="GiftIcon"
                       icon-right
                       statistic="98"
                       statisticTitle="Commandes"
+                      color="success"/>
+                </div>
+
+                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                  <statistics-card-line
+                      hideChart
+                      class="mt-5"
+                      icon="LoaderIcon"
+                      icon-right
+                      statistic="12"
+                      statisticTitle="En cours"
+                      color="warning"/>
+                </div>
+                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                  <statistics-card-line
+                      hideChart
+                      class="mt-5"
+                      icon="UserXIcon"
+                      icon-right
+                      statistic="23"
+                      statisticTitle="Lutins occupés"
                       color="danger"/>
                 </div>
 
                 <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                   <statistics-card-line
                       hideChart
-                      class="mb-base"
-                      icon="ServerIcon"
-                      icon-right
-                      statistic="12"
-                      statisticTitle="Lutins dispo"
-                      color="success"/>
-                </div>
-                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-                  <statistics-card-line
-                      hideChart
-                      class="mb-base"
-                      icon="ServerIcon"
-                      icon-right
-                      statistic="23"
-                      statisticTitle="Lutins occupés"
-                      color="primary"/>
-                </div>
-
-                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-                  <statistics-card-line
-                      hideChart
-                      class="mb-base"
-                      icon="ServerIcon"
+                      class="mt-5"
+                      icon="UserCheckIcon"
                       icon-right
                       statistic="17"
-                      statisticTitle="Commandes en cours"
-                      color="warning"/>
+                      statisticTitle="Lutins dispos"
+                      color="success"/>
                 </div>
               </div>
 
@@ -216,6 +221,16 @@ export default {
   },
 
 }
+
+!function (d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (!d.getElementById(id)) {
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://weatherwidget.io/js/widget.min.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }
+}(document, 'script', 'weatherwidget-io-js');
 </script>
 
 <style lang="scss">
@@ -238,7 +253,7 @@ export default {
 }
 
 .dashboard-card .vx-card {
-  min-height: 150px !important;
+  min-height: 140px !important;
   cursor: pointer;
 }
 
