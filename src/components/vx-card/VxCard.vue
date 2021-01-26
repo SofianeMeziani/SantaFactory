@@ -8,70 +8,77 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
- <template>
-    <div class="vx-card" ref="card" :class="[
+<template>
+  <div class="vx-card" ref="card" :class="[
         {'overflow-hidden': tempHidden},
         {'no-shadow': noShadow},
         {'rounded-none': noRadius},
         {'card-border': cardBorder},
         cardClasses ]" :style="cardStyles"
-        v-on="$listeners">
-        <div class="vx-card__header" v-if="hasHeader">
+       v-on="$listeners">
+    <div class="vx-card__header" v-if="hasHeader">
 
-            <!-- card title -->
-            <div class="vx-card__title">
-                <h4 v-if="this.$props.title" :style="titleStyles" :class="titleClasses">{{ title }}</h4>
-                <h6 v-if="this.$props.subtitle" :style="subtitleStyles" :class="subtitleClasses">{{ subtitle }}</h6>
-            </div>
+      <!-- card title -->
+      <div class="vx-card__title">
+        <h4 v-if="this.$props.title" :style="titleStyles" :class="titleClasses">{{ title }}</h4>
+        <h6 v-if="this.$props.subtitle" :style="subtitleStyles" :class="subtitleClasses">{{ subtitle }}</h6>
+      </div>
 
-            <!-- card actions -->
-            <div class="vx-card__actions" v-if="hasAction">
-                <slot name="actions">
-                    <div class="vx-card__action-buttons" v-if="(actionButtons || collapseAction || refreshContentAction || removeCardAction) && !codeToggler">
-                        <feather-icon @click="toggleContent" icon="ChevronUpIcon" :class="{rotate180: !isContentCollapsed}" class="ml-4" v-if="actionButtons || collapseAction" />
-                        <feather-icon @click="refreshcard" icon="RotateCwIcon" class="ml-4" v-if="actionButtons || refreshContentAction" />
-                        <feather-icon @click="removeCard" icon="XIcon" class="ml-4" v-if="actionButtons || removeCardAction" />
-                    </div>
-                    <div class="vx-card__code-toggler sm:block hidden" v-if="codeToggler && !actionButtons">
-                        <feather-icon icon="CodeIcon" :class="{'border border-solid border-primary border-t-0 border-r-0 border-l-0': showCode}" @click="toggleCode"></feather-icon>
-                    </div>
-                </slot>
-            </div>
-        </div>
-
-        <div class="vx-card__collapsible-content vs-con-loading__container" ref="content" :class="[{collapsed: isContentCollapsed}, {'overflow-hidden': tempHidden}]" :style="StyleItems">
-
-            <!-- content with no body(no padding) -->
-            <slot name="no-body"></slot>
-
-            <!-- content inside body(with padding) -->
-            <div class="vx-card__body" v-if="this.$slots.default">
-                <slot></slot>
-            </div>
-
-            <!-- content with no body(no padding) -->
-            <slot name="no-body-bottom"></slot>
-
-            <div class="vx-card__footer" v-if="this.$slots.footer">
-                <slot name="footer"></slot>
-            </div>
-        </div>
-
-        <div class="vx-card__code-container" ref="codeContainer" v-show="this.$slots.codeContainer" :style="codeContainerStyles" :class="{collapsed: !showCode}">
-            <div class="code-content">
-                <prism :language="codeLanguage" :key="$vs.rtl">
-                        <slot name="codeContainer"></slot>
-                </prism>
-            </div>
-        </div>
+      <!-- card actions -->
+      <div class="vx-card__actions" v-if="hasAction">
+        <slot name="actions">
+          <div class="vx-card__action-buttons"
+               v-if="(actionButtons || collapseAction || refreshContentAction || removeCardAction) && !codeToggler">
+            <feather-icon @click="toggleContent" icon="ChevronUpIcon" :class="{rotate180: !isContentCollapsed}"
+                          class="ml-4" v-if="actionButtons || collapseAction"/>
+            <feather-icon @click="refreshcard" icon="RotateCwIcon" class="ml-4"
+                          v-if="actionButtons || refreshContentAction"/>
+            <feather-icon @click="removeCard" icon="XIcon" class="ml-4" v-if="actionButtons || removeCardAction"/>
+          </div>
+          <div class="vx-card__code-toggler sm:block hidden" v-if="codeToggler && !actionButtons">
+            <feather-icon icon="CodeIcon"
+                          :class="{'border border-solid border-primary border-t-0 border-r-0 border-l-0': showCode}"
+                          @click="toggleCode"></feather-icon>
+          </div>
+        </slot>
+      </div>
     </div>
+
+    <div class="vx-card__collapsible-content vs-con-loading__container" ref="content"
+         :class="[{collapsed: isContentCollapsed}, {'overflow-hidden': tempHidden}]" :style="StyleItems">
+
+      <!-- content with no body(no padding) -->
+      <slot name="no-body"></slot>
+
+      <!-- content inside body(with padding) -->
+      <div class="vx-card__body" v-if="this.$slots.default">
+        <slot></slot>
+      </div>
+
+      <!-- content with no body(no padding) -->
+      <slot name="no-body-bottom"></slot>
+
+      <div class="vx-card__footer" v-if="this.$slots.footer">
+        <slot name="footer"></slot>
+      </div>
+    </div>
+
+    <div class="vx-card__code-container" ref="codeContainer" v-show="this.$slots.codeContainer"
+         :style="codeContainerStyles" :class="{collapsed: !showCode}">
+      <div class="code-content">
+        <prism :language="codeLanguage" :key="$vs.rtl">
+          <slot name="codeContainer"></slot>
+        </prism>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Prism from 'vue-prism-component'
 import _color from '@/assets/utils/color.js'
 
-export default{
+export default {
   name: 'vx-card',
   props: {
     title: String,
@@ -145,7 +152,7 @@ export default{
       type: String
     }
   },
-  data () {
+  data() {
     return {
       isContentCollapsed: false,
       showCode: false,
@@ -156,25 +163,25 @@ export default{
     }
   },
   computed: {
-    hasAction () {
+    hasAction() {
       return this.$slots.actions || (this.actionButtons || this.collapseAction || this.refreshContentAction || this.removeCardAction || this.codeToggler)
     },
-    hasHeader () {
+    hasHeader() {
       return this.hasAction || (this.title || this.subtitle)
     },
-    StyleItems () {
-      return { maxHeight: this.maxHeight }
+    StyleItems() {
+      return {maxHeight: this.maxHeight}
     },
-    cardStyles () {
-      const obj = { maxHeight: this.cardMaxHeight }
+    cardStyles() {
+      const obj = {maxHeight: this.cardMaxHeight}
       if (!_color.isColor(this.cardBackground)) obj.background = _color.getColor(this.cardBackground)
       if (!_color.isColor(this.contentColor)) obj.color = _color.getColor(this.contentColor)
       return obj
     },
-    codeContainerStyles () {
-      return { maxHeight: this.codeContainerMaxHeight }
+    codeContainerStyles() {
+      return {maxHeight: this.codeContainerMaxHeight}
     },
-    cardClasses () {
+    cardClasses() {
       let str = ''
 
       // Add bg class
@@ -189,12 +196,12 @@ export default{
 
       return str.trim()
     },
-    titleStyles () {
+    titleStyles() {
       return {
         color: _color.getColor(this.titleColor)
       }
     },
-    titleClasses () {
+    titleClasses() {
       let str = ''
 
       // add content color
@@ -204,13 +211,13 @@ export default{
 
       return str.trim()
     },
-    subtitleStyles () {
+    subtitleStyles() {
       const obj = {}
       if (!_color.isColor(this.subtitleColor)) obj.color = _color.getColor(this.subtitleColor)
 
       return obj
     },
-    subtitleClasses () {
+    subtitleClasses() {
       let str = ''
 
       // add content color
@@ -222,7 +229,7 @@ export default{
     }
   },
   methods: {
-    toggleContent () {
+    toggleContent() {
       this.$refs.content.style.overflow = 'hidden'
       const scrollHeight = this.$refs.content.scrollHeight
       if (this.maxHeight === '1.5rem') {
@@ -241,7 +248,7 @@ export default{
       this.isContentCollapsed = !this.isContentCollapsed
       this.$emit('toggleCollapse', this.isContentCollapsed)
     },
-    refreshcard () {
+    refreshcard() {
       this.$vs.loading({
         container: this.$refs.content,
         scale: 0.5
@@ -249,13 +256,13 @@ export default{
       this.tempHidden = true
       this.$emit('refresh', this)
     },
-    removeRefreshAnimation (time = 100) {
+    removeRefreshAnimation(time = 100) {
       setTimeout(() => {
         this.$vs.loading.close(this.$refs.content)
         this.tempHidden = false
       }, time)
     },
-    removeCard () {
+    removeCard() {
       const scrollHeight = this.$refs.card.scrollHeight
       this.cardMaxHeight = `${scrollHeight}px`
       this.$el.style.overflow = 'hidden'
@@ -264,7 +271,7 @@ export default{
       }, 50)
       this.$emit('remove')
     },
-    toggleCode () {
+    toggleCode() {
       this.tempHidden = true
       this.showCode = !this.showCode
       const scrollHeight = this.$refs.codeContainer.scrollHeight

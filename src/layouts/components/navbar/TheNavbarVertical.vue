@@ -110,13 +110,13 @@ export default {
     },
 
     navbarColorLocal() {
-      return this.$store.state.theme === 'dark' && this.navbarColor === '#fff' ? '#10163a' : this.navbarColor
+      return this.$store.state.theme === 'dark' && this.navbarColor === '#fff' ? '#161d31' : this.navbarColor
     },
     verticalNavMenuWidth() {
       return this.$store.state.verticalNavMenuWidth
     },
     textColor() {
-      return {'text-white': (this.navbarColor !== '#10163a' && this.$store.state.theme === 'dark') || (this.navbarColor !== '#fff' && this.$store.state.theme !== 'dark')}
+      return {'text-white': (this.navbarColor !== '#161d31' && this.$store.state.theme === 'dark') || (this.navbarColor !== '#fff' && this.$store.state.theme !== 'dark')}
     },
     windowWidth() {
       return this.$store.state.windowWidth

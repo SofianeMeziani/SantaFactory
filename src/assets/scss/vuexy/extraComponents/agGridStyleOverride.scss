@@ -108,7 +108,7 @@ $primary-color: #7367F0;
   .ag-icon-checkbox-checked,
   .ag-icon-checkbox-indeterminate {
     font-size: 22px;
-    color: rgba(var(--vs-primary),1) !important;
+    color: rgba(var(--vs-primary), 1) !important;
   }
 
   .ag-icon-checkbox-unchecked {
@@ -116,20 +116,20 @@ $primary-color: #7367F0;
     font-size: 22px;
   }
 
-    ::-webkit-scrollbar {
-     width: 10px;
-     height: 10px;
-    }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
 
-    ::-webkit-scrollbar-thumb {
-     background: $grey-light;
-     border-radius: 20px;
-    }
+  ::-webkit-scrollbar-thumb {
+    background: $grey-light;
+    border-radius: 20px;
+  }
 
-    ::-webkit-scrollbar-track {
-     background: $theme-background;
-     border-radius: 20px;
-    }
+  ::-webkit-scrollbar-track {
+    background: $theme-background;
+    border-radius: 20px;
+  }
 }
 
 // Can not use vuexy admin variables
@@ -196,18 +196,18 @@ $primary-color: #7367F0;
     }
 
     ::-webkit-scrollbar {
-     width: 10px;
-     height: 10px;
+      width: 10px;
+      height: 10px;
     }
 
     ::-webkit-scrollbar-thumb {
-     background: $primary;
-     border-radius: 20px;
+      background: $primary;
+      border-radius: 20px;
     }
 
     ::-webkit-scrollbar-track {
-     background: $theme-light-dark-bg;
-     border-radius: 20px;
+      background: $theme-light-dark-bg;
+      border-radius: 20px;
     }
   }
 }

@@ -7,7 +7,6 @@
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-
 @import '../_variables.scss';
 
 // swipe area/div
@@ -21,36 +20,39 @@
   left: 0;
 }
 
-.v-nav-menu{
+.v-nav-menu {
   white-space: nowrap;
 
   .vs-sidebar--background {
     z-index: 51000;
   }
 
-  .vs-sidebar{
+  .vs-sidebar {
     z-index: 51000;
     position: fixed;
 
     .vs-sidebar--items {
       padding: 0;
     }
-    &.vs-sidebar-reduce{
+
+    &.vs-sidebar-reduce {
       max-width: $reduced-sidebar-width;
+
       &:hover {
-        box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08) !important;
+        box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
       }
 
-      &:hover:not(.vs-sidebar-reduceNotRebound):not(.vs-sidebar-reduceNotHoverExpand){
+      &:hover:not(.vs-sidebar-reduceNotRebound):not(.vs-sidebar-reduceNotHoverExpand) {
         .vs-sidebar--items {
         }
 
 
-        .vs-sidebar-group .group-header i{
+        .vs-sidebar-group .group-header i {
           display: block;
         }
       }
-      .vs-sidebar-group .group-header i{
+
+      .vs-sidebar-group .group-header i {
         display: none;
       }
     }
@@ -59,20 +61,21 @@
   .header-sidebar {
     padding: 20px 19px 16px 23px;
     width: 100%;
-    .logo{
+
+    .logo {
       img {
         padding: 4px 0;
       }
     }
 
     .feather-icon {
-    	svg {
-    		color: #7367F0;
-    	}
+      svg {
+        color: #7367F0;
+      }
     }
   }
 
-  .shadow-bottom{
+  .shadow-bottom {
     position: absolute;
     z-index: 2;
     height: 60px;
@@ -93,16 +96,16 @@
       overflow-y: auto;
     }
 
-    > .vs-sidebar-group{
+    > .vs-sidebar-group {
       padding: 0 15px;
     }
 
-    > .vs-sidebar--item{
+    > .vs-sidebar--item {
       padding: 0 15px;
     }
   }
 
-  .navigation-header{
+  .navigation-header {
     font-size: 0.9rem;
     display: block;
     margin-bottom: 0.8rem;
@@ -116,12 +119,13 @@
     }
   }
 
-  .feather-icon{
+  .feather-icon {
     color: #565656;
     margin-right: 14px;
-    .feather{
+
+    .feather {
       width: 20px;
-      height:20px;
+      height: 20px;
       margin: 1px 0;
     }
   }
@@ -129,19 +133,22 @@
   .con-vs-chip {
     min-height: 20px;
     min-width: 20px;
-		box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.1);
-  	.vs-chip--text {
-  		color: $white;
+    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.1);
+
+    .vs-chip--text {
+      color: $white;
       font-size: .8rem;
-  	}
+    }
   }
 
-  .vs-sidebar--item{
+  .vs-sidebar--item {
     transition: none;
     overflow: visible !important;
-    &:hover{
+
+    &:hover {
       a {
         color: inherit;
+
         > * {
           transform: translateX(5px);
         }
@@ -149,23 +156,26 @@
     }
 
     &.vs-sidebar-item-active {
-	  	border: none !important;
+      border: none !important;
       font-weight: 400;
       z-index: 1;
       position: relative;
-	  }
+    }
 
     a {
       font-size: 1rem;
       transition: none;
       border-radius: 4px;
-	  	opacity: unset;
+      opacity: unset;
       color: $content-color;
+
       > * {
         transition: transform 0.25s ease;
       }
+
       padding: 10px 15px;
-      span{
+
+      span {
         font-size: 15px;
       }
     }
@@ -183,15 +193,15 @@
     }
 
 
-
-    .router-link-active{
-      background: linear-gradient(118deg, rgba(var(--vs-primary),1), rgba(var(--vs-primary),.7));
-      box-shadow: 0px 0px 10px 1px rgba(var(--vs-primary),.7);
+    .router-link-active {
+      background: linear-gradient(118deg, rgba(var(--vs-primary), 1), rgba(var(--vs-primary), .7));
+      box-shadow: 0px 0px 10px 1px rgba(var(--vs-primary), .7);
       // font-weight: 400;
-      .feather-icon{
+      .feather-icon {
         color: $white;
       }
-      span{
+
+      span {
         color: $white;
       }
     }
@@ -199,17 +209,18 @@
 }
 
 #sidebar-demo {
-  .vs-sidebar{
+  .vs-sidebar {
     z-index: 52000;
   }
-  .vs-sidebar-staticPosition{
+
+  .vs-sidebar-staticPosition {
     z-index: 10000;
   }
 
   #parentx-demo-7 {
     .parentx:not(.show-custom-sidebar) {
       .vs-sidebar {
-      	display: none;
+        display: none;
         z-index: 1 !important;
       }
     }

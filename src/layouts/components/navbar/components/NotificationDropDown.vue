@@ -1,7 +1,7 @@
 <template>
   <!-- NOTIFICATIONS -->
   <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-    <feather-icon icon="BellIcon" class="cursor-pointer mt-1 sm:mr-6 mr-2" :badge="unreadNotifications.length" />
+    <feather-icon icon="BellIcon" class="cursor-pointer mt-1 sm:mr-6 mr-2" :badge="unreadNotifications.length"/>
 
     <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
 
@@ -10,13 +10,18 @@
         <p class="opacity-75">App Notifications</p>
       </div>
 
-      <component :is="scrollbarTag" ref="mainSidebarPs" class="scroll-area--nofications-dropdown p-0 mb-10" :settings="settings" :key="$vs.rtl">
+      <component :is="scrollbarTag" ref="mainSidebarPs" class="scroll-area--nofications-dropdown p-0 mb-10"
+                 :settings="settings" :key="$vs.rtl">
         <ul class="bordered-items">
-          <li v-for="ntf in unreadNotifications" :key="ntf.index" class="flex justify-between px-4 py-4 notification cursor-pointer">
+          <li v-for="ntf in unreadNotifications" :key="ntf.index"
+              class="flex justify-between px-4 py-4 notification cursor-pointer">
             <div class="flex items-start">
-              <feather-icon :icon="ntf.icon" :svgClasses="[`text-${ntf.category}`, 'stroke-current mr-1 h-6 w-6']"></feather-icon>
+              <feather-icon :icon="ntf.icon"
+                            :svgClasses="[`text-${ntf.category}`, 'stroke-current mr-1 h-6 w-6']"></feather-icon>
               <div class="mx-2">
-                <span class="font-medium block notification-title" :class="[`text-${ntf.category}`]">{{ ntf.title }}</span>
+                <span class="font-medium block notification-title" :class="[`text-${ntf.category}`]">{{
+                    ntf.title
+                  }}</span>
                 <small>{{ ntf.msg }}</small>
               </div>
             </div>
@@ -55,44 +60,48 @@ export default {
   components: {
     VuePerfectScrollbar
   },
-  data () {
+  data() {
     return {
       unreadNotifications: [
         {
-          index    : 0,
-          title    : 'New Message',
-          msg      : 'Are your going to meet me tonight?',
-          icon     : 'MessageSquareIcon',
-          time     : this.randomDate({sec: 10}),
-          category : 'primary'
+          index: 0,
+          title: 'New Message',
+          msg: 'Are your going to meet me tonight?',
+          icon: 'MessageSquareIcon',
+          time: this.randomDate({sec: 10}),
+          category: 'primary'
         },
-        { index    : 1,
-          title    : 'New Order Recieved',
-          msg      : 'You got new order of goods.',
-          icon     : 'PackageIcon',
-          time     : this.randomDate({sec: 40}),
-          category : 'success'
+        {
+          index: 1,
+          title: 'New Order Recieved',
+          msg: 'You got new order of goods.',
+          icon: 'PackageIcon',
+          time: this.randomDate({sec: 40}),
+          category: 'success'
         },
-        { index    : 2,
-          title    : 'Server Limit Reached!',
-          msg      : 'Server have 99% CPU usage.',
-          icon     : 'AlertOctagonIcon',
-          time     : this.randomDate({min: 1}),
-          category : 'danger'
+        {
+          index: 2,
+          title: 'Server Limit Reached!',
+          msg: 'Server have 99% CPU usage.',
+          icon: 'AlertOctagonIcon',
+          time: this.randomDate({min: 1}),
+          category: 'danger'
         },
-        { index    : 3,
-          title    : 'New Mail From Peter',
-          msg      : 'Cake sesame snaps cupcake',
-          icon     : 'MailIcon',
-          time     : this.randomDate({min: 6}),
-          category : 'primary'
+        {
+          index: 3,
+          title: 'New Mail From Peter',
+          msg: 'Cake sesame snaps cupcake',
+          icon: 'MailIcon',
+          time: this.randomDate({min: 6}),
+          category: 'primary'
         },
-        { index    : 4,
-          title    : 'Bruce\'s Party',
-          msg      : 'Chocolate cake oat cake tiramisu',
-          icon     : 'CalendarIcon',
-          time     : this.randomDate({hr: 2}),
-          category : 'warning'
+        {
+          index: 4,
+          title: 'Bruce\'s Party',
+          msg: 'Chocolate cake oat cake tiramisu',
+          icon: 'CalendarIcon',
+          time: this.randomDate({hr: 2}),
+          category: 'warning'
         }
       ],
       settings: {
@@ -102,28 +111,30 @@ export default {
     }
   },
   computed: {
-    scrollbarTag () { return this.$store.getters.scrollbarTag }
+    scrollbarTag() {
+      return this.$store.getters.scrollbarTag
+    }
   },
   methods: {
-    elapsedTime (startTime) {
-      const x        = new Date(startTime)
-      const now      = new Date()
+    elapsedTime(startTime) {
+      const x = new Date(startTime)
+      const now = new Date()
       let timeDiff = now - x
-      timeDiff    /= 1000
+      timeDiff /= 1000
 
       const seconds = Math.round(timeDiff)
-      timeDiff    = Math.floor(timeDiff / 60)
+      timeDiff = Math.floor(timeDiff / 60)
 
       const minutes = Math.round(timeDiff % 60)
-      timeDiff    = Math.floor(timeDiff / 60)
+      timeDiff = Math.floor(timeDiff / 60)
 
-      const hours   = Math.round(timeDiff % 24)
-      timeDiff    = Math.floor(timeDiff / 24)
+      const hours = Math.round(timeDiff % 24)
+      timeDiff = Math.floor(timeDiff / 24)
 
-      const days    = Math.round(timeDiff % 365)
-      timeDiff    = Math.floor(timeDiff / 365)
+      const days = Math.round(timeDiff % 365)
+      timeDiff = Math.floor(timeDiff / 365)
 
-      const years   = timeDiff
+      const years = timeDiff
 
       if (years > 0) {
         return `${years + (years > 1 ? ' Years ' : ' Year ')}ago`
@@ -140,7 +151,7 @@ export default {
       return 'Just Now'
     },
     // Method for creating dummy notification time
-    randomDate ({ hr, min, sec }) {
+    randomDate({hr, min, sec}) {
       const date = new Date()
 
       if (hr) date.setHours(date.getHours() - hr)

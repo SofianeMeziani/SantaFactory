@@ -30,7 +30,7 @@
 
             <div class="vx-col w-full center-card-log  sm:w-full md:w-full lg:w-1/3 xl:1/4"
                  :style="themeMode?' background-color: rgba(40, 48, 70, 0.97)':'background-color:antiquewhite'"
-                 style=" z-index: 2;   min-height: 101vh; padding-bottom: 6rem; border-left: 1px solid #262c49; ">
+                 style=" z-index: 2;   min-height: 101vh; padding-bottom: 6rem; border-left: 1px solid #283046; ">
               <div class="px-8 pt-8 mx-auto" style="">
                 <div>
 

@@ -9,60 +9,64 @@
 
 
 <template>
-    <div id="faq-page">
-        <!-- JUMBOTRON -->
-        <div class="faq-jumbotron">
-            <div class="faq-jumbotron-content lg:p-32 md:p-24 sm:p-16 p-8 rounded-lg mb-base">
-                <h1 class="mb-1 text-white">Have Any Questions?</h1>
-                <p class="text-white">Bonbon sesame snaps lemon drops marshmallow ice cream carrot cake croissant wafer.</p>
-                <vs-input placeholder="Search" v-model="faqSearchQuery" icon-pack="feather" icon="icon-search" size="large" class="w-full mt-6" icon-no-border />
-            </div>
-        </div>
-        <div class="vx-row">
-            <div class="vx-col w-full md:w-2/5 lg:w-1/4 rounded-lg">
-                <vx-card>
-                    <h4>Table of Content</h4>
-                    <ul class="faq-topics mt-4">
-                        <li v-for="category in categories" :key="category.id" class="p-2 font-medium flex items-center" @click="faqFilter = category.id">
-                            <div class="h-3 w-3 rounded-full mr-2" :class="'bg-' + category.color"></div><span class="cursor-pointer">{{ category.name }}</span>
-                        </li>
-                    </ul>
-
-                    <br><br>
-
-                    <h4>Supporters</h4>
-                    <ul class="faq-supporters mt-4">
-                        <li v-for="supporter in supporters" :key="supporter.id" class="mt-4">
-                            <div class="flex items-center">
-                                <vs-avatar class="mr-3" :src="supporter.img" size="35px" />
-                                <div class="leading-tight">
-                                    <p class="font-semibold">{{ supporter.name }}</p>
-                                    <small>{{ supporter.profession }}</small>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </vx-card>
-            </div>
-
-            <!-- FAQ COL -->
-            <div class="vx-col w-full md:w-3/5 lg:w-3/4 mt-12 md:mt-0">
-                <vs-collapse accordion type="margin" class="p-0">
-                    <vs-collapse-item v-for="(que,index) in filteredFaq" class="faq-bg rounded-lg" :class="{'mt-0': !index}" :key="que.id">
-                        <div slot="header"><h5>{{ que.question }}</h5></div>
-                        <p>{{ que.ans }}</p>
-                    </vs-collapse-item>
-                </vs-collapse>
-
-            </div>
-        </div>
+  <div id="faq-page">
+    <!-- JUMBOTRON -->
+    <div class="faq-jumbotron">
+      <div class="faq-jumbotron-content lg:p-32 md:p-24 sm:p-16 p-8 rounded-lg mb-base">
+        <h1 class="mb-1 text-white">Have Any Questions?</h1>
+        <p class="text-white">Bonbon sesame snaps lemon drops marshmallow ice cream carrot cake croissant wafer.</p>
+        <vs-input placeholder="Search" v-model="faqSearchQuery" icon-pack="feather" icon="icon-search" size="large"
+                  class="w-full mt-6" icon-no-border/>
+      </div>
     </div>
+    <div class="vx-row">
+      <div class="vx-col w-full md:w-2/5 lg:w-1/4 rounded-lg">
+        <vx-card>
+          <h4>Table of Content</h4>
+          <ul class="faq-topics mt-4">
+            <li v-for="category in categories" :key="category.id" class="p-2 font-medium flex items-center"
+                @click="faqFilter = category.id">
+              <div class="h-3 w-3 rounded-full mr-2" :class="'bg-' + category.color"></div>
+              <span class="cursor-pointer">{{ category.name }}</span>
+            </li>
+          </ul>
+
+          <br><br>
+
+          <h4>Supporters</h4>
+          <ul class="faq-supporters mt-4">
+            <li v-for="supporter in supporters" :key="supporter.id" class="mt-4">
+              <div class="flex items-center">
+                <vs-avatar class="mr-3" :src="supporter.img" size="35px"/>
+                <div class="leading-tight">
+                  <p class="font-semibold">{{ supporter.name }}</p>
+                  <small>{{ supporter.profession }}</small>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </vx-card>
+      </div>
+
+      <!-- FAQ COL -->
+      <div class="vx-col w-full md:w-3/5 lg:w-3/4 mt-12 md:mt-0">
+        <vs-collapse accordion type="margin" class="p-0">
+          <vs-collapse-item v-for="(que,index) in filteredFaq" class="faq-bg rounded-lg" :class="{'mt-0': !index}"
+                            :key="que.id">
+            <div slot="header"><h5>{{ que.question }}</h5></div>
+            <p>{{ que.ans }}</p>
+          </vs-collapse-item>
+        </vs-collapse>
+
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 
-export default{
-  data () {
+export default {
+  data() {
     return {
       faqSearchQuery: '',
       faqFilter: 1,
@@ -208,7 +212,7 @@ export default{
     }
   },
   computed: {
-    filteredFaq () {
+    filteredFaq() {
       return this.faqs.filter((faq) => {
         if (this.faqFilter === 1) return faq.question.toLowerCase().includes(this.faqSearchQuery.toLowerCase()) || faq.ans.toLowerCase().includes(this.faqSearchQuery.toLowerCase())
         else if (this.faqFilter === 2) return faq.categoryId === 2 && (faq.question.toLowerCase().includes(this.faqSearchQuery.toLowerCase()) || faq.ans.toLowerCase().includes(this.faqSearchQuery.toLowerCase()))
@@ -218,22 +222,20 @@ export default{
       })
     }
   },
-  methods: {
-  },
-  components: {
-  }
+  methods: {},
+  components: {}
 }
 </script>
 
 <style lang="scss">
 #faq-page {
-    .faq-jumbotron-content {
-        background-image: url('../../assets/images/pages/faq.jpg');
-        background-size: cover;
-    }
+  .faq-jumbotron-content {
+    background-image: url('../../assets/images/pages/faq.jpg');
+    background-size: cover;
+  }
 
-    .faq-bg {
-        background-color: #fff;
-    }
+  .faq-bg {
+    background-color: #fff;
+  }
 }
 </style>

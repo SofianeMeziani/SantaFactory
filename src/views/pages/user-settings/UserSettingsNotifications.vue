@@ -5,15 +5,15 @@
       <h6 class="mb-4">Activity</h6>
 
       <div class="flex items-center mb-4">
-        <vs-switch v-model="comment" />
+        <vs-switch v-model="comment"/>
         <span class="ml-4">Email me when someone comments onmy article</span>
       </div>
       <div class="flex items-center mb-4">
-        <vs-switch v-model="answer" />
+        <vs-switch v-model="answer"/>
         <span class="ml-4">Email me when someone answers on my form</span>
       </div>
       <div class="flex items-center mb-4">
-        <vs-switch v-model="follow" />
+        <vs-switch v-model="follow"/>
         <span class="ml-4">Email me hen someone follows me</span>
       </div>
     </div>
@@ -22,15 +22,15 @@
       <h6 class="mb-4">Application</h6>
 
       <div class="flex items-center mb-4">
-        <vs-switch v-model="news" />
+        <vs-switch v-model="news"/>
         <span class="ml-4">News and announcements</span>
       </div>
       <div class="flex items-center mb-4">
-        <vs-switch v-model="product_update" />
+        <vs-switch v-model="product_update"/>
         <span class="ml-4">Weekly product updates</span>
       </div>
       <div class="flex items-center">
-        <vs-switch v-model="blog" />
+        <vs-switch v-model="blog"/>
         <span class="ml-4">Weekly blog digest</span>
       </div>
     </div>
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       comment: true,
       answer: true,
@@ -57,7 +57,7 @@ export default {
     }
   },
   computed: {
-    activeUserInfo () {
+    activeUserInfo() {
       return this.$store.state.AppActiveUser
     }
   }

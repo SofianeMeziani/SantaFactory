@@ -84,9 +84,9 @@ export default {
 
       if (this.isThemedark === 'dark') {
         if (color === '#fff') {
-          color = '#10163a'
+          color = '#161d31'
         } else {
-          color = '#262c49'
+          color = '#283046'
         }
       }
 

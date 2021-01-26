@@ -2,31 +2,32 @@
   <vx-card no-shadow>
 
     <!-- Bio -->
-    <vs-textarea label="Bio" v-model="bio" placeholder="Your bio..." />
+    <vs-textarea label="Bio" v-model="bio" placeholder="Your bio..."/>
 
     <!-- DOB -->
     <div class="mt-8">
       <label class="text-sm">Birth Date</label>
-      <flat-pickr v-model="dob" :config="{ dateFormat: 'd F Y' }" class="w-full" />
+      <flat-pickr v-model="dob" :config="{ dateFormat: 'd F Y' }" class="w-full"/>
     </div>
 
     <!-- Country -->
     <div class="mt-8">
       <label class="text-sm">Country</label>
-      <v-select v-model="country" :options="countryOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+      <v-select v-model="country" :options="countryOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
     </div>
 
     <!-- Languages -->
     <div class="mt-8">
       <label class="text-sm">Languages</label>
-      <v-select v-model="lang_known" multiple :closeOnSelect="false" :options="langOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+      <v-select v-model="lang_known" multiple :closeOnSelect="false" :options="langOptions"
+                :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
     </div>
 
     <!-- Mobile Number -->
-    <vs-input class="w-full mt-8" type="number" label-placeholder="Mobile" v-model="mobile" />
+    <vs-input class="w-full mt-8" type="number" label-placeholder="Mobile" v-model="mobile"/>
 
     <!-- Website  -->
-    <vs-input class="w-full mt-8" label-placeholder="Website" v-model="website" />
+    <vs-input class="w-full mt-8" label-placeholder="Website" v-model="website"/>
 
     <!-- Gender -->
     <div class="mt-8 mb-base">
@@ -56,7 +57,7 @@ export default {
     flatPickr,
     vSelect
   },
-  data () {
+  data() {
     return {
       bio: this.$store.state.AppActiveUser.about,
       dob: null,
@@ -68,29 +69,29 @@ export default {
 
       // Options
       countryOptions: [
-        { label: 'Australia',  value: 'australia'  },
-        { label: 'France',     value: 'france'     },
-        { label: 'Germany',    value: 'germany'    },
-        { label: 'India',      value: 'india'      },
-        { label: 'Jordan',     value: 'jordan'     },
-        { label: 'Morocco',    value: 'morocco'    },
-        { label: 'Portuguese', value: 'portuguese' },
-        { label: 'Syria',      value: 'syria'      },
-        { label: 'USA',        value: 'usa'        }
+        {label: 'Australia', value: 'australia'},
+        {label: 'France', value: 'france'},
+        {label: 'Germany', value: 'germany'},
+        {label: 'India', value: 'india'},
+        {label: 'Jordan', value: 'jordan'},
+        {label: 'Morocco', value: 'morocco'},
+        {label: 'Portuguese', value: 'portuguese'},
+        {label: 'Syria', value: 'syria'},
+        {label: 'USA', value: 'usa'}
       ],
       langOptions: [
-        { label: 'English',  value: 'english'  },
-        { label: 'Spanish',  value: 'spanish'  },
-        { label: 'French',   value: 'french'   },
-        { label: 'Russian',  value: 'russian'  },
-        { label: 'German',   value: 'german'   },
-        { label: 'Arabic',   value: 'arabic'   },
-        { label: 'Sanskrit', value: 'sanskrit' }
+        {label: 'English', value: 'english'},
+        {label: 'Spanish', value: 'spanish'},
+        {label: 'French', value: 'french'},
+        {label: 'Russian', value: 'russian'},
+        {label: 'German', value: 'german'},
+        {label: 'Arabic', value: 'arabic'},
+        {label: 'Sanskrit', value: 'sanskrit'}
       ]
     }
   },
   computed: {
-    activeUserInfo () {
+    activeUserInfo() {
       return this.$store.state.AppActiveUser
     }
   }

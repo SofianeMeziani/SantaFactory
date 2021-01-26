@@ -9,19 +9,19 @@
 
 
 <template>
-    <div class="layout--full-page">
-        <router-view></router-view>
+  <div class="layout--full-page">
+    <router-view></router-view>
 
-        <the-footer v-if="false"/>
-    </div>
+    <the-footer v-if="false"/>
+  </div>
 </template>
 
 <script>
-    import TheFooter from '@/layouts/components/TheFooter.vue'
+import TheFooter from '@/layouts/components/TheFooter.vue'
 
-    export default {
-        components: {
-            TheFooter
-        }
-    }
+export default {
+  components: {
+    TheFooter
+  }
+}
 </script>

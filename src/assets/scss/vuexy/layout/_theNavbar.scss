@@ -180,7 +180,7 @@
   z-index: 50000;
 
   .vx-auto-suggest {
-    >div {
+    > div {
       height: 100%;
     }
 
@@ -195,7 +195,7 @@
     }
   }
 
-  >div.feather-icon {
+  > div.feather-icon {
     position: absolute !important;
   }
 }

@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     navbarColorLocal() {
-      return this.$store.state.theme === 'dark' && this.navbarColor === '#fff' ? '#10163a' : this.navbarColor
+      return this.$store.state.theme === 'dark' && this.navbarColor === '#fff' ? '#161d31' : this.navbarColor
     },
   }
 }

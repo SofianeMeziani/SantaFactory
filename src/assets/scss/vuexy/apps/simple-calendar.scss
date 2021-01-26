@@ -29,7 +29,7 @@
     .cv-day {
 
       &.draghover {
-        box-shadow: inset 0 0 0.2em 0.2em rgba(var(--vs-primary),1);
+        box-shadow: inset 0 0 0.2em 0.2em rgba(var(--vs-primary), 1);
       }
 
       &:not(.outsideOfMonth) {
@@ -50,7 +50,7 @@
 
       &.today {
         .cv-day-number {
-          background-color: rgba(var(--vs-primary),1);
+          background-color: rgba(var(--vs-primary), 1);
           border-radius: 50%;
           display: inline-table;
           padding: 0.43rem;
@@ -82,10 +82,21 @@
           padding-right: .5rem;
           font-weight: 500;
 
-          &.event-primary { background: rgba(var(--vs-primary), 1) !important; }
-          &.event-warning { background: rgba(var(--vs-warning), 1) !important; }
-          &.event-success { background: rgba(var(--vs-success), 1) !important; }
-          &.event-danger { background: rgba(var(--vs-danger), 1) !important; }
+          &.event-primary {
+            background: rgba(var(--vs-primary), 1) !important;
+          }
+
+          &.event-warning {
+            background: rgba(var(--vs-warning), 1) !important;
+          }
+
+          &.event-success {
+            background: rgba(var(--vs-success), 1) !important;
+          }
+
+          &.event-danger {
+            background: rgba(var(--vs-danger), 1) !important;
+          }
 
           &.toBeContinued:after,
           &.continued:before {
@@ -131,6 +142,7 @@
           color: $theme-dark-text-color;
         }
       }
+
       .cv-day {
 
         &.outsideOfMonth {

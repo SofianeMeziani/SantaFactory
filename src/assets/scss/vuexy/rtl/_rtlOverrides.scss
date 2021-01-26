@@ -19,6 +19,7 @@
       border-right-color: transparent !important;
     }
   }
+
   &[x-placement^=left] {
     .v-step__arrow {
       border-bottom-color: transparent !important;
@@ -26,6 +27,7 @@
       border-top-color: transparent !important;
     }
   }
+
   &[x-placement^=top] {
     .v-step__arrow {
       border-bottom-color: transparent !important;
@@ -33,6 +35,7 @@
       border-left-color: transparent !important;
     }
   }
+
   &[x-placement^=right] {
     .v-step__arrow {
       border-bottom-color: transparent !important;
@@ -41,7 +44,6 @@
     }
   }
 }
-
 
 
 // //////////////////////////////////////////
@@ -54,12 +56,12 @@
     right: 10px !important;
     left: auto !important;
   }
+
   .swiper-button-next {
     left: 10px !important;
     right: auto !important;
   }
 }
-
 
 
 // //////////////////////////////////////////
@@ -69,4 +71,5 @@
 .vjs-fluid {
   padding-top: 41.66666666666667% !important;
 }
+
 /*! rtl:end:ignore */

@@ -11,7 +11,7 @@
 .theme-dark {
 
   // Changes color code of dark color
-  --vs-dark: 184,194,204;
+  --vs-dark: 184, 194, 204;
 
   background-color: $content-dark-bg;
   color: $theme-dark-text-color !important;
@@ -219,7 +219,7 @@
   }
 
   .vx-navbar-wrapper {
-    background: linear-gradient(to bottom, rgba(44, 48, 60, 0.9) 44%, rgba(44, 48, 60, 0.43) 73%, rgba(44, 48, 60, 0) 100%);
+    background: none;
 
     .vs-navbar {
       .search-full-container {
@@ -285,13 +285,13 @@
 
       .vs-sidebar-group {
         &.vs-sidebar-group-active {
-          >.group-header {
+          > .group-header {
             background: $content-dark-bg;
           }
         }
 
         &.vs-sidebar-group-open {
-          >.group-header {
+          > .group-header {
             background: $content-dark-bg;
           }
         }
@@ -302,7 +302,7 @@
   // Sidebar Perfect Scrollbar
   .ps {
     &:hover {
-      &>.ps__scrollbar-y-rail {
+      & > .ps__scrollbar-y-rail {
         &:hover {
           background-color: $dark-card-color;
         }
@@ -811,7 +811,7 @@
 
     .vs-sidebar-group {
       &.vs-sidebar-group-active {
-        >.group-header {
+        > .group-header {
           background: $content-dark-bg;
         }
       }
@@ -877,8 +877,8 @@
     background: $theme-dark-bg;
     color: $theme-dark-text-color;
 
-    ~.vs-placeholder-label,
-    ~.vs-input--placeholder {
+    ~ .vs-placeholder-label,
+    ~ .vs-input--placeholder {
       color: $theme-dark-text-color;
     }
   }
@@ -996,7 +996,7 @@
       &:focus {
         border-color: $grey !important;
 
-        ~.vs-input--placeholder {
+        ~ .vs-input--placeholder {
           color: $grey;
         }
       }
@@ -1010,8 +1010,8 @@
     }
 
     .wizard-nav-pills {
-      &>li {
-        &>a {
+      & > li {
+        & > a {
           color: $white;
 
           .stepTitle {
@@ -1256,6 +1256,7 @@
           }
         }
       }
+
       .disabled {
         color: rgba($grey, .6);
       }
@@ -1506,8 +1507,7 @@
       }
     }
 
-    .vs-navbar-border
-    {
+    .vs-navbar-border {
       border-color: $theme-dark-border-color;
 
       .vs-navbar--item {
@@ -1552,4 +1552,5 @@
     }
   }
 }
+
 /*! rtl:end:ignore */

@@ -39,7 +39,6 @@
 }
 
 
-
 // ======================================================================================
 // Avatar
 // ======================================================================================
@@ -129,7 +128,7 @@
 // ======================================================================================
 
 .vs-checkbox-small {
-  .vs-checkbox--input:checked+.vs-checkbox .vs-icon {
+  .vs-checkbox--input:checked + .vs-checkbox .vs-icon {
     margin-top: 6px;
     margin-left: -1px;
     transform: translateY(-3px);
@@ -158,6 +157,7 @@
 
   .con-chips--remove-all {
     right: 9px;
+
     > .vs-icon {
       font-size: 1.3rem;
     }
@@ -268,10 +268,11 @@
 }
 
 .vs-input--input.hasIcon:not(.icon-after-input) {
-  &+.vs-input--placeholder {
+  & + .vs-input--placeholder {
     padding-left: 3rem !important;
   }
-  &:focus+.vs-placeholder-label {
+
+  &:focus + .vs-placeholder-label {
     padding-left: .7rem !important;
   }
 }
@@ -314,7 +315,7 @@
       padding: 1rem 0.8rem 1rem 3rem !important;
     }
 
-    ~.vs-input--icon {
+    ~ .vs-input--icon {
       top: 1rem !important;
       left: 0.8rem !important;
     }
@@ -326,7 +327,7 @@
 
     ~ .vs-input--icon {
       &.feather {
-        top:7px !important;
+        top: 7px !important;
       }
     }
   }
@@ -545,6 +546,7 @@
 
 .vs-sidebar {
   height: calc(var(--vh, 1vh) * 100);
+
   .vs-sidebar--items {
     overflow: hidden;
     height: 100%;
@@ -578,7 +580,7 @@
         font-size: 0.9rem;
       }
 
-      .vs-table--search-input:focus+i {
+      .vs-table--search-input:focus + i {
         left: 10px;
       }
 

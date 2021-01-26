@@ -22,9 +22,51 @@
 
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'" class="greet-user">
               <h1 class="mb-6 text-white w-100 text-center">La fabrique du Père Noël 🎅🏻</h1>
-              <p class="mx-auto text-white w-100 text-center">You have done
-                <strong>hello</strong> more sales today. Check your new badge in your profile.
-              </p>
+              <div class="vx-row">
+                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                  <statistics-card-line
+                      hideChart
+                      class="mb-base"
+                      icon="ServerIcon"
+                      icon-right
+                      statistic="98"
+                      statisticTitle="Commandes"
+                      color="danger"/>
+                </div>
+
+                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                  <statistics-card-line
+                      hideChart
+                      class="mb-base"
+                      icon="ServerIcon"
+                      icon-right
+                      statistic="12"
+                      statisticTitle="Lutins dispo"
+                      color="success"/>
+                </div>
+                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                  <statistics-card-line
+                      hideChart
+                      class="mb-base"
+                      icon="ServerIcon"
+                      icon-right
+                      statistic="23"
+                      statisticTitle="Lutins occupés"
+                      color="primary"/>
+                </div>
+
+                <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                  <statistics-card-line
+                      hideChart
+                      class="mb-base"
+                      icon="ServerIcon"
+                      icon-right
+                      statistic="17"
+                      statisticTitle="Commandes en cours"
+                      color="warning"/>
+                </div>
+              </div>
+
             </vx-card>
           </div>
 
@@ -34,7 +76,7 @@
                @click="redirectToPage('commandes')"
           >
             <vx-card slot="no-body"
-                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_commandes + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_commandes + ')'"
                      style="background-size: cover"
                      :class="themeMode?'':'bg-primary-gradient'"
                      class="text-center align-vs-card-home">
@@ -46,7 +88,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('jouets')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_jouets + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_jouets + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Jouets</h1>
@@ -57,7 +99,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('lutins')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_lutins + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_lutins + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Lutins</h1>
@@ -68,7 +110,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('categories')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_categories + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_categories + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Catégories</h1>
@@ -79,7 +121,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('competences')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_competences + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_competences + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Compétences</h1>
@@ -90,7 +132,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('manuel')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_manuel + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_manuel + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Manuel</h1>
@@ -111,6 +153,7 @@ import {getAPI} from '@/axios'
 // import drag from '../assets/utils/download';
 // import {saveAs} from 'file-saver';
 import Snowf from 'vue-snowf';
+import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 
 export default {
 
@@ -121,18 +164,6 @@ export default {
       loading: false,
       themeColors: ['#28C76F', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
       getTheme: "dark",
-      pronostic: {},
-      radarChart: {
-        series: [{
-          name: 'Series 1',
-          data: [3, 4, 4, 5, 5, 4, 4],
-        }],
-        chartOptions: {
-          colors: ['#28C76F', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
-          labels: ['Conditioning', 'Speed', 'Endurance', 'Soccer Basics', 'Technique', 'Tactical', 'Mental'],
-
-        }
-      },
       card_bg_img_1: require('@/assets/images/pages/card-bg-image-demo-1.jpg'),
       card_bg_commandes: require('@/assets/images/commandes.jpg'),
       card_bg_jouets: require('@/assets/images/jouets.jpg'),
@@ -143,7 +174,8 @@ export default {
     }
   },
   components: {
-    Snowf
+    Snowf,
+    StatisticsCardLine
     // VueApexCharts,
     // VueContentLoading,
     //VclFacebook
@@ -229,4 +261,5 @@ export default {
   justify-content: center;
   display: flex
 }
+
 </style>

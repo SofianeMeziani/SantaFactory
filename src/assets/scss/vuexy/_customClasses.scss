@@ -285,7 +285,7 @@
     padding: 0 1rem;
   }
 
-  &.match-height>.vx-col {
+  &.match-height > .vx-col {
     display: flex;
   }
 
@@ -458,7 +458,7 @@
   }
 
   // Table Inverted
-  .vs-con-table{
+  .vs-con-table {
     &.table-dark-inverted {
       .vs-con-tbody {
         .vs-table--tbody-table {
@@ -521,7 +521,7 @@
 }
 
 ul.bordered-items {
-  &>li:not(:last-of-type):not([class*='shadow']) {
+  & > li:not(:last-of-type):not([class*='shadow']) {
     border-bottom: 1px solid $grey-light;
   }
 }

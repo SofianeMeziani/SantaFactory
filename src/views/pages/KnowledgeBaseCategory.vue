@@ -9,26 +9,28 @@
 
 
 <template>
-    <div id="knowledge-base-category-page">
-        <p class="mb-4">{{ categorySubtitle }}</p>
+  <div id="knowledge-base-category-page">
+    <p class="mb-4">{{ categorySubtitle }}</p>
 
-        <div class="vx-row mt-8 match-height">
-            <div class="vx-col w-full sm:w-1/2 md:w-1/3 mb-base" v-for="section in sections" :key="section.id">
-                <vx-card>
-                    <h4 class="mb-4">{{ section.title }}</h4>
-                    <ul class="bordered-items">
-                        <li v-for="que in section.questions" :key="que.question" class="py-2"><router-link :to="que.answerUrl">{{ que.question }}</router-link></li>
-                    </ul>
-                </vx-card>
-            </div>
-        </div>
+    <div class="vx-row mt-8 match-height">
+      <div class="vx-col w-full sm:w-1/2 md:w-1/3 mb-base" v-for="section in sections" :key="section.id">
+        <vx-card>
+          <h4 class="mb-4">{{ section.title }}</h4>
+          <ul class="bordered-items">
+            <li v-for="que in section.questions" :key="que.question" class="py-2">
+              <router-link :to="que.answerUrl">{{ que.question }}</router-link>
+            </li>
+          </ul>
+        </vx-card>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 
-export default{
-  data () {
+export default {
+  data() {
     return {
       categoryTitle: 'Category Name',
       categorySubtitle: 'petiole antimasquer nonenduring hoofish unbed anergic sweetwood ailsyte.',
@@ -227,11 +229,10 @@ export default{
       ]
     }
   },
-  computed: {
-  },
+  computed: {},
   methods: {},
   components: {},
-  mounted () {
+  mounted() {
     this.$emit('changeRouteTitle', 'Category')
   }
 }

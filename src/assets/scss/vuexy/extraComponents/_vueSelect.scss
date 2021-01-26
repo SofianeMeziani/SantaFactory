@@ -7,7 +7,6 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-
 @import "../_variables.scss";
 
 .v-select {
@@ -46,7 +45,7 @@
     }
   }
 
-  .vs__dropdown-menu  {
+  .vs__dropdown-menu {
     .vs__dropdown-option--highlight {
       // background: rgba(var(--vs-primary),1) !important;
       color: $white !important;
@@ -64,37 +63,43 @@
 }
 
 .theme-dark {
-  .v-select{
-      .vs__dropdown-toggle{
-          background: $content-dark-bg;
+  .v-select {
+    .vs__dropdown-toggle {
+      background: $content-dark-bg;
 
-          .vs__clear svg{
-              stroke: $grey;
-          }
-          .vs__deselect svg{
-              stroke: $grey;
-              opacity: 0.7;
-          }
+      .vs__clear svg {
+        stroke: $grey;
       }
-      &:not(.vs--single) {
-        .vs__selected{
-            // color: $white;
-            background: $dark-card-color;
-            border: none;
-        }
+
+      .vs__deselect svg {
+        stroke: $grey;
+        opacity: 0.7;
       }
-      .vs__selected{
-        color: $white;
+    }
+
+    &:not(.vs--single) {
+      .vs__selected {
+        // color: $white;
+        background: $dark-card-color;
+        border: none;
       }
-      .vs__open-indicator{
-          fill: $grey;
+    }
+
+    .vs__selected {
+      color: $white;
+    }
+
+    .vs__open-indicator {
+      fill: $grey;
+    }
+
+    .vs__dropdown-menu {
+      background: $content-dark-bg;
+
+      .vs__dropdown-option {
+        color: $theme-dark-text-color;
       }
-      .vs__dropdown-menu{
-          background: $content-dark-bg;
-          .vs__dropdown-option {
-            color: $theme-dark-text-color;
-          }
-      }
+    }
   }
 }
 

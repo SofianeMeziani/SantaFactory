@@ -17,15 +17,17 @@
       <vs-button type="border" color="danger">Disconnect</vs-button>
     </div>
 
-    <vs-button color="#00aaff" icon-pack="feather" icon="icon-twitter" class="mb-6 ml-auto">Connected To Twitter</vs-button>
-    <vs-button color="#405DE6" icon-pack="feather" icon="icon-instagram" class="ml-auto">Connected To Instagram</vs-button>
+    <vs-button color="#00aaff" icon-pack="feather" icon="icon-twitter" class="mb-6 ml-auto">Connected To Twitter
+    </vs-button>
+    <vs-button color="#405DE6" icon-pack="feather" icon="icon-instagram" class="ml-auto">Connected To Instagram
+    </vs-button>
 
   </vx-card>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       old_password: '',
       new_password: '',
@@ -33,7 +35,7 @@ export default {
     }
   },
   computed: {
-    activeUserInfo () {
+    activeUserInfo() {
       return this.$store.state.AppActiveUser
     }
   }

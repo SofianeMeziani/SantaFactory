@@ -128,7 +128,7 @@ export default {
       this.routeTitle = this.$route.meta.pageTitle
     },
     isThemeDark(val) {
-      const color = this.navbarColor === '#fff' && val ? '#10163a' : '#fff'
+      const color = this.navbarColor === '#fff' && val ? '#161d31' : '#fff'
       this.updateNavbarColor(color)
     },
     '$store.state.mainLayoutType'(val) {
@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     updateNavbar(val) {
-      if (val === 'static') this.updateNavbarColor(this.isThemeDark ? '#10163a' : '#fff')
+      if (val === 'static') this.updateNavbarColor(this.isThemeDark ? '#161d31' : '#fff')
       this.navbarType = val
     },
     changeRouteTitle(title) {
@@ -204,7 +204,7 @@ export default {
     }
   },
   created() {
-    const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
+    const color = this.navbarColor === '#fff' && this.isThemeDark ? '#161d31' : this.navbarColor
     this.updateNavbarColor(color)
     console.log(this.navbarType, this.$store.state.windowWidth)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)

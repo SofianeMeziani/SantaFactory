@@ -8,7 +8,7 @@
             <vs-table :data="Orders" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>Numéro</vs-th>
-                <vs-th>Status</vs-th>
+                <vs-th>Date de création</vs-th>
                 <vs-th>Lutins</vs-th>
                 <vs-th>LOCATION</vs-th>
                 <vs-th>DISTANCE</vs-th>
