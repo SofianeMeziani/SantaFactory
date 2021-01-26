@@ -20,21 +20,18 @@
 
           <div style="align-items: center; justify-content: center ; display: flex" class="vx-col w-full  mb-base">
 
-
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'" class="greet-user">
-
               <h1 class="mb-6 text-white w-100 text-center">La fabrique du Père Noël 🎅🏻</h1>
               <p class="mx-auto text-white w-100 text-center">You have done
                 <strong>hello</strong> more sales today. Check your new badge in your profile.
               </p>
             </vx-card>
-
-
           </div>
 
 
           <div style="align-items: center; justify-content: center ; display: flex"
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               @click="redirectToPage('commandes')"
           >
             <vx-card slot="no-body"
                      :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_commandes + ')'"
@@ -46,7 +43,8 @@
           </div>
 
           <div style="align-items: center; justify-content: center ; display: flex"
-               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               @click="redirectToPage('jouets')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
                      :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_jouets + ')'"
                      style="background-size: cover"
@@ -56,7 +54,8 @@
           </div>
 
           <div style="align-items: center; justify-content: center ; display: flex"
-               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               @click="redirectToPage('lutins')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
                      :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_lutins + ')'"
                      style="background-size: cover"
@@ -66,7 +65,8 @@
           </div>
 
           <div style="align-items: center; justify-content: center ; display: flex"
-               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               @click="redirectToPage('categories')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
                      :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_categories + ')'"
                      style="background-size: cover"
@@ -76,7 +76,8 @@
           </div>
 
           <div style="align-items: center; justify-content: center ; display: flex"
-               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               @click="redirectToPage('competences')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
                      :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_competences + ')'"
                      style="background-size: cover"
@@ -86,7 +87,8 @@
           </div>
 
           <div style="align-items: center; justify-content: center ; display: flex"
-               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card">
+               class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
+               @click="redirectToPage('manuel')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
                      :card-background="'linear-gradient(120deg ,rgba(247,97,161,0.1), rgba(140,27,171,.4)), url(' + card_bg_manuel + ')'"
                      style="background-size: cover"
@@ -166,63 +168,19 @@ export default {
     }
   },
   methods: {
-    saveProno() {
-      this.$vs.loading()
-      const el = this.$refs.matchCard;
-      const options = {
-        type: 'dataURL',
-        useCORS: true,
-        backgroundColor: null,
-        scrollX: 0,
-        scrollY: 0,
-        ignoreElements: function (element) {
-          if (element.classList.contains('downloadBtn')) {
-            return true;
+    redirectToPage(page) {
+      this.$router.push(
+          {
+            path: '/' + page,
           }
-        }
-      }
-      window.scrollTo(0, 0);
-      this.$html2canvas(el, options).then(output => {
-        //this.output = output;
-        var FileSaver = require('file-saver');
-        FileSaver.saveAs(output, "pronostic.png");
-        this.$vs.loading.close()
-      });
-
-
-    },
-
-
-    getMatch() {
-      this.loading = true
-      getAPI.get('/api/v1/bet').then(response => {
-
-        // commit('offerPosts', response.data)
-        setTimeout(() => {
-          this.loading = false
-        }, 500);
-
-        // console.log(response
-        if (response) {
-
-          this.pronostic = response.data['results'][0]
-          console.log(this.pronostic)
-        } else {
-
-        }
-        // console.log(response.data);
-      }).catch(error => {
-        this.loading = false
-        // console.log(error);
-
-      })
+      )
     }
   },
   created() {
-    this.getMatch()
+
   },
   mounted() {
-    //this.getProgram()
+
   },
 
 }

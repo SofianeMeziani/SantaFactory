@@ -7,9 +7,9 @@
           <div slot="no-body" class="mt-4">
             <vs-table :data="Orders" class="table-dark-inverted">
               <template slot="thead">
-                <vs-th>ORDER NO.</vs-th>
-                <vs-th>STATUS</vs-th>
-                <vs-th>OPERATORS</vs-th>
+                <vs-th>Numéro</vs-th>
+                <vs-th>Status</vs-th>
+                <vs-th>Lutins</vs-th>
                 <vs-th>LOCATION</vs-th>
                 <vs-th>DISTANCE</vs-th>
                 <vs-th>START DATE</vs-th>
