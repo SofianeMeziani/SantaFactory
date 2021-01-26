@@ -1,19 +1,52 @@
 <template>
   <div>
-    <h1 class="v-100 text-center mb-6">Commandes</h1>
+    <h1 class="v-100 text-center mb-6">Commandes 📝</h1>
+
+    <div class="vx-row">
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="ClipboardIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="Commandes"
+            color="success"/>
+      </div>
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="LoaderIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="En cours"
+            color="warning"/>
+      </div>
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="CheckCircleIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="Terminées"
+            color="success"/>
+      </div>
+    </div>
     <div class="vx-row">
       <div class="vx-col w-full">
-        <vx-card title="Dispatched Orders">
+        <vx-card title="Toutes les commandes">
           <div slot="no-body" class="mt-4">
             <vs-table :data="Orders" class="table-dark-inverted">
               <template slot="thead">
-                <vs-th>Numéro</vs-th>
-                <vs-th>Date de création</vs-th>
-                <vs-th>Lutins</vs-th>
-                <vs-th>LOCATION</vs-th>
-                <vs-th>DISTANCE</vs-th>
-                <vs-th>START DATE</vs-th>
-                <vs-th>EST DELIVERY DATE</vs-th>
+                <vs-th>NUMÉRO</vs-th>
+                <vs-th>DATE</vs-th>
+                <vs-th>JOUETS</vs-th>
+                <vs-th>LUTINS</vs-th>
+                <vs-th>STATUS</vs-th>
+                <vs-th>DATE FIN</vs-th>
+                <vs-th>ACTION</vs-th>
               </template>
 
               <template slot-scope="{data}">
@@ -62,8 +95,13 @@
 </template>
 
 <script>
+import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
+
 export default {
-  name: "Commandes"
+  name: "Commandes",
+  components: {
+    StatisticsCardLine
+  },
 }
 </script>
 

@@ -18,9 +18,9 @@ import colors from "@/../themeConfig.js"
 // *From Auth - Data will be received from auth provider
 const userDefaults = {
     pk: 0,          // From Auth
-    username: "John Doe", // From Auth
+    username: "Santa", // From Auth
     photoURL: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
-    avatar: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
+    avatar: require("@/assets/images/portrait/small/avatar.png"), // From Auth
     first_name: "online",
     last_name: "admin"
 }

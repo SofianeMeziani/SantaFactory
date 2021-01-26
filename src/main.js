@@ -54,6 +54,9 @@ import {faAppleAlt} from '@fortawesome/free-solid-svg-icons'
 import {faApple} from '@fortawesome/free-brands-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {fab} from '@fortawesome/free-brands-svg-icons'
+import VueCountdownTimer from 'vuejs-countdown-timer';
+
+Vue.use(VueCountdownTimer);
 
 library.add(faApple, fab)
 

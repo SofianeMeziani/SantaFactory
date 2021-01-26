@@ -53,7 +53,7 @@
 
           <!-- Logo -->
           <router-link tag="div" class="vx-logo mr-auto ml-auto  cursor-pointer flex items-center" to="/">
-            <div class="circle"
+            <div class="circle" style="background-size: contain"
                  :style="{'background-image': 'url(' +activeUserInfo.avatar + ')'}"></div>
 
           </router-link>
