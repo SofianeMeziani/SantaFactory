@@ -1,10 +1,114 @@
 <template>
-  <div>Lutins</div>
+  <div>
+    <h1 class="v-100 text-center mb-6">Lutins 🧑🏻‍🎄</h1>
+
+    <div class="vx-row">
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="ClipboardIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="Lutins"
+            color="success"/>
+      </div>
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="LoaderIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="Occupés"
+            color="warning"/>
+      </div>
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="CheckCircleIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="Disponibles"
+            color="success"/>
+      </div>
+
+      <div class="vx-col w-full">
+        <vs-button class="mb-5" style="margin: auto" color="primary" type="gradient" icon-pack="feather"
+                   icon="icon-plus">
+          Nouveau Lutin
+        </vs-button>
+      </div>
+    </div>
+    <div class="vx-row">
+      <div class="vx-col w-full">
+        <vx-card title="Tous les Lutins">
+          <div slot="no-body" class="mt-4">
+            <vs-table :data="Orders" class="table-dark-inverted">
+              <template slot="thead">
+                <vs-th>NUMÉRO</vs-th>
+                <vs-th>DATE</vs-th>
+                <vs-th>JOUETS</vs-th>
+                <vs-th>LUTINS</vs-th>
+                <vs-th>STATUS</vs-th>
+                <vs-th>DATE FIN</vs-th>
+                <vs-th>ACTION</vs-th>
+              </template>
+
+              <template slot-scope="{data}">
+                <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                  <vs-td :data="data[indextr].orderNo">
+                    <span>#{{ data[indextr].orderNo }}</span>
+                  </vs-td>
+                  <vs-td :data="data[indextr].status">
+                    <span class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2"
+                                                                           :class="'bg-' + data[indextr].statusColor"></div>{{
+                        data[indextr].status
+                      }}</span>
+                  </vs-td>
+                  <vs-td :data="data[indextr].orderNo">
+                    <ul class="users-liked user-list">
+                      <li v-for="(user, userIndex) in data[indextr].usersLiked" :key="userIndex">
+                        <vx-tooltip :text="user.name" position="bottom">
+                          <vs-avatar :src="user.img" size="30px"
+                                     class="border-2 border-white border-solid -m-1"></vs-avatar>
+                        </vx-tooltip>
+                      </li>
+                    </ul>
+                  </vs-td>
+                  <vs-td :data="data[indextr].orderNo">
+                    <span>{{ data[indextr].location }}</span>
+                  </vs-td>
+                  <vs-td :data="data[indextr].orderNo">
+                    <span>{{ data[indextr].distance }}</span>
+                    <vs-progress :percent="data[indextr].distPercent" :color="data[indextr].statusColor"></vs-progress>
+                  </vs-td>
+                  <vs-td :data="data[indextr].orderNo">
+                    <span>{{ data[indextr].startDate }}</span>
+                  </vs-td>
+                  <vs-td :data="data[indextr].orderNo">
+                    <span>{{ data[indextr].estDelDate }}</span>
+                  </vs-td>
+                </vs-tr>
+              </template>
+            </vs-table>
+          </div>
+
+        </vx-card>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
+
 export default {
-  name: "Lutins"
+  name: "Lutins",
+  components: {
+    StatisticsCardLine
+  },
 }
 </script>
 

@@ -83,7 +83,7 @@
                @click="redirectToPage('commandes')"
           >
             <vx-card slot="no-body"
-                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_commandes + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.7)), url(' + card_bg_commandes + ')'"
                      style="background-size: cover"
                      :class="themeMode?'':'bg-primary-gradient'"
                      class="text-center align-vs-card-home">
@@ -95,7 +95,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('jouets')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_jouets + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.7)), url(' + card_bg_jouets + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Jouets</h1>
@@ -106,7 +106,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('lutins')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_lutins + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.7)), url(' + card_bg_lutins + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Lutins</h1>
@@ -117,7 +117,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('categories')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_categories + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.7)), url(' + card_bg_categories + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Catégories</h1>
@@ -128,7 +128,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('competences')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_competences + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.7)), url(' + card_bg_competences + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Compétences</h1>
@@ -139,7 +139,7 @@
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('manuel')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
-                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.4)), url(' + card_bg_manuel + ')'"
+                     :card-background="'linear-gradient(120deg ,rgba(233, 69, 96 ,0.2), rgba(233, 69, 96,.7)), url(' + card_bg_manuel + ')'"
                      style="background-size: cover"
                      class="text-center align-vs-card-home">
               <h1>Manuel</h1>
