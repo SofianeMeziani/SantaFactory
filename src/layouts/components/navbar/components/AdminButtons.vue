@@ -1,6 +1,6 @@
 <template>
   <div class="w-100">
-    🎅🏻 <b>Noël arrive dans</b>
+    🎅🏻 <b>Noël arrive ! Il ne reste plus qu'à attendre</b>
     <vue-countdown-timer
         @start_callback="startCallBack('event started')"
         @end_callback="endCallBack('event ended')"

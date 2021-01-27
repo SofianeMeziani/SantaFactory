@@ -1,5 +1,18 @@
 <template>
-  <div>
+  <div style="min-height: 70vh">
+    <Snowf
+        :amount="70"
+        :size="5"
+        :speed="1.5"
+        :wind="0"
+        :opacity="0.8"
+        :swing="1"
+        :image="null"
+        :zIndex="null"
+        :resize="true"
+        color="#ccc"
+    />
+
     <h1 class="v-100 text-center mb-6">Commandes 📝</h1>
 
     <div class="vx-row">
@@ -103,11 +116,13 @@
 
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
+import Snowf from 'vue-snowf';
 
 export default {
   name: "Commandes",
   components: {
-    StatisticsCardLine
+    StatisticsCardLine,
+    Snowf
   },
 }
 </script>
