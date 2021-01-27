@@ -27,19 +27,11 @@
 
     <div class="flex flex-wrap justify-between my-5">
       <vs-checkbox v-model="checkbox_remember_me" class="mb-3">Se souvenir de moi</vs-checkbox>
-      <router-link to="/pages/forgot-password">Mot de passe oublié ?</router-link>
     </div>
     <vs-button style="width: 100%" class="float-right mb-6 mt-6" @click="loginJWT"
                :disabled="!validateForm">
       Se connecter
     </vs-button>
-    <p class="text-center">
-      Nouveau sur la plateforme ?
-      <router-link to="/pages/register">
-        <a>crée un compte.</a>
-      </router-link>
-
-    </p>
 
   </div>
 </template>

@@ -107,7 +107,8 @@ import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine
 export default {
   name: "Lutins",
   components: {
-    StatisticsCardLine
+    StatisticsCardLine,
+
   },
 }
 </script>

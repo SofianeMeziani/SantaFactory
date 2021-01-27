@@ -63,10 +63,8 @@
               <template slot="thead">
                 <vs-th>NUMÉRO</vs-th>
                 <vs-th>DATE</vs-th>
-                <vs-th>JOUETS</vs-th>
-                <vs-th>LUTINS</vs-th>
+                <vs-th>JOUET --> LUTIN</vs-th>
                 <vs-th>STATUS</vs-th>
-                <vs-th>DATE FIN</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
 
@@ -105,6 +103,62 @@
                     <span>{{ data[indextr].estDelDate }}</span>
                   </vs-td>
                 </vs-tr>
+                <!-- Fake -->
+                <vs-tr>
+                  <vs-td>
+                    <span>#0013</span>
+                  </vs-td>
+                  <vs-td>
+                    <span>27/01/2020</span>
+                  </vs-td>
+                  <vs-td>
+                    <span>Jouet15 -> Lutin5</span>
+                  </vs-td>
+                  <vs-td>
+                      <span class="flex items-center px-2 py-1 rounded"><div
+                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>En cours
+                    </span>
+                  </vs-td>
+                  <vs-td>
+                    <span>#0013</span>
+                  </vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td>
+                    <span> <feather-icon icon="CornerDownRightIcon"/></span>
+                  </vs-td>
+                  <vs-td>
+                    <span></span>
+                  </vs-td>
+                  <vs-td>
+                    <span>Jouet7 --> Lutin3</span>
+                  </vs-td>
+                  <vs-td>
+                    <span></span>
+                  </vs-td>
+                  <vs-td>
+                    <span></span>
+                  </vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td>
+                    <span>#0014</span>
+                  </vs-td>
+                  <vs-td>
+                    <span>27/01/2020</span>
+                  </vs-td>
+                  <vs-td>
+                    <span>Jouet15 -> Lutin5</span>
+                  </vs-td>
+                  <vs-td>
+                    <span class="flex items-center px-2 py-1 rounded"><div
+                        class="bg-success h-3 w-3 rounded-full mr-2"></div>Terminée
+                    </span>
+                  </vs-td>
+                  <vs-td>
+                    <span>#0014</span>
+                  </vs-td>
+                </vs-tr>
               </template>
             </vs-table>
           </div>
@@ -116,7 +170,7 @@
           <h4 class="text-center mb-3">Nouvelle commande</h4>
           <p class="text-center mb-1">Numéro #013</p>
 
-          <div :key="i" v-for="i in nbGames" class="mt-3">
+          <div :key="i" v-for="i in nbGames" class="mt-5">
             <p>Jouet {{ i }} :</p>
             <v-select class="mt-2 mb-2" :options="options_jouets" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
             <v-select class="mt-2 mb-2" :options="options_lutins" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
@@ -124,15 +178,17 @@
 
           <div class="vx-row">
 
-            <vs-button @click="addGame()" size="small" class="mt-5 vx-col " style="margin: auto"
+            <vs-button @click="addGame()" size="small" class="mt-5 vx-col " style="width: 40%; margin: auto"
                        color="#283046"
                        icon-pack="feather"
                        icon="icon-plus">
+              Ajouter un jouet
             </vs-button>
-            <vs-button @click="delGame()" size="small" class="mt-5 vx-col" style="margin: auto"
+            <vs-button @click="delGame()" size="small" class="mt-5 vx-col" style="width: 40%; margin: auto"
                        color="#283046"
                        icon-pack="feather"
-                       icon="icon-minus" :disabled="nbGames < 2">
+                       icon="icon-x" :disabled="nbGames < 2">
+              Supprimer un jouet
             </vs-button>
           </div>
 

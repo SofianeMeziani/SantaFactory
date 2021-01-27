@@ -1,69 +1,57 @@
-<!-- =========================================================================================
-    File Name: Login.vue
-    Description: Login Page
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
 <template>
-  <div class="h-screen flex w-full  vx-row no-gutter items-center justify-center"
-       style="background-color: #f8f8f8; overflow: hidden"
-       id="page-login">
-    <div class="vx-col flex w-full" style=" min-height: 101vh;">
-      <vx-card style="border-radius: 0rem; !important;">
-        <div slot="no-body">
+  <div style="background-color: rgb(22, 29, 49);">
+    <Snowf
+        :amount="70"
+        :size="5"
+        :speed="1.5"
+        :wind="0"
+        :opacity="0.8"
+        :swing="1"
+        :image="null"
+        :zIndex="null"
+        :resize="true"
+        color="#ccc"
+    />
 
-          <vs-row vs-align="center"
-                  vs-type="flex" vs-justify="center" class="no-gutter"
-                  style="justify-content: space-between">
+    <vs-row style="justify-content: space-between; ">
 
-            <div class="vx-col flex items-center hidden lg:block lg:w-2/3 xl:3/4">
-              <!--                            <img src="@/assets/images/pages/login-v2-dark.svg" class="mx-auto"/>-->
-              <!--              <img src="@/assets/images/pages/login-v2-dark.svg" alt="login" class="mx-auto"-->
-              <!--                   style="height: 600px;">-->
-              <video v-if="smallScreen() === false" src="@/assets/videos/fox_video.mp4" autoplay loop
-                     style="height: 101vh; filter: blur(4px);" muted></video>
+      <div class="vx-col flex items-center hidden lg:block lg:w-3/4 xl:3/4">
+
+        <a style="transform: scale(1)" class="weatherwidget-io"
+           href="https://forecast7.com/fr/49d441d10/rouen/"
+           data-label_1="ROUEN"
+           data-label_2="Météo" data-font="Play" data-icons="Climacons Animated" data-days="5"
+           data-theme="original" data-basecolor="rgb(22, 29, 49)" data-highcolor="#ffffff"
+           data-cloudfill="#283046">ROUEN Météo</a>
+      </div>
+
+      <div class="vx-col w-full center-card-log  sm:w-full md:w-full lg:w-1/4 xl:1/4"
+           :style="themeMode?' background-color: rgba(40, 48, 70, 0.9)':'background-color:antiquewhite'"
+           style=" z-index: 2;   min-height: 101vh; padding-bottom: 6rem; border-left: 1px solid #283046; border-left: 2px solid #2e3048">
+        <div class="px-8 pt-8 mx-auto" style="">
+          <div>
+
+
+            <router-link tag="div" class=" mb-10 vx-logo cursor-pointer flex items-center"
+                         to="/">
+              <logo class="ml-auto  w-50 mr-4 fill-current text-primary"/>
+              <span class="  mr-auto vx-logo-text "
+                    :class="themeMode?'text-white':'text-dark'"
+                    style="font-size: 35px;"
+              ></span>
+            </router-link>
+
+            <div class="vx-card__title mb-10" style="text-align: center">
+              <h4 class="mb-4">Connexion</h4>
+              <p>Connectez-vous pour gérer les commandes 🎅🏻</p>
             </div>
 
-            <div class="vx-col w-full center-card-log  sm:w-full md:w-full lg:w-1/3 xl:1/4"
-                 :style="themeMode?' background-color: rgba(40, 48, 70, 0.97)':'background-color:antiquewhite'"
-                 style=" z-index: 2;   min-height: 101vh; padding-bottom: 6rem; border-left: 1px solid #283046; ">
-              <div class="px-8 pt-8 mx-auto" style="">
-                <div>
-
-
-                  <router-link tag="div" class=" mb-10 vx-logo cursor-pointer flex items-center"
-                               to="/">
-                    <logo class="ml-auto  w-25 mr-4 fill-current text-primary"/>
-                    <span class="  mr-auto vx-logo-text "
-                          :class="themeMode?'text-white':'text-dark'"
-                          style="font-size: 35px;"
-                    >Santa Factory</span>
-                  </router-link>
-
-                  <!--                                <div class="mr-auto  ml-auto ">-->
-                  <!--                                    <h1 class="mr-auto  ml-auto mb-8" style="text-align: center; font-size: 50px">-->
-                  <!--                                        Santa Factory</h1>-->
-                  <!--                                </div>-->
-
-                  <!--                                <span class="vx-logo-text text-primary">Santa Factory</span>-->
-                  <div class="vx-card__title mb-10" style="text-align: center">
-                    <h4 class="mb-4">Connexion</h4>
-                    <p>Connecte-toi pour voir le pronostic du jour 😊</p>
-                  </div>
-
-
-                  <login-jwt></login-jwt>
-                </div>
-              </div>
-            </div>
-          </vs-row>
+            <login-jwt></login-jwt>
+          </div>
         </div>
-      </vx-card>
-    </div>
+      </div>
+    </vs-row>
+
   </div>
 </template>
 
@@ -71,12 +59,14 @@
 <script>
 import LoginJwt from './LoginJWT.vue'
 import Logo from '../../../layouts/components/Logo'
+import Snowf from "vue-snowf";
 
 
 export default {
   components: {
     LoginJwt,
-    Logo
+    Logo,
+    Snowf
   },
   methods: {
     smallScreen() {
@@ -90,7 +80,19 @@ export default {
       },
 
     },
+  },
+  created() {
+    !function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }
+    }(document, 'script', 'weatherwidget-io-js');
   }
+
 }
 </script>
 
