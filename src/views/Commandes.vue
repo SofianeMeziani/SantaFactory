@@ -48,14 +48,15 @@
       </div>
 
       <div class="vx-col w-full">
-        <vs-button class="mb-5" style="margin: auto" color="primary" type="gradient" icon-pack="feather"
-                   icon="icon-plus">
+        <vs-button @click="newOrder()" class="mb-5" style="margin: auto" color="primary" type="gradient"
+                   icon-pack="feather"
+                   icon="icon-plus" v-if="!new_order">
           Nouvelle commande
         </vs-button>
       </div>
     </div>
     <div class="vx-row">
-      <div class="vx-col w-full">
+      <div class="vx-col w-full" :class="new_order ? 'lg:w-2/3 xl:w-2/3' : ''">
         <vx-card title="Toutes les commandes">
           <div slot="no-body" class="mt-4">
             <vs-table :data="Orders" class="table-dark-inverted">
@@ -110,6 +111,44 @@
 
         </vx-card>
       </div>
+      <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_order">
+        <vx-card slot="no-body">
+          <h4 class="text-center mb-3">Nouvelle commande</h4>
+          <p class="text-center mb-1">Numéro #013</p>
+
+          <div :key="i" v-for="i in nbGames" class="mt-3">
+            <p>Jouet {{ i }} :</p>
+            <v-select class="mt-2 mb-2" :options="options_jouets" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+            <v-select class="mt-2 mb-2" :options="options_lutins" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+          </div>
+
+          <div class="vx-row">
+
+            <vs-button @click="addGame()" size="small" class="mt-5 vx-col " style="margin: auto"
+                       color="#283046"
+                       icon-pack="feather"
+                       icon="icon-plus">
+            </vs-button>
+            <vs-button @click="delGame()" size="small" class="mt-5 vx-col" style="margin: auto"
+                       color="#283046"
+                       icon-pack="feather"
+                       icon="icon-minus" :disabled="nbGames < 2">
+            </vs-button>
+          </div>
+
+
+          <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient" icon-pack="feather"
+                     icon="icon-check"
+                     @click="$vs.notify({
+                      title:'Primary',
+                      position:'top-right',
+                      text:'Lorem ipsum dolor sit amet, consectetur',
+                      color:'success'})">
+            Valider
+          </vs-button>
+        </vx-card>
+
+      </div>
     </div>
   </div>
 </template>
@@ -117,13 +156,43 @@
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 import Snowf from 'vue-snowf';
+import vSelect from 'vue-select'
 
 export default {
+  data() {
+    return {
+      options_jouets: [
+        {id: 1, label: 'Jouet 1'},
+        {id: 2, label: 'Jouet 2'},
+        {id: 3, label: 'Jouet 3'},
+      ],
+      options_lutins: [
+        {id: 1, label: 'Lutin 1'},
+        {id: 2, label: 'Lutin 2'},
+        {id: 3, label: 'Lutin 3'},
+      ],
+      new_order: false,
+      nbGames: 1
+    }
+  },
   name: "Commandes",
   components: {
     StatisticsCardLine,
-    Snowf
+    Snowf,
+    'v-select': vSelect,
   },
+
+  methods: {
+    newOrder() {
+      this.new_order = true
+    },
+    addGame() {
+      this.nbGames++
+    },
+    delGame() {
+      this.nbGames--
+    }
+  }
 }
 </script>
 
