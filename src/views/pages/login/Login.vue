@@ -1,5 +1,22 @@
 <template>
-  <div style="background-color: rgb(22, 29, 49);">
+
+
+  <div
+      style="background-color: rgb(22, 29, 49);"
+  >
+    <!--Snowf
+        :amount="8"
+        :size="30"
+        :speed="1.4"
+        :wind="0"
+        :opacity="0.8"
+        :swing="1"
+        :image="'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678132-gift-512.png'"
+        :zIndex="null"
+        :resize="true"
+        color="#ccc"
+    /-->
+
     <Snowf
         :amount="70"
         :size="5"
@@ -15,20 +32,27 @@
 
     <vs-row style="justify-content: space-between; ">
 
-      <div class="vx-col flex items-center hidden lg:block lg:w-3/4 xl:3/4">
+      <div class="vx-col flex items-center hidden lg:block lg:w-3/4 xl:3/4"
+           :style="'background-image: url(' + background + ')'" style="background-size: cover">
 
-        <a style="transform: scale(1)" class="weatherwidget-io"
+        <!--a style="transform: scale(1); opacity: 0.8" class="weatherwidget-io"
            href="https://forecast7.com/fr/49d441d10/rouen/"
            data-label_1="ROUEN"
            data-label_2="Météo" data-font="Play" data-icons="Climacons Animated" data-days="5"
            data-theme="original" data-basecolor="rgb(22, 29, 49)" data-highcolor="#ffffff"
-           data-cloudfill="#283046">ROUEN Météo</a>
+           data-cloudfill="#283046">ROUEN Météo</a-->
       </div>
 
       <div class="vx-col w-full center-card-log  sm:w-full md:w-full lg:w-1/4 xl:1/4"
            :style="themeMode?' background-color: rgba(40, 48, 70, 0.9)':'background-color:antiquewhite'"
            style=" z-index: 2;   min-height: 101vh; padding-bottom: 6rem; border-left: 1px solid #283046; border-left: 2px solid #2e3048">
         <div class="px-8 pt-8 mx-auto" style="">
+          <a style="margin-top: -40px; opacity: 0.9" class="weatherwidget-io"
+             href="https://forecast7.com/fr/49d441d10/rouen/"
+             data-label_1="ROUEN"
+             data-label_2="Météo" data-font="Play" data-icons="Climacons Animated" data-mode="Current" data-days="3"
+             data-theme="original" data-basecolor="rgb(37,47,66)" data-highcolor="#ffffff" data-cloudfill="#283046">ROUEN
+            Météo</a>
           <div>
 
 
@@ -63,6 +87,11 @@ import Snowf from "vue-snowf";
 
 
 export default {
+  data() {
+    return {
+      background: require('@/assets/images/LoginBack.png'),
+    }
+  },
   components: {
     LoginJwt,
     Logo,
