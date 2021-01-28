@@ -4,17 +4,17 @@
     <h1 class="v-100 text-center mb-5">Commandes 📝</h1>
 
     <div class="vx-row">
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
             icon="ClipboardIcon"
             icon-right
             statistic="12"
-            statisticTitle="Commandes"
+            statisticTitle="Total"
             color="success"/>
       </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
@@ -24,7 +24,7 @@
             statisticTitle="En cours"
             color="warning"/>
       </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
@@ -32,6 +32,16 @@
             icon-right
             statistic="12"
             statisticTitle="Terminées"
+            color="success"/>
+      </div>
+      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+        <statistics-card-line
+            hideChart
+            class="mt-5 mb-base"
+            icon="ArchiveIcon"
+            icon-right
+            statistic="12"
+            statisticTitle="Archivées"
             color="success"/>
       </div>
 
