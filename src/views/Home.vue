@@ -1,18 +1,5 @@
 <template>
   <div>
-
-    <Snowf
-        :amount="70"
-        :size="5"
-        :speed="1.5"
-        :wind="0"
-        :opacity="0.8"
-        :swing="1"
-        :image="null"
-        :zIndex="null"
-        :resize="true"
-        color="#ccc"
-    />
     <div id="dashboard-analytics" style="height: auto">
 
       <template>
@@ -159,7 +146,6 @@
 import {getAPI} from '@/axios'
 // import drag from '../assets/utils/download';
 // import {saveAs} from 'file-saver';
-import Snowf from 'vue-snowf';
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 
 export default {
@@ -181,7 +167,6 @@ export default {
     }
   },
   components: {
-    Snowf,
     StatisticsCardLine
     // VueApexCharts,
     // VueContentLoading,

@@ -1,17 +1,5 @@
 <template>
   <div style="min-height: 70vh">
-    <Snowf
-        :amount="70"
-        :size="5"
-        :speed="1.5"
-        :wind="0"
-        :opacity="0.8"
-        :swing="1"
-        :image="null"
-        :zIndex="null"
-        :resize="true"
-        color="#ccc"
-    />
 
     <h1 class="v-100 text-center mb-6">Commandes 📝</h1>
 
@@ -159,6 +147,25 @@
                     <span>#0014</span>
                   </vs-td>
                 </vs-tr>
+                <vs-tr>
+                  <vs-td>
+                    <span>#0014</span>
+                  </vs-td>
+                  <vs-td>
+                    <span>27/01/2020</span>
+                  </vs-td>
+                  <vs-td>
+                    <span>Jouet15 -> Lutin5</span>
+                  </vs-td>
+                  <vs-td>
+                    <span class="flex items-center px-2 py-1 rounded"><div
+                        class="bg-success h-3 w-3 rounded-full mr-2"></div>Terminée
+                    </span>
+                  </vs-td>
+                  <vs-td>
+                    <span>#0014</span>
+                  </vs-td>
+                </vs-tr>
               </template>
             </vs-table>
           </div>
@@ -211,7 +218,6 @@
 
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
-import Snowf from 'vue-snowf';
 import vSelect from 'vue-select'
 
 export default {
@@ -234,7 +240,6 @@ export default {
   name: "Commandes",
   components: {
     StatisticsCardLine,
-    Snowf,
     'v-select': vSelect,
   },
 

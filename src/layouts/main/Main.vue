@@ -1,6 +1,17 @@
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'no-scroll': isAppPage}]">
-
+    <Snowf
+        :amount="70"
+        :size="5"
+        :speed="1.5"
+        :wind="0"
+        :opacity="0.8"
+        :swing="1"
+        :image="null"
+        :zIndex="null"
+        :resize="true"
+        color="#ccc"
+    />
     <v-nav-menu
         :navMenuItems="navMenuItems"
         title="Santa Factory"
@@ -97,7 +108,7 @@ import TheFooter from '@/layouts/components/TheFooter.vue'
 import themeConfig from '@/../themeConfig.js'
 import VNavMenu from '@/layouts/components/vertical-nav-menu/VerticalNavMenu.vue'
 // import BottomNavBar from '@/layouts/components/BottomNavBar'
-
+import Snowf from 'vue-snowf';
 
 export default {
   components: {
@@ -107,7 +118,8 @@ export default {
     TheFooter,
     TheNavbarHorizontal,
     TheNavbarVertical,
-    VNavMenu
+    VNavMenu,
+    Snowf
   },
   data() {
     return {
