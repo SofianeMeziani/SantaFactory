@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="vx-row">
-      <div class="vx-col w-full" :class="new_order ? 'lg:w-2/3 xl:w-2/3' : ''">
+      <div class="vx-col w-full lg:w-2/3 xl:w-2/3">
         <vx-card title="Toutes les commandes">
           <div slot="no-body" class="mt-4">
             <vs-table :data="Orders" class="table-dark-inverted">
@@ -212,6 +212,28 @@
         </vx-card>
 
       </div>
+      <div class="vx-col w-full lg:w-1/3 xl:w-1/3 mb-base" v-else>
+        <vx-card title="Statistiques">
+          <!-- CHART -->
+          <template slot="no-body">
+            <div class="mt-10">
+              <vue-apex-charts type="radialBar" height="240" :series="series" :options="chartOptions"/>
+            </div>
+          </template>
+
+          <!-- DATA -->
+          <div class="flex justify-between text-center mt-6" slot="no-body-bottom">
+            <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
+              <p class="mt-4">Terminées</p>
+              <p class="mb-4 text-3xl font-semibold">64</p>
+            </div>
+            <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
+              <p class="mt-4">En cours</p>
+              <p class="mb-4 text-3xl font-semibold">12</p>
+            </div>
+          </div>
+        </vx-card>
+      </div>
     </div>
   </div>
 </template>
@@ -219,6 +241,7 @@
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 import vSelect from 'vue-select'
+import VueApexCharts from 'vue-apexcharts'
 
 export default {
   data() {
@@ -234,13 +257,70 @@ export default {
         {id: 3, label: 'Lutin 3'},
       ],
       new_order: false,
-      nbGames: 1
+      nbGames: 1,
+      chartOptions: {
+        plotOptions: {
+          radialBar: {
+            size: 110,
+            startAngle: -150,
+            endAngle: 150,
+            hollow: {
+              size: '77%'
+            },
+            track: {
+              background: '#bfc5cc',
+              strokeWidth: '50%'
+            },
+            dataLabels: {
+              name: {
+                show: false
+              },
+              value: {
+                offsetY: 18,
+                color: '#99a2ac',
+                fontSize: '4rem'
+              }
+            }
+          }
+        },
+        colors: ['#00db89'],
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            type: 'horizontal',
+            shadeIntensity: 0.5,
+            gradientToColors: ['#00b5b5'],
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100]
+          }
+        },
+        stroke: {
+          lineCap: 'round'
+        },
+        chart: {
+          sparkline: {
+            enabled: true
+          },
+          dropShadow: {
+            enabled: true,
+            blur: 3,
+            left: 1,
+            top: 1,
+            opacity: 0.1
+          }
+        }
+      },
+      series: [75],
     }
   },
   name: "Commandes",
   components: {
     StatisticsCardLine,
     'v-select': vSelect,
+    VueApexCharts
   },
 
   methods: {
