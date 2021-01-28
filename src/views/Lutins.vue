@@ -280,7 +280,7 @@ export default {
       series: [79],
     }
   },
-  name: "Commandes",
+  name: "Lutins",
   components: {
     StatisticsCardLine,
     'v-select': vSelect,

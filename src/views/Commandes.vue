@@ -11,7 +11,7 @@
             icon="ClipboardIcon"
             icon-right
             statistic="12"
-            statisticTitle="Total"
+            statisticTitle="Nombre total"
             color="success"/>
       </div>
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
