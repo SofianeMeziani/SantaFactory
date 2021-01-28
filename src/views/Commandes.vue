@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 70vh">
 
-    <h1 class="v-100 text-center mb-6">Commandes 📝</h1>
+    <h1 class="v-100 text-center mb-5">Commandes 📝</h1>
 
     <div class="vx-row">
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
@@ -36,7 +36,7 @@
       </div>
 
       <div class="vx-col w-full">
-        <vs-button @click="newOrder()" class="mb-5" style="margin: auto" color="primary" type="gradient"
+        <vs-button @click="newOrder()" class="mb-4" style="margin: auto" color="primary" type="gradient"
                    icon-pack="feather"
                    icon="icon-plus" v-if="!new_order">
           Nouvelle commande
@@ -51,7 +51,7 @@
               <template slot="thead">
                 <vs-th>NUMÉRO</vs-th>
                 <vs-th>DATE</vs-th>
-                <vs-th>JOUET --> LUTIN</vs-th>
+                <vs-th>JOUET 👉🏼 LUTIN</vs-th>
                 <vs-th>STATUS</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
@@ -100,7 +100,7 @@
                     <span>27/01/2020</span>
                   </vs-td>
                   <vs-td>
-                    <span>Jouet15 -> Lutin5</span>
+                    <span>Jouet15 👉🏼 Lutin5</span>
                   </vs-td>
                   <vs-td>
                       <span class="flex items-center px-2 py-1 rounded"><div
@@ -119,7 +119,7 @@
                     <span></span>
                   </vs-td>
                   <vs-td>
-                    <span>Jouet7 --> Lutin3</span>
+                    <span>Jouet7 👉🏼 Lutin3</span>
                   </vs-td>
                   <vs-td>
                     <span></span>
@@ -136,7 +136,7 @@
                     <span>27/01/2020</span>
                   </vs-td>
                   <vs-td>
-                    <span>Jouet15 -> Lutin5</span>
+                    <span>Jouet15 👉🏼 Lutin5</span>
                   </vs-td>
                   <vs-td>
                     <span class="flex items-center px-2 py-1 rounded"><div
@@ -155,7 +155,7 @@
                     <span>27/01/2020</span>
                   </vs-td>
                   <vs-td>
-                    <span>Jouet15 -> Lutin5</span>
+                    <span>Jouet15 👉🏼 Lutin5</span>
                   </vs-td>
                   <vs-td>
                     <span class="flex items-center px-2 py-1 rounded"><div
@@ -216,7 +216,7 @@
         <vx-card title="Statistiques">
           <!-- CHART -->
           <template slot="no-body">
-            <div class="mt-10">
+            <div class="mt-0">
               <vue-apex-charts type="radialBar" height="240" :series="series" :options="chartOptions"/>
             </div>
           </template>
@@ -313,7 +313,7 @@ export default {
           }
         }
       },
-      series: [75],
+      series: [79],
     }
   },
   name: "Commandes",
