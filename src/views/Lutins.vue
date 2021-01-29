@@ -146,35 +146,19 @@
           <h4 class="text-center mb-3">Nouveau Lutin 🧑🏻‍🎄</h4>
           <p class="text-center mb-1">ID #013</p>
 
-          <vs-input class="inputx mt-5 w-full" placeholder="Nom du lutin"/>
-          <div :key="i" v-for="i in nbCompetences" class="mt-5">
-            <p>Compétence {{ i }} :</p>
-            <v-select class="mt-2 mb-2" :options="options_competences" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
-          </div>
+          <vs-input color="success" class="mt-8 w-full" label-placeholder="Nom du lutin"/>
 
-          <div class="vx-row">
-
-            <vs-button @click="addCompetence()" size="small" class="mt-5 vx-col " style="width: 40%; margin: auto"
-                       color="#283046"
-                       icon-pack="feather"
-                       icon="icon-plus">
-              Ajouter une compétence
-            </vs-button>
-            <vs-button @click="delCompetence()" size="small" class="mt-5 vx-col" style="width: 40%; margin: auto"
-                       color="#283046"
-                       icon-pack="feather"
-                       icon="icon-x" :disabled="nbCompetences < 2">
-              Suppr une compétence
-            </vs-button>
-          </div>
-
+          <p class="mt-3 mb-3">Compétences :</p>
+          <v-select multiple :closeOnSelect="false" v-model="selected" :options="options_competences"
+                    :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+          <br>
 
           <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient" icon-pack="feather"
                      icon="icon-check"
                      @click="$vs.notify({
                       title:'Primary',
                       position:'top-right',
-                      text:'Lorem ipsum dolor sit amet, consectetur',
+                      text:'Valider',
                       color:'success'})">
             Valider
           </vs-button>
@@ -216,7 +200,6 @@ export default {
   data() {
     return {
       new_lutin: false,
-      nbCompetences: 1,
       options_competences: [
         {id: 1, label: 'Compétence 1'},
         {id: 2, label: 'Compétence 2'},
@@ -278,6 +261,7 @@ export default {
         }
       },
       series: [79],
+      selected: [],
     }
   },
   name: "Lutins",
@@ -290,12 +274,6 @@ export default {
   methods: {
     newLutin() {
       this.new_lutin = true
-    },
-    addCompetence() {
-      this.nbCompetences++
-    },
-    delCompetence() {
-      this.nbCompetences--
     }
   }
 }

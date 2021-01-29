@@ -46,7 +46,7 @@
       </div>
 
       <div class="vx-col w-full">
-        <vs-button @click="newLutin()" class="mb-4" style="margin: auto" color="primary" type="gradient"
+        <vs-button @click="newGame()" class="mb-4" style="margin: auto" color="primary" type="gradient"
                    icon-pack="feather"
                    icon="icon-plus" v-if="!new_game">
           Nouveau jouet
@@ -61,8 +61,8 @@
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
-                <vs-th>COMPÉTENCE</vs-th>
-                <vs-th>STATUS</vs-th>
+                <vs-th>COMPÉTENCE REQUISES</vs-th>
+                <vs-th>CATÉGORIE</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
 
@@ -73,15 +73,13 @@
                     <span>#13</span>
                   </vs-td>
                   <vs-td>
-                    <span>Lutin 1</span>
+                    <span>Jouet 1</span>
                   </vs-td>
                   <vs-td>
                     <span>Compét1, Compétence 2</span>
                   </vs-td>
                   <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
-                    </span>
+                    <span>Catt 1</span>
                   </vs-td>
                   <vs-td>
                     <span>#0013</span>
@@ -92,15 +90,13 @@
                     <span>#13</span>
                   </vs-td>
                   <vs-td>
-                    <span>Lutin 1</span>
+                    <span>Jouet 1</span>
                   </vs-td>
                   <vs-td>
                     <span>Compét1, Compétence 2</span>
                   </vs-td>
                   <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
-                    </span>
+                    <span>Catt 1</span>
                   </vs-td>
                   <vs-td>
                     <span>#0013</span>
@@ -111,15 +107,13 @@
                     <span>#13</span>
                   </vs-td>
                   <vs-td>
-                    <span>Lutin 1</span>
+                    <span>Jouet 1</span>
                   </vs-td>
                   <vs-td>
                     <span>Compét1, Compétence 2</span>
                   </vs-td>
                   <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-success h-3 w-3 rounded-full mr-2"></div>Disponible
-                    </span>
+                    <span>Catt 1</span>
                   </vs-td>
                   <vs-td>
                     <span>#0013</span>
@@ -130,15 +124,13 @@
                     <span>#13</span>
                   </vs-td>
                   <vs-td>
-                    <span>Lutin 1</span>
+                    <span>Jouet 1</span>
                   </vs-td>
                   <vs-td>
                     <span>Compét1, Compétence 2</span>
                   </vs-td>
                   <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
-                    </span>
+                    <span>Catt 1</span>
                   </vs-td>
                   <vs-td>
                     <span>#0013</span>
@@ -151,24 +143,27 @@
 
         </vx-card>
       </div>
-      <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_lutin">
+      <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_game">
         <vx-card slot="no-body">
           <h4 class="text-center mb-3">Nouveau jouet 🎁</h4>
           <p class="text-center mb-1">ID #013</p>
 
-          <vs-input class="inputx mt-5 w-full" placeholder="Durée de réalisation"/>
+          <vs-input color="success" class="mt-8 w-full" label-placeholder="Durée de réalisation (minutes)"/>
 
-          <p class="mt-5 mb-3">Compétences</p>
+          <p class="mt-3">Catégorie :</p>
+          <v-select class="mt-2 mb-2" :options="options_categories" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+
+          <p class="mt-3 mb-2">Compétences</p>
           <v-select multiple :closeOnSelect="false" v-model="selected" :options="options"
                     :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
           <br>
 
-          <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient" icon-pack="feather"
+          <vs-button size="small" class="mt-3" style="margin: auto" color="success" type="gradient" icon-pack="feather"
                      icon="icon-check"
                      @click="$vs.notify({
                       title:'Primary',
                       position:'top-right',
-                      text:'Lorem ipsum dolor sit amet, consectetur',
+                      text:'Valider',
                       color:'success'})">
             Valider
           </vs-button>
@@ -209,12 +204,16 @@ import VueApexCharts from 'vue-apexcharts'
 export default {
   data() {
     return {
-      new_lutin: false,
-      nbCompetences: 1,
+      new_game: false,
       options_competences: [
         {id: 1, label: 'Compétence 1'},
         {id: 2, label: 'Compétence 2'},
         {id: 3, label: 'Compétence 3'},
+      ],
+      options_categories: [
+        {id: 1, label: 'Cat 1'},
+        {id: 2, label: 'Cat 2'},
+        {id: 3, label: 'Cat 3'},
       ],
       selected: [],
       options: ['Compétence 1', 'Compétence 2', 'Compétence 3'],
@@ -276,7 +275,7 @@ export default {
       series: [79],
     }
   },
-  name: "Commandes",
+  name: "Jouets",
   components: {
     StatisticsCardLine,
     'v-select': vSelect,
@@ -284,14 +283,8 @@ export default {
   },
 
   methods: {
-    newLutin() {
-      this.new_lutin = true
-    },
-    addCompetence() {
-      this.nbCompetences++
-    },
-    delCompetence() {
-      this.nbCompetences--
+    newGame() {
+      this.new_game = true
     }
   }
 }
