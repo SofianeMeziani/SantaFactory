@@ -94,45 +94,7 @@
 <script>
 export default {
   data() {
-    return {
-      new_game: false,
-      options_competences: [
-        {id: 1, label: 'Compétence 1'},
-        {id: 2, label: 'Compétence 2'},
-        {id: 3, label: 'Compétence 3'},
-      ],
-      options_categories: [
-        {id: 1, label: 'Cat 1'},
-        {id: 2, label: 'Cat 2'},
-        {id: 3, label: 'Cat 3'},
-      ],
-      selected: [],
-      analyticsData: {},
-      options: ['Compétence 1', 'Compétence 2', 'Compétence 3'],
-      series: [58.6, 34.9, 6.5],
-      chartOptions: {
-        labels: ['Cat 1', 'Cat 2', 'Cat 3'],
-        dataLabels: {
-          enabled: true
-        },
-        legend: {show: false},
-        chart: {
-          offsetY: 30,
-          type: 'donut',
-          toolbar: {
-            show: true
-          }
-        },
-        stroke: {width: 0},
-        colors: ['#7961F9', '#FF9F43', '#EA5455'],
-        fill: {
-          type: 'gradient',
-          gradient: {
-            gradientToColors: ['#9c8cfc', '#FFC085', '#f29292']
-          }
-        }
-      }
-    }
+    return {}
   },
   name: "Competences",
   components: {},
