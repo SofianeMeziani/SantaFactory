@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import {getAPI} from '@/axios'
+
 export default {
   data() {
     return {}

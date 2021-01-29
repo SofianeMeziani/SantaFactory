@@ -218,7 +218,7 @@ export default {
   created() {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#161d31' : this.navbarColor
     this.updateNavbarColor(color)
-    console.log(this.navbarType, this.$store.state.windowWidth)
+    // console.log(this.navbarType, this.$store.state.windowWidth)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
   }
 }

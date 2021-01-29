@@ -1,20 +1,16 @@
 // // axios
 // import axios from 'axios'
-//
-
-//
-//
 
 
 import axios from 'axios'
 
 import store from './store/store'
 
-// const APIUrl = 'http://127.0.0.1:8000'
-// const baseURL = 'http://127.0.0.1:8000/'
+//const APIUrl = 'localhost:8081/'
+//const baseURL = 'localhost:8081/'
 
 // const APIUrl_prod = 'http://192.168.1.50:8000'
-const APIUrl_prod = 'https://fox-sportif.herokuapp.com'
+const APIUrl_prod = 'http://127.0.0.1:8081/'
 // const APIUrl_prod = 'http://192.168.2.32:8000/'
 // const baseURL_prod = 'http://192.168.1.50:8000/'
 
