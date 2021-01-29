@@ -23,7 +23,7 @@
                       class="mt-5"
                       icon="GiftIcon"
                       icon-right
-                      statistic="98"
+                      :statistic="stats.totalCommandes"
                       statisticTitle="Commandes"
                       color="success"/>
                 </div>
@@ -34,7 +34,7 @@
                       class="mt-5"
                       icon="LoaderIcon"
                       icon-right
-                      statistic="12"
+                      :statistic="stats.nbrActiveCommande"
                       statisticTitle="En cours"
                       color="warning"/>
                 </div>
@@ -44,7 +44,7 @@
                       class="mt-5"
                       icon="UserXIcon"
                       icon-right
-                      statistic="23"
+                      :statistic="stats.notavailaibleUsers"
                       statisticTitle="Lutins occupés"
                       color="danger"/>
                 </div>
@@ -55,7 +55,7 @@
                       class="mt-5"
                       icon="UserCheckIcon"
                       icon-right
-                      statistic="17"
+                      :statistic="stats.availaibleUsers"
                       statisticTitle="Lutins dispos"
                       color="success"/>
                 </div>
@@ -141,11 +141,7 @@
   </div>
 </template>
 <script>
-// import VueApexCharts from 'vue-apexcharts'
-// import {VueContentLoading} from 'vue-content-loading'
-import {getAPI} from '@/axios'
-// import drag from '../assets/utils/download';
-// import {saveAs} from 'file-saver';
+import {getAPI, axiosBase} from '@/axios'
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 
 export default {
@@ -164,13 +160,11 @@ export default {
       card_bg_competences: require('@/assets/images/competences.jpg'),
       card_bg_categories: require('@/assets/images/categories.jpg'),
       card_bg_manuel: require('@/assets/images/manuel.jpg'),
+      stats: []
     }
   },
   components: {
     StatisticsCardLine
-    // VueApexCharts,
-    // VueContentLoading,
-    //VclFacebook
   },
   computed: {
     activeUserInfo() {
@@ -188,7 +182,7 @@ export default {
   },
   watch: {
     getTheme: function () {
-      //console.log(this.$store.state.theme);
+
     }
   },
   methods: {
@@ -198,6 +192,20 @@ export default {
             path: '/' + page,
           }
       )
+    },
+
+    getStats() {
+      axiosBase.get('/app/dash', {
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          this.stats = response.data.content
+
+        } else {
+        }
+      }).catch(error => {
+        //alert(error)
+      })
     }
   },
   created() {
@@ -210,6 +218,8 @@ export default {
         fjs.parentNode.insertBefore(js, fjs);
       }
     }(document, 'script', 'weatherwidget-io-js');
+
+    this.getStats()
   },
   mounted() {
 
