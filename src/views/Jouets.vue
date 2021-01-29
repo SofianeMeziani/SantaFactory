@@ -11,7 +11,7 @@
             icon="UsersIcon"
             icon-right
             statistic="12"
-            statisticTitle="Nombre total de jouets"
+            statisticTitle="Nombre de jouets"
             color="success"/>
       </div>
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
@@ -57,83 +57,36 @@
       <div class="vx-col w-full lg:w-2/3 xl:w-2/3">
         <vx-card title="Tous les jouets">
           <div slot="no-body" class="mt-4">
-            <vs-table class="table-dark-inverted">
+            <vs-table :data="jouets" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
                 <vs-th>COMPÉTENCE REQUISES</vs-th>
+                <vs-th>DURÉE</vs-th>
                 <vs-th>CATÉGORIE</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
 
               <template>
 
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in jouets">
+                  <vs-td :data="tr.id">
+                    <span>#{{ tr.id }}</span>
+                  </vs-td>
+                  <vs-td :data="tr.name">
+                    <span>{{ tr.name }}</span>
+                  </vs-td>
+                  <vs-td :data="tr.competences">
+                    <span :key="index" v-for="(competence, index) in tr.competences">{{ competence.name }}, </span>
+                  </vs-td>
+                  <vs-td :data="tr.duree">
+                    <span>{{ tr.duree }}</span>
+                  </vs-td>
+                  <vs-td :data="tr.categorieName">
+                    <span>{{ tr.categorieName }}</span>
                   </vs-td>
                   <vs-td>
-                    <span>Jouet 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Catt 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Jouet 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Catt 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Jouet 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Catt 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Jouet 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Catt 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
+                    <span>Action</span>
                   </vs-td>
                 </vs-tr>
 
@@ -188,6 +141,7 @@
 import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
+import {axiosBase, getAPI} from "@/axios";
 
 export default {
   data() {
@@ -228,7 +182,8 @@ export default {
             gradientToColors: ['#9c8cfc', '#FFC085', '#f29292']
           }
         }
-      }
+      },
+      jouets: []
     }
   },
   name: "Jouets",
@@ -241,7 +196,27 @@ export default {
   methods: {
     newGame() {
       this.new_game = true
+    },
+
+    getJouets() {
+      axiosBase.get('/app/jeux', {
+        params: {
+          page: 0,
+          max: 100
+        },
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          this.jouets.push(...response.data.content)
+        } else {
+        }
+      }).catch(error => {
+      })
     }
+  },
+
+  created() {
+    this.getJouets()
   }
 }
 </script>
