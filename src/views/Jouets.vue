@@ -148,9 +148,11 @@
           <h4 class="text-center mb-3">Nouveau jouet 🎁</h4>
           <p class="text-center mb-1">ID #013</p>
 
+          <vs-input color="success" class="mt-8 w-full" label-placeholder="Nom du jouet"/>
+
           <vs-input color="success" class="mt-8 w-full" label-placeholder="Durée de réalisation (minutes)"/>
 
-          <p class="mt-3">Catégorie :</p>
+          <p class="mt-3">Catégorie</p>
           <v-select class="mt-2 mb-2" :options="options_categories" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
 
           <p class="mt-3 mb-2">Compétences</p>
