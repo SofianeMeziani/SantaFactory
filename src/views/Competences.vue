@@ -7,7 +7,7 @@
       <div class="vx-col w-full lg:w-1/2 xl:w-1/2">
         <vx-card title="Toutes les compétences">
           <div slot="no-body" class="mt-4">
-            <vs-table class="table-dark-inverted">
+            <vs-table :data="competences" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM DE LA COMPÉTENCE</vs-th>
@@ -16,52 +16,17 @@
 
               <template>
 
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in competences">
+                  <vs-td :data="tr.id">
+                    <span>#{{ tr.id }}</span>
                   </vs-td>
-                  <vs-td>
-                    <span>Compétence 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Action</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compétence 1</span>
+                  <vs-td :data="tr.name">
+                    <span>{{ tr.name }}</span>
                   </vs-td>
                   <vs-td>
                     <span>Action</span>
                   </vs-td>
                 </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compétence 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Action</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compétence 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Action</span>
-                  </vs-td>
-                </vs-tr>
-
-
               </template>
             </vs-table>
           </div>
@@ -92,16 +57,43 @@
 </template>
 
 <script>
-import {getAPI} from '@/axios'
+import {axiosBase, getAPI} from "@/axios";
 
 export default {
   data() {
-    return {}
+    return {
+      competences: []
+    }
   },
   name: "Competences",
   components: {},
 
-  methods: {}
+  methods: {
+    getCompetences() {
+      axiosBase.get('/app/competence', {
+        params: {
+          page: 0,
+          max: 100
+        },
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+
+        if (response) {
+          this.competences.push(...response.data.content)
+
+        } else {
+
+        }
+
+      }).catch(error => {
+
+      })
+    }
+  },
+
+  created() {
+    this.getCompetences()
+  }
 }
 </script>
 

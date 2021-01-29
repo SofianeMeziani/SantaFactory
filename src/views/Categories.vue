@@ -17,7 +17,7 @@
               <template>
                 <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in categories">
                   <vs-td :data="tr.id">
-                    <span>{{ tr.id }}</span>
+                    <span>#{{ tr.id }}</span>
                   </vs-td>
                   <vs-td :data="tr.name">
                     <span>{{ tr.name }}</span>
@@ -72,7 +72,7 @@ export default {
       axiosBase.get('/app/cat', {
         params: {
           page: 0,
-          max: 10
+          max: 100
         },
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
