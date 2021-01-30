@@ -4,47 +4,98 @@
     <h1 class="v-100 text-center mb-5">Lutins 🧑🏻‍🎄</h1>
 
     <div class="vx-row">
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="UsersIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="Nombre total de lutins"
-            color="success"/>
-      </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="UserXIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="Lutins occupés"
-            color="warning"/>
-      </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="UserCheckIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="Lutins disponibles"
-            color="success"/>
+      <div class="vx-row w-full">
+        <div class="vx-col w-2/3">
+          <div class="vx-row">
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="UsersIcon"
+                  icon-right
+                  statistic="12"
+                  statisticTitle="Nombre total de lutins"
+                  color="success"/>
+            </div>
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="UserXIcon"
+                  icon-right
+                  statistic="12"
+                  statisticTitle="Lutins occupés"
+                  color="warning"/>
+            </div>
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="UserCheckIcon"
+                  icon-right
+                  statistic="12"
+                  statisticTitle="Lutins disponibles"
+                  color="success"/>
+            </div>
+            <div class="vx-col w-full">
+              <vs-button @click="newLutin()" class="mb-4" style="margin: auto" color="primary" type="gradient"
+                         icon-pack="feather"
+                         icon="icon-plus" v-if="!new_lutin">
+                Nouveau Lutin
+              </vs-button>
+            </div>
+          </div>
+
+        </div>
+        <div class="vx-col w-1/3">
+          <vx-card v-if="new_lutin" slot="no-body">
+            <h4 class="text-center mb-3">Nouveau Lutin 🧑🏻‍🎄</h4>
+            <p class="text-center mb-1">ID #013</p>
+
+            <vs-input color="success" class="mt-8 w-full" label-placeholder="Nom du lutin"/>
+
+            <p class="mt-3 mb-3">Compétences :</p>
+            <v-select multiple :closeOnSelect="false" v-model="selected" :options="options_competences"
+                      :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+            <br>
+
+            <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient"
+                       icon-pack="feather"
+                       icon="icon-check"
+                       @click="$vs.notify({
+                      title:'Primary',
+                      position:'top-right',
+                      text:'Valider',
+                      color:'success'})">
+              Valider
+            </vs-button>
+          </vx-card>
+          <vx-card v-else title="Disponibilité des lutins">
+            <!-- CHART -->
+            <template slot="no-body">
+              <div class="mt-0">
+                <vue-apex-charts type="radialBar" height="240" :series="series" :options="chartOptions"/>
+              </div>
+            </template>
+
+            <!-- DATA -->
+            <div class="flex justify-between text-center mt-6" slot="no-body-bottom">
+              <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
+                <p class="mt-4">Dispos</p>
+                <p class="mb-4 text-3xl font-semibold">{{ lutins_dispo.length }}</p>
+              </div>
+              <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
+                <p class="mt-4">Occupés</p>
+                <p class="mb-4 text-3xl font-semibold">{{ lutins_dispo.length }}</p>
+              </div>
+            </div>
+          </vx-card>
+        </div>
       </div>
 
-      <div class="vx-col w-full">
-        <vs-button @click="newLutin()" class="mb-4" style="margin: auto" color="primary" type="gradient"
-                   icon-pack="feather"
-                   icon="icon-plus" v-if="!new_lutin">
-          Nouveau Lutin
-        </vs-button>
-      </div>
     </div>
-    <div class="vx-row">
-      <div class="vx-col w-full lg:w-2/3 xl:w-2/3">
+    <div class="vx-row mt-5">
+      <div class="vx-col w-full">
         <vx-card title="Tous les lutins">
           <div slot="no-body" class="mt-4">
             <vs-table :data="lutins" class="table-dark-inverted">
@@ -52,7 +103,7 @@
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
                 <vs-th>EMAIL</vs-th>
-                <vs-th>COMPÉTENCE</vs-th>
+                <vs-th>COMPÉTENCE(S)</vs-th>
                 <vs-th>STATUS</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
@@ -91,52 +142,6 @@
 
         </vx-card>
       </div>
-      <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_lutin">
-        <vx-card slot="no-body">
-          <h4 class="text-center mb-3">Nouveau Lutin 🧑🏻‍🎄</h4>
-          <p class="text-center mb-1">ID #013</p>
-
-          <vs-input color="success" class="mt-8 w-full" label-placeholder="Nom du lutin"/>
-
-          <p class="mt-3 mb-3">Compétences :</p>
-          <v-select multiple :closeOnSelect="false" v-model="selected" :options="options_competences"
-                    :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
-          <br>
-
-          <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient" icon-pack="feather"
-                     icon="icon-check"
-                     @click="$vs.notify({
-                      title:'Primary',
-                      position:'top-right',
-                      text:'Valider',
-                      color:'success'})">
-            Valider
-          </vs-button>
-        </vx-card>
-
-      </div>
-      <div class="vx-col w-full lg:w-1/3 xl:w-1/3 mb-base" v-else>
-        <vx-card title="Disponibilité">
-          <!-- CHART -->
-          <template slot="no-body">
-            <div class="mt-0">
-              <vue-apex-charts type="radialBar" height="240" :series="series" :options="chartOptions"/>
-            </div>
-          </template>
-
-          <!-- DATA -->
-          <div class="flex justify-between text-center mt-6" slot="no-body-bottom">
-            <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
-              <p class="mt-4">Dispos</p>
-              <p class="mb-4 text-3xl font-semibold">64</p>
-            </div>
-            <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
-              <p class="mt-4">Occupés</p>
-              <p class="mb-4 text-3xl font-semibold">12</p>
-            </div>
-          </div>
-        </vx-card>
-      </div>
     </div>
   </div>
 </template>
@@ -152,6 +157,7 @@ export default {
     return {
       lutins: [],
       lutins_dispo: [],
+      lutins_occupes: [],
       new_lutin: false,
       options_competences: [
         {id: 1, label: 'Compétence 1'},
@@ -213,7 +219,7 @@ export default {
           }
         }
       },
-      series: [79],
+      series: [0],
       selected: []
     }
   },
@@ -255,6 +261,9 @@ export default {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then((response) => {
         if (response) {
+          this.lutins_dispo.push(...response.data.content.availaible)
+          this.lutins_occupes.push(...response.data.content.notAvailaible)
+          this.series = [this.lutins_dispo.length / (this.lutins_dispo.length + this.lutins_occupes.length) * 100]
           return this.addAvailableAttribute(response.data.content.availaible);
         } else {
           return []
