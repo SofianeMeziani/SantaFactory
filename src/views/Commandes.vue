@@ -4,82 +4,153 @@
     <h1 class="v-100 text-center mb-5">Commandes 📝</h1>
 
     <div class="vx-row">
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="ClipboardIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="Nombre total"
-            color="success"/>
-      </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="LoaderIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="En cours"
-            color="warning"/>
-      </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="CheckCircleIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="Terminées"
-            color="success"/>
-      </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
-        <statistics-card-line
-            hideChart
-            class="mt-5 mb-base"
-            icon="ArchiveIcon"
-            icon-right
-            statistic="12"
-            statisticTitle="Archivées"
-            color="success"/>
-      </div>
+      <div class="vx-row w-full">
+        <div class="vx-col w-2/3">
+          <div class="vx-row">
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="ClipboardIcon"
+                  icon-right
+                  :statistic="stats.totalCommandes"
+                  statisticTitle="Nombre total de commandes"
+                  color="success"/>
+            </div>
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="LoaderIcon"
+                  icon-right
+                  :statistic="stats.nbrActiveCommande"
+                  statisticTitle="Commandes en cours"
+                  color="warning"/>
+            </div>
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="CheckCircleIcon"
+                  icon-right
+                  :statistic="stats.totalCommandes - stats.nbrActiveCommande"
+                  statisticTitle="Commandes terminées"
+                  color="success"/>
+            </div>
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+              <statistics-card-line
+                  hideChart
+                  class="mt-5 mb-base"
+                  icon="ArchiveIcon"
+                  icon-right
+                  :statistic="interpretDateFull(commandes[commandes.length-1].dateCreation)"
+                  statisticTitle="Date de la derière commande"
+                  color="success"/>
+            </div>
+            <div class="vx-col w-full">
+              <vs-button @click="newOrder()" class="mb-4" style="margin: auto" color="primary" type="gradient"
+                         icon-pack="feather"
+                         icon="icon-plus" v-if="!new_order">
+                Nouvelle commande
+              </vs-button>
+            </div>
+          </div>
 
-      <div class="vx-col w-full">
-        <vs-button @click="newOrder()" class="mb-4" style="margin: auto" color="primary" type="gradient"
-                   icon-pack="feather"
-                   icon="icon-plus" v-if="!new_order">
-          Nouvelle commande
-        </vs-button>
+        </div>
+        <div class="vx-col w-1/3">
+          <vx-card class="mb-5" v-if="new_order" slot="no-body">
+            <h4 class="text-center mb-3">Nouvelle commande</h4>
+            <p class="text-center mb-1">Numéro #013</p>
+
+            <div :key="i" v-for="i in nbGames" class="mt-5">
+              <p>Jouet {{ i }} :</p>
+              <v-select class="mt-2 mb-2" :options="options_jouets" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+              <v-select class="mt-2 mb-2" :options="options_lutins" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+            </div>
+
+            <div class="vx-row">
+
+              <vs-button @click="addGame()" size="small" class="mt-5 vx-col " style="width: 40%; margin: auto"
+                         color="#283046"
+                         icon-pack="feather"
+                         icon="icon-plus">
+                Ajouter un jouet
+              </vs-button>
+              <vs-button @click="delGame()" size="small" class="mt-5 vx-col" style="width: 40%; margin: auto"
+                         color="#283046"
+                         icon-pack="feather"
+                         icon="icon-x" :disabled="nbGames < 2">
+                Supprimer un jouet
+              </vs-button>
+            </div>
+
+
+            <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient"
+                       icon-pack="feather"
+                       icon="icon-check"
+                       @click="$vs.notify({
+                      title:'Primary',
+                      position:'top-right',
+                      text:'Lorem ipsum dolor sit amet, consectetur',
+                      color:'success'})">
+              Valider
+            </vs-button>
+          </vx-card>
+          <vx-card v-else title="Commandes terminées">
+            <!-- CHART -->
+            <template slot="no-body">
+              <div class="mt-0">
+                <vue-apex-charts type="radialBar" height="240" :series="series" :options="chartOptions"/>
+              </div>
+            </template>
+
+            <!-- DATA -->
+            <div class="flex justify-between text-center mt-6" slot="no-body-bottom">
+              <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
+                <p class="mt-4">Terminées</p>
+                <p class="mb-4 text-3xl font-semibold">{{ stats.totalCommandes - stats.nbrActiveCommande }}</p>
+              </div>
+              <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
+                <p class="mt-4">En cours</p>
+                <p class="mb-4 text-3xl font-semibold">{{ stats.nbrActiveCommande }}</p>
+              </div>
+            </div>
+          </vx-card>
+        </div>
       </div>
     </div>
-    <div class="vx-row">
-      <div class="vx-col w-full lg:w-2/3 xl:w-2/3">
-        <vx-card title="Toutes les commandes">
+    <div class="vx-row mt-5">
+      <div class="vx-col w-full">
+        <vx-card :data="commandes" title="Toutes les commandes">
           <div slot="no-body" class="mt-4">
             <vs-table class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>NUMÉRO</vs-th>
-                <vs-th>DATE</vs-th>
+                <vs-th>DATE DE CRÉATION</vs-th>
                 <vs-th>JOUET 👉🏼 LUTIN</vs-th>
                 <vs-th>STATUS</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
 
               <template>
-                <vs-tr>
-                  <vs-td>
-                    <span>#0013</span>
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in commandes">
+                  <vs-td :data="tr.id">
+                    <span>#{{ tr.id }}</span>
                   </vs-td>
-                  <vs-td>
-                    <span>27/01/2020</span>
+                  <vs-td :data="tr.dateCreation">
+                    <span>{{ interpretDateFull(tr.dateCreation) }}</span>
                   </vs-td>
-                  <vs-td>
-                    <span>Jouet15 👉🏼 Lutin5</span>
+                  <vs-td :data="tr.taches">
+                    <span :key="index" v-for="(tache, index) in tr.taches">
+                     {{ index + 1 }} - {{ tache.jeux.name }} 👉🏼 {{ tache.lutin.name }} <br>
+                    </span>
                   </vs-td>
-                  <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
+                  <vs-td :data="tr.statut">
+                      <span class="flex items-center px-2 py-1 rounded" v-if="tr.statut=='EN_COURS'"><div
                           class="bg-warning h-3 w-3 rounded-full mr-2"></div>En cours
+                    </span>
+                    <span class="flex items-center px-2 py-1 rounded" v-else><div
+                        class="bg-success h-3 w-3 rounded-full mr-2"></div>Terminée
                     </span>
                   </vs-td>
                   <vs-td>
@@ -90,68 +161,6 @@
             </vs-table>
           </div>
 
-        </vx-card>
-      </div>
-      <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_order">
-        <vx-card slot="no-body">
-          <h4 class="text-center mb-3">Nouvelle commande</h4>
-          <p class="text-center mb-1">Numéro #013</p>
-
-          <div :key="i" v-for="i in nbGames" class="mt-5">
-            <p>Jouet {{ i }} :</p>
-            <v-select class="mt-2 mb-2" :options="options_jouets" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
-            <v-select class="mt-2 mb-2" :options="options_lutins" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
-          </div>
-
-          <div class="vx-row">
-
-            <vs-button @click="addGame()" size="small" class="mt-5 vx-col " style="width: 40%; margin: auto"
-                       color="#283046"
-                       icon-pack="feather"
-                       icon="icon-plus">
-              Ajouter un jouet
-            </vs-button>
-            <vs-button @click="delGame()" size="small" class="mt-5 vx-col" style="width: 40%; margin: auto"
-                       color="#283046"
-                       icon-pack="feather"
-                       icon="icon-x" :disabled="nbGames < 2">
-              Supprimer un jouet
-            </vs-button>
-          </div>
-
-
-          <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient" icon-pack="feather"
-                     icon="icon-check"
-                     @click="$vs.notify({
-                      title:'Primary',
-                      position:'top-right',
-                      text:'Lorem ipsum dolor sit amet, consectetur',
-                      color:'success'})">
-            Valider
-          </vs-button>
-        </vx-card>
-
-      </div>
-      <div class="vx-col w-full lg:w-1/3 xl:w-1/3 mb-base" v-else>
-        <vx-card title="Statistiques">
-          <!-- CHART -->
-          <template slot="no-body">
-            <div class="mt-0">
-              <vue-apex-charts type="radialBar" height="240" :series="series" :options="chartOptions"/>
-            </div>
-          </template>
-
-          <!-- DATA -->
-          <div class="flex justify-between text-center mt-6" slot="no-body-bottom">
-            <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
-              <p class="mt-4">Terminées</p>
-              <p class="mb-4 text-3xl font-semibold">64</p>
-            </div>
-            <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
-              <p class="mt-4">En cours</p>
-              <p class="mb-4 text-3xl font-semibold">12</p>
-            </div>
-          </div>
         </vx-card>
       </div>
     </div>
@@ -234,8 +243,10 @@ export default {
           }
         }
       },
-      series: [79],
-      commandes: []
+      series: [0],
+      commandes: [],
+      stats: [],
+
     }
   },
   name: "Commandes",
@@ -269,11 +280,35 @@ export default {
         }
       }).catch(error => {
       })
+    },
+
+    getStats() {
+      axiosBase.get('/app/dash', {
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          this.stats = response.data.content
+          this.series = [(this.stats.totalCommandes - this.stats.nbrActiveCommande) / (this.stats.totalCommandes) * 100]
+        } else {
+        }
+      }).catch(error => {
+      })
+    },
+
+    interpretDate(date) {
+      var d = new Date(date)
+      return d.getDate() + '/' + d.getMonth() + 1 + '/' + d.getFullYear();
+    },
+
+    interpretDateFull(date) {
+      var d = new Date(date)
+      return d.getDate() + '/' + d.getMonth() + 1 + '/' + d.getFullYear() + ' à ' + d.getHours() + 'h' + d.getMinutes();
     }
   },
 
   created() {
     this.getCommandes()
+    this.getStats()
   }
 }
 </script>

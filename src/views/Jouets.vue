@@ -62,7 +62,7 @@
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
                 <vs-th>COMPÉTENCE REQUISES</vs-th>
-                <vs-th>DURÉE</vs-th>
+                <vs-th>DURÉE (minutes)</vs-th>
                 <vs-th>CATÉGORIE</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>

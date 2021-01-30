@@ -230,10 +230,7 @@ export default {
     },
 
     async getFinalLutin() {
-
       let DispoLutin = this.getLutinsDispo()
-
-
     },
 
     getLutins(res) {
@@ -241,16 +238,12 @@ export default {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
         if (response) {
-          //console.log(res)
           let getLutinsAtt = this.addAvailableAttribute(response.data.content)
 
           for (var lutin in res) {
             getLutinsAtt.find(item => item.id === res[lutin].id)['available'] = true
           }
           this.lutins.push(...getLutinsAtt)
-
-          //doconsole.log(getLutinsAtt)
-
         } else {
         }
       }).catch(error => {
@@ -262,9 +255,7 @@ export default {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then((response) => {
         if (response) {
-
           return this.addAvailableAttribute(response.data.content.availaible);
-
         } else {
           return []
         }
@@ -285,11 +276,7 @@ export default {
   },
 
   created() {
-
     this.getFinalLutin()
-    // this.getLutins();
-    // this.getLutinsDispo();
-
   }
 }
 </script>
