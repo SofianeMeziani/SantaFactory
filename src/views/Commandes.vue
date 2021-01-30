@@ -43,8 +43,8 @@
                   class="mt-5 mb-base"
                   icon="ArchiveIcon"
                   icon-right
-                  :statistic="interpretDateFull(commandes[commandes.length-1].dateCreation)"
-                  statisticTitle="Date de la derière commande"
+                  :statistic="interpretDate(commandes[commandes.length-1].dateCreation)"
+                  statisticTitle="Date de la dernière commande"
                   color="success"/>
             </div>
             <div class="vx-col w-full">
@@ -127,7 +127,7 @@
               <template slot="thead">
                 <vs-th>NUMÉRO</vs-th>
                 <vs-th>DATE DE CRÉATION</vs-th>
-                <vs-th>JOUET 👉🏼 LUTIN</vs-th>
+                <vs-th>LUTIN : JOUET</vs-th>
                 <vs-th>STATUS</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
@@ -141,8 +141,13 @@
                     <span>{{ interpretDateFull(tr.dateCreation) }}</span>
                   </vs-td>
                   <vs-td :data="tr.taches">
-                    <span :key="index" v-for="(tache, index) in tr.taches">
-                     {{ index + 1 }} - {{ tache.jeux.name }} 👉🏼 {{ tache.lutin.name }} <br>
+                    <span class="users-liked user-list" :key="index" v-for="(tache, index) in tr.taches">
+
+                      <vx-tooltip class="mr-3 ml-3" :text="tache.lutin.name" position="bottom">
+                        <vs-avatar :src="avatarLutin" size="30px"
+                                   class="border-2 border-white border-solid -m-1"></vs-avatar>
+                      </vx-tooltip>
+                      {{ tache.lutin.name }}   <b> : {{ tache.jeux.name }}</b> <br><br>
                     </span>
                   </vs-td>
                   <vs-td :data="tr.statut">
@@ -176,6 +181,7 @@ import {axiosBase} from "@/axios";
 export default {
   data() {
     return {
+      avatarLutin: require('@/assets/images/portrait/small/avatar-s-11.png'),
       options_jouets: [
         {id: 1, label: 'Jouet 1'},
         {id: 2, label: 'Jouet 2'},
@@ -297,7 +303,7 @@ export default {
 
     interpretDate(date) {
       var d = new Date(date)
-      return d.getDate() + '/' + d.getMonth() + 1 + '/' + d.getFullYear();
+      return d.getDate() + '/' + d.getMonth() + 1 + ' à ' + d.getHours() + 'h' + d.getMinutes();
     },
 
     interpretDateFull(date) {
