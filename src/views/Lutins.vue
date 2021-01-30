@@ -86,7 +86,7 @@
               </div>
               <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
                 <p class="mt-4">Occupés</p>
-                <p class="mb-4 text-3xl font-semibold">{{ lutins_dispo.length }}</p>
+                <p class="mb-4 text-3xl font-semibold">{{ lutins_occupes.length }}</p>
               </div>
             </div>
           </vx-card>
