@@ -47,10 +47,11 @@
       <div class="vx-col w-full lg:w-2/3 xl:w-2/3">
         <vx-card title="Tous les lutins">
           <div slot="no-body" class="mt-4">
-            <vs-table class="table-dark-inverted">
+            <vs-table :data="lutins" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
+                <vs-th>EMAIL</vs-th>
                 <vs-th>COMPÉTENCE</vs-th>
                 <vs-th>STATUS</vs-th>
                 <vs-th>ACTION</vs-th>
@@ -58,83 +59,32 @@
 
               <template>
 
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in lutins">
+                  <vs-td :data="tr.id">
+                    <span>#{{ tr.id }}</span>
                   </vs-td>
-                  <vs-td>
-                    <span>Lutin 1</span>
+                  <vs-td :data="tr.name">
+                    <span>{{ tr.name }}</span>
                   </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
+                  <vs-td :data="tr.email">
+                    <span>{{ tr.email }}</span>
                   </vs-td>
-                  <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
+                  <vs-td :data="tr.competences">
+                    <span :key="index" v-for="(competence, index) in tr.competences">{{ competence.name }}, </span>
+                  </vs-td>
+                  <vs-td :data="tr.available">
+                      <span class="flex items-center px-2 py-1 rounded" v-if="tr.available">
+                        <div class="bg-success h-3 w-3 rounded-full mr-2"></div>Disponible
                     </span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Lutin 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
-                    </span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Lutin 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-success h-3 w-3 rounded-full mr-2"></div>Disponible
-                    </span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#13</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Lutin 1</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Compét1, Compétence 2</span>
-                  </vs-td>
-                  <vs-td>
-                      <span class="flex items-center px-2 py-1 rounded"><div
-                          class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
-                    </span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0013</span>
-                  </vs-td>
-                </vs-tr>
 
+                    <span class="flex items-center px-2 py-1 rounded" v-else>
+                        <div class="bg-warning h-3 w-3 rounded-full mr-2"></div>Occupé
+                    </span>
+                  </vs-td>
+                  <vs-td>
+                    <span>#0013</span>
+                  </vs-td>
+                </vs-tr>
               </template>
             </vs-table>
           </div>
@@ -195,10 +145,13 @@
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
+import {axiosBase, getAPI} from "@/axios";
 
 export default {
   data() {
     return {
+      lutins: [],
+      lutins_dispo: [],
       new_lutin: false,
       options_competences: [
         {id: 1, label: 'Compétence 1'},
@@ -261,7 +214,7 @@ export default {
         }
       },
       series: [79],
-      selected: [],
+      selected: []
     }
   },
   name: "Lutins",
@@ -274,11 +227,73 @@ export default {
   methods: {
     newLutin() {
       this.new_lutin = true
+    },
+
+    async getFinalLutin() {
+
+      let DispoLutin = this.getLutinsDispo()
+
+
+    },
+
+    getLutins(res) {
+      axiosBase.get('/app/users', {
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          //console.log(res)
+          let getLutinsAtt = this.addAvailableAttribute(response.data.content)
+
+          for (var lutin in res) {
+            getLutinsAtt.find(item => item.id === res[lutin].id)['available'] = true
+          }
+          this.lutins.push(...getLutinsAtt)
+
+          //doconsole.log(getLutinsAtt)
+
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    async getLutinsDispo() {
+      axiosBase.get('/app/availableUsers', {
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then((response) => {
+        if (response) {
+
+          return this.addAvailableAttribute(response.data.content.availaible);
+
+        } else {
+          return []
+        }
+      }).then(res => {
+        this.getLutins(res);
+      }).catch(error => {
+        alert(error)
+      })
+    },
+
+    addAvailableAttribute(lutins) {
+      for (var lutin in lutins) {
+
+        lutins[lutin]['available'] = false
+      }
+      return lutins;
     }
+  },
+
+  created() {
+
+    this.getFinalLutin()
+    // this.getLutins();
+    // this.getLutinsDispo();
+
   }
 }
 </script>
 
 <style scoped>
 
-</style>
+</style>ßƒrzgsszdv

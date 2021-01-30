@@ -86,61 +86,6 @@
                     <span>#0013</span>
                   </vs-td>
                 </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span> <feather-icon icon="CornerDownRightIcon"/></span>
-                  </vs-td>
-                  <vs-td>
-                    <span></span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Jouet7 👉🏼 Lutin3</span>
-                  </vs-td>
-                  <vs-td>
-                    <span></span>
-                  </vs-td>
-                  <vs-td>
-                    <span></span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#0014</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>27/01/2020</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Jouet15 👉🏼 Lutin5</span>
-                  </vs-td>
-                  <vs-td>
-                    <span class="flex items-center px-2 py-1 rounded"><div
-                        class="bg-success h-3 w-3 rounded-full mr-2"></div>Terminée
-                    </span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0014</span>
-                  </vs-td>
-                </vs-tr>
-                <vs-tr>
-                  <vs-td>
-                    <span>#0014</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>27/01/2020</span>
-                  </vs-td>
-                  <vs-td>
-                    <span>Jouet15 👉🏼 Lutin5</span>
-                  </vs-td>
-                  <vs-td>
-                    <span class="flex items-center px-2 py-1 rounded"><div
-                        class="bg-success h-3 w-3 rounded-full mr-2"></div>Terminée
-                    </span>
-                  </vs-td>
-                  <vs-td>
-                    <span>#0014</span>
-                  </vs-td>
-                </vs-tr>
               </template>
             </vs-table>
           </div>
@@ -217,6 +162,7 @@
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
+import {axiosBase} from "@/axios";
 
 export default {
   data() {
@@ -289,6 +235,7 @@ export default {
         }
       },
       series: [79],
+      commandes: []
     }
   },
   name: "Commandes",
@@ -307,7 +254,26 @@ export default {
     },
     delGame() {
       this.nbGames--
+    },
+    getCommandes() {
+      axiosBase.get('/app/commande', {
+        params: {
+          page: 0,
+          max: 100
+        },
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          this.commandes.push(...response.data.content)
+        } else {
+        }
+      }).catch(error => {
+      })
     }
+  },
+
+  created() {
+    this.getCommandes()
   }
 }
 </script>
