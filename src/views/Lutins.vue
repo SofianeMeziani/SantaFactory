@@ -277,7 +277,6 @@ export default {
 
     addAvailableAttribute(lutins) {
       for (var lutin in lutins) {
-
         lutins[lutin]['available'] = false
       }
       return lutins;

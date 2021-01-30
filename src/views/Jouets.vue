@@ -8,9 +8,9 @@
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
-            icon="UsersIcon"
+            icon="HashIcon"
             icon-right
-            statistic="12"
+            :statistic="game_duration.length"
             statisticTitle="Nombre de jouets"
             color="success"/>
       </div>
@@ -18,19 +18,19 @@
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
-            icon="UserXIcon"
+            icon="ClockIcon"
             icon-right
-            statistic="12"
+            :statistic="Math.min(...game_duration) + ' min'"
             statisticTitle="Durée minimale"
-            color="warning"/>
+            color="success"/>
       </div>
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
-            icon="UserCheckIcon"
+            icon="ClockIcon"
             icon-right
-            statistic="12"
+            :statistic="Math.max(...game_duration)"
             statisticTitle="Durée maximale"
             color="success"/>
       </div>
@@ -38,9 +38,11 @@
         <statistics-card-line
             hideChart
             class="mt-5 mb-base"
-            icon="UserCheckIcon"
+            icon="ClockIcon"
             icon-right
-            statistic="12"
+            :statistic="(game_duration.reduce(function(a, b){
+        return a + b;
+    }, 0)/game_duration.length).toFixed(2)"
             statisticTitle="Durée moyenne"
             color="success"/>
       </div>
@@ -54,7 +56,7 @@
       </div>
     </div>
     <div class="vx-row">
-      <div class="vx-col w-full lg:w-2/3 xl:w-2/3">
+      <div :class="new_game? 'lg:w-2/3 xl:w-2/3' : ''" class="vx-col w-full">
         <vx-card title="Tous les jouets">
           <div slot="no-body" class="mt-4">
             <vs-table :data="jouets" class="table-dark-inverted">
@@ -77,7 +79,9 @@
                     <span>{{ tr.name }}</span>
                   </vs-td>
                   <vs-td :data="tr.competences">
-                    <span :key="index" v-for="(competence, index) in tr.competences">{{ competence.name }}, </span>
+                    <span :key="index" v-for="(competence, index) in tr.competences">- {{
+                        competence.name
+                      }} <br> </span>
                   </vs-td>
                   <vs-td :data="tr.duree">
                     <span>{{ tr.duree }}</span>
@@ -125,7 +129,7 @@
         </vx-card>
 
       </div>
-      <div class="vx-col w-full lg:w-1/3 xl:w-1/3 mb-base" v-else>
+      <div class="vx-col w-full lg:w-1/3 xl:w-1/3 mb-base" v-if="false">
         <vx-card title="Statistiques">
           <div slot="no-body">
             <vue-apex-charts class="mt-3 mb-6" type="donut" height="300" :options="chartOptions" :series="series"/>
@@ -147,6 +151,8 @@ export default {
   data() {
     return {
       new_game: false,
+      game_duration: [],
+      jouets_categories: [],
       options_competences: [
         {id: 1, label: 'Compétence 1'},
         {id: 2, label: 'Compétence 2'},
@@ -208,10 +214,31 @@ export default {
       }).then(response => {
         if (response) {
           this.jouets.push(...response.data.content)
+          this.getDurations(response.data.content)
         } else {
         }
       }).catch(error => {
       })
+    },
+
+    getDurations(jouets) {
+      for (var jouet in jouets) {
+        this.game_duration.push(jouets[jouet]['duree'])
+        var cat = jouets[jouet]['categorieName']
+      }
+
+      var groups = jouets['categorieName'].map(function (value, index) {
+        return value['categorieName']
+      });
+
+      groups.forEach(function (value, index) {
+        if (value in this.jouets_categories) {
+          this.jouets_categories[value] += 1;
+        } else {
+          this.jouets_categories[value] = 1;
+        }
+      });
+      console.log(this.jouets_categories)
     }
   },
 
