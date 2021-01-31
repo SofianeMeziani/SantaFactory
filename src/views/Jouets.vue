@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="vx-row">
-      <div :class="new_game? 'lg:w-2/3 xl:w-2/3' : ''" class="vx-col w-full">
+      <div :class="new_game||edit_mode ? 'lg:w-2/3 xl:w-2/3' : ''" class="vx-col w-full">
         <vx-card title="Tous les jouets">
           <div slot="no-body" class="mt-4">
             <vs-table max-items="5" pagination :data="jouets" class="table-dark-inverted">
@@ -90,7 +90,10 @@
                     <span>{{ tr.categorieName }}</span>
                   </vs-td>
                   <vs-td>
-                    <span>Action</span>
+                    <span>
+                      <vs-icon class="mr-2" @click="editJouet(indextr)" icon="edit"></vs-icon>
+                      <vs-icon icon="delete" @click="clickDelete(indextr)"></vs-icon>
+                    </span>
                   </vs-td>
                 </vs-tr>
 
@@ -140,6 +143,47 @@
         </vx-card>
 
       </div>
+
+      <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="edit_mode">
+        <vx-card slot="no-body">
+          <h4 class="text-center mb-3">Modification du jouet</h4>
+          <p class="text-center mb-1">ID #0{{ this.edit_id }}</p>
+
+          <vs-input color="success" class="mt-8 w-full"
+                    label-placeholder="Nom du jouet"
+                    v-validate="'required|alpha_dash|min:1'"
+                    name="jouet"
+                    v-model="edit_name"/>
+
+          <vs-input color="success" class="mt-8 w-full"
+                    label-placeholder="Durée de réalisation (minutes)"
+                    v-validate="'digits'"
+                    name="duree"
+                    type="number"
+                    v-model="edit_duree"/>
+
+          <p class="mt-3">Catégorie</p>
+          <v-select v-model="editSelectedCat" name="categorie" class="mt-2 mb-2" :options="options_categories"
+                    :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+
+          <p class="mt-3 mb-2">Compétences</p>
+          <v-select name="competences"
+                    multiple
+                    :closeOnSelect="false"
+                    v-model="editSelectedComp"
+                    :options="options_competences"
+                    :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+          <br>
+
+          <vs-button size="small" class="mt-3" style="margin: auto" color="success" type="gradient" icon-pack="feather"
+                     icon="icon-check"
+                     :disabled="!validateEditForm()"
+                     @click="updateJouet()">
+            Valider
+          </vs-button>
+        </vx-card>
+
+      </div>
       <div class="vx-col w-full lg:w-1/3 xl:w-1/3 mb-base" v-if="false">
         <vx-card title="Statistiques">
           <div slot="no-body">
@@ -161,6 +205,13 @@ import {axiosBase, getAPI} from "@/axios";
 export default {
   data() {
     return {
+      edit_id: 0,
+      edit_name: '',
+      editSelectedComp: [],
+      edit_duree: 0,
+      edit_mode: false,
+      editSelectedCat: [],
+
       new_game: false,
       game_duration: [],
       jouets_categories: [],
@@ -208,13 +259,29 @@ export default {
   methods: {
     newGame() {
       this.new_game = true
+      this.edit_mode = false
+    },
+    editJouet(index) {
+      this.new_game = false
+
+      this.edit_id = this.jouets[index].id
+      this.edit_name = this.jouets[index].name
+      this.edit_duree = this.jouets[index].duree
+      this.editSelectedCat.push(this.jouets[index].categorieName)
+
+      this.edit_mode = true
+    },
+    clickDelete() {
+
     },
     validateForm() {
       return this.jouet !== '' && this.duree !== '' && this.duree > 0
     },
+    validateEditForm() {
+      return this.edit_name !== '' && this.edit_duree !== '' && this.edit_duree > 0
+    },
 
     insertJouet() {
-      console.log(this.selectedComp)
       axiosBase.post('/app/jeux/', {
             'name': this.jouet,
             'duree': this.duree,
@@ -238,6 +305,46 @@ export default {
           })
 
           this.jouets.push(response.data.content)
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
+    },
+
+    updateJouet() {
+      axiosBase.post('/app/jeux/', {
+            'id': this.edit_id,
+            'name': this.edit_name,
+            'duree': this.edit_duree,
+            'categorieId': this.editSelectedCat.id,
+            'competences': this.editSelectedComp
+          },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Jouet modifié',
+            text: "Le jouet a été mis à jour",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.jouets = []
+          this.getJouets()
         } else {
         }
       }).catch(error => {
