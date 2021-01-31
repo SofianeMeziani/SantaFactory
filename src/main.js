@@ -64,9 +64,7 @@ library.add(faApple, fab)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-
 Vue.use(Vuesax)
-
 
 Vue.prototype.$http = getAPI
 

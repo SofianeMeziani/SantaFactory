@@ -37,6 +37,25 @@
                   statisticTitle="Lutins disponibles"
                   color="success"/>
             </div>
+            <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
+
+              <download-csv
+                  class="btn-download"
+                  :data="lutins"
+                  name="lutins.csv">
+                <vs-button class="mt-5" style="margin: auto" color="success" type="gradient"
+                           icon-pack="feather"
+                           icon="icon-download">
+                  Télécharger CSV
+                </vs-button>
+              </download-csv>
+              <vs-button disabled class="mt-4" style="margin: auto" color="success" type="gradient"
+                         icon-pack="feather"
+                         icon="icon-download">
+                Télécharger PDF
+              </vs-button>
+
+            </div>
             <div class="vx-col w-full">
               <vs-button @click="newLutin()" class="mb-4" style="margin: auto" color="primary" type="gradient"
                          icon-pack="feather"
@@ -169,6 +188,8 @@ import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine
 import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
 import {axiosBase, getAPI} from "@/axios";
+import JsonCSV from 'vue-json-csv'
+
 
 export default {
   data() {
@@ -238,14 +259,17 @@ export default {
         }
       },
       series: [0],
-      selected: []
+      selected: [],
+      downloadImg: require('@/assets/images/lutins.jpg')
     }
   },
   name: "Lutins",
   components: {
     StatisticsCardLine,
     'v-select': vSelect,
-    VueApexCharts
+    VueApexCharts,
+    'downloadCsv': JsonCSV
+
   },
 
   methods: {
@@ -380,4 +404,4 @@ export default {
 
 <style scoped>
 
-</style>ßƒrzgsszdv
+</style>
