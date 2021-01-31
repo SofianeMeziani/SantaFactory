@@ -43,13 +43,13 @@
                   class="btn-download"
                   :data="lutins"
                   name="lutins.csv">
-                <vs-button class="mt-5" style="margin: auto" color="success" type="gradient"
+                <vs-button class="mt-5 w-full" style="margin: auto" color="success" type="gradient"
                            icon-pack="feather"
                            icon="icon-download">
                   Télécharger CSV
                 </vs-button>
               </download-csv>
-              <vs-button disabled class="mt-4" style="margin: auto" color="success" type="gradient"
+              <vs-button @click="downloadPDF()" class="mt-4 w-full" style="margin: auto" color="success" type="gradient"
                          icon-pack="feather"
                          icon="icon-download">
                 Télécharger PDF
@@ -135,7 +135,7 @@
       <div class="vx-col w-full">
         <vx-card title="Tous les lutins">
           <div slot="no-body" class="mt-4">
-            <vs-table max-items="5" pagination :data="lutins" class="table-dark-inverted">
+            <vs-table max-items="3" pagination :data="lutins" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
@@ -189,7 +189,8 @@ import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
 import {axiosBase, getAPI} from "@/axios";
 import JsonCSV from 'vue-json-csv'
-
+import {jsPDF} from "jspdf";
+import 'jspdf-autotable'
 
 export default {
   data() {
@@ -269,7 +270,6 @@ export default {
     'v-select': vSelect,
     VueApexCharts,
     'downloadCsv': JsonCSV
-
   },
 
   methods: {
@@ -279,6 +279,22 @@ export default {
 
     validateForm() {
       return this.name !== '' && this.password !== '' && this.email !== ''
+    },
+
+    downloadPDF() {
+      let doc = new jsPDF();
+      let lutinTab = []
+
+      for (let key in this.lutins) {
+        lutinTab.push([this.lutins[key].id, this.lutins[key].name, this.lutins[key].email, this.lutins[key].available])
+      }
+
+
+      doc.autoTable({
+        head: [['ID', 'Nom', 'Email', 'Disponible']],
+        body: lutinTab,
+      })
+      doc.save('Lutins.pdf');
     },
 
     insertLutin() {
