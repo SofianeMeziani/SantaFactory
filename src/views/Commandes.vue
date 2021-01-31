@@ -43,7 +43,7 @@
                   class="mt-5 mb-base"
                   icon="ArchiveIcon"
                   icon-right
-                  :statistic="interpretDate(commandes[commandes.length-1].dateCreation)"
+                  :statistic="lastOrder()"
                   statisticTitle="Date de la dernière commande"
                   color="success"/>
             </div>
@@ -265,6 +265,13 @@ export default {
   methods: {
     newOrder() {
       this.new_order = true
+    },
+    lastOrder() {
+      try {
+        return this.interpretDate(commandes[commandes.length - 1].dateCreation)
+      } catch (error) {
+        return 'Aucune';
+      }
     },
     addGame() {
       this.nbGames++

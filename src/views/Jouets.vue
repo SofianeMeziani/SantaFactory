@@ -103,7 +103,7 @@
       <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_game">
         <vx-card slot="no-body">
           <h4 class="text-center mb-3">Nouveau jouet 🎁</h4>
-          <p class="text-center mb-1">ID #0{{ this.jouets[this.jouets.length - 1].id + 1 }}</p>
+          <p class="text-center mb-1">ID #0{{ this.getID() }}</p>
 
           <vs-input color="success" class="mt-8 w-full"
                     label-placeholder="Nom du jouet"
@@ -250,6 +250,14 @@ export default {
           color: 'danger'
         })
       })
+    },
+
+    getID() {
+      try {
+        return this.jouets[this.jouets.length - 1].id + 1
+      } catch (error) {
+        return 1
+      }
     },
 
     getJouets() {
