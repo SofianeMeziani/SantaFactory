@@ -98,7 +98,7 @@
       <div class="vx-col w-full">
         <vx-card title="Tous les lutins">
           <div slot="no-body" class="mt-4">
-            <vs-table :data="lutins" class="table-dark-inverted">
+            <vs-table max-items="5" pagination :data="lutins" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
@@ -108,9 +108,9 @@
                 <vs-th>ACTION</vs-th>
               </template>
 
-              <template>
+              <template slot-scope="{data}">
 
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in lutins">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="tr.id">
                     <span>#{{ tr.id }}</span>
                   </vs-td>

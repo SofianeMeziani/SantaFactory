@@ -28,7 +28,7 @@
                   <vs-td :data="tr.id">
                     <span>
                       <vs-icon class="mr-2" @click="editCompetence(tr.id, tr.name, indextr)" icon="edit"></vs-icon>
-                      <vs-icon icon="delete"></vs-icon>
+                      <vs-icon icon="delete" @click="clickDelete(tr.id, tr.name, indextr)"></vs-icon>
                     </span>
                   </vs-td>
                 </vs-tr>
@@ -77,6 +77,27 @@
         </vs-button>
       </vs-popup>
 
+      <vs-popup title="Suppression" :active.sync="popupDeleteActive">
+        <h4 class="text-center mb-3">Suppression de la compétence ID #{{ this.edit_id }} 🎯</h4>
+        <p class="text-center mb-1">Êtes vous sûr de vouloir supprimer "{{ this.competence_edit }}" ?</p>
+        <div class="vx-row">
+          <div class="vx-col w-1/2">
+            <vs-button size="small" class="mt-8" style="margin: auto" color="danger" type="gradient" icon-pack="feather"
+                       icon="icon-check"
+                       @click="deleteCompetence()">
+              Supprimer
+            </vs-button>
+          </div>
+          <div class="vx-col w-1/2">
+            <vs-button size="small" class="mt-8" style="margin: auto" color="dark" icon-pack="feather"
+                       icon="icon-check"
+                       @click="popupDeleteActive = false">
+              Annuler
+            </vs-button>
+          </div>
+        </div>
+      </vs-popup>
+
     </div>
   </div>
 </template>
@@ -88,6 +109,7 @@ export default {
   data() {
     return {
       popupEditActive: false,
+      popupDeleteActive: false,
       competences: [],
       competence: '',
       edit_id: 0,
@@ -162,6 +184,46 @@ export default {
 
           this.competences[this.index_edit].name = this.competence_edit
           this.popupEditActive = false
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+        this.popupEditActive = false
+      })
+    },
+    clickDelete(id, name, index) {
+      this.edit_id = id
+      this.competence_edit = name
+      this.index_edit = index
+      this.popupDeleteActive = true
+    },
+    deleteCompetence() {
+      axiosBase.post('/app/competence/' + this.edit_id, {},
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Compétence supprimée',
+            text: "La compétence a été supprimeée",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.getCompetences()
+          this.popupDeleteActive = false
         } else {
         }
       }).catch(error => {
