@@ -66,12 +66,15 @@
                 <vs-th>COMPÉTENCE REQUISES</vs-th>
                 <vs-th>DURÉE (minutes)</vs-th>
                 <vs-th>CATÉGORIE</vs-th>
+                <vs-th>STATUS</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
 
               <template slot-scope="{data}">
 
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                <vs-tr
+                    :state="jouets[indextr].archived ? 'danger':''"
+                    :data="tr" :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="tr.id">
                     <span>#{{ tr.id }}</span>
                   </vs-td>
@@ -88,6 +91,14 @@
                   </vs-td>
                   <vs-td :data="tr.categorieName">
                     <span>{{ tr.categorieName }}</span>
+                  </vs-td>
+                  <vs-td :data="tr.archived">
+                    <span class="flex items-center px-2 py-1 rounded" v-if="tr.archived">
+                        <div class="bg-warning h-3 w-3 rounded-full mr-2"></div>Archivé
+                    </span>
+                    <span class="flex items-center px-2 py-1 rounded" v-else>
+                        <div class="bg-success h-3 w-3 rounded-full mr-2"></div>Disponible
+                    </span>
                   </vs-td>
                   <vs-td>
                     <span>
@@ -143,6 +154,27 @@
         </vx-card>
 
       </div>
+
+      <vs-popup title="Suppression" :active.sync="popupDeleteActive">
+        <h4 class="text-center mb-3">Suppression du jouet</h4>
+        <p class="text-center mb-1">Êtes vous sûr de vouloir archiver "{{ this.jouet_delete }}" ?</p>
+        <div class="vx-row">
+          <div class="vx-col w-1/2">
+            <vs-button size="small" class="mt-8" style="margin: auto" color="danger" type="gradient" icon-pack="feather"
+                       icon="icon-check"
+                       @click="deleteJouet()">
+              Archiver
+            </vs-button>
+          </div>
+          <div class="vx-col w-1/2">
+            <vs-button size="small" class="mt-8" style="margin: auto" color="dark" icon-pack="feather"
+                       icon="icon-check"
+                       @click="popupDeleteActive = false">
+              Annuler
+            </vs-button>
+          </div>
+        </div>
+      </vs-popup>
 
       <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="edit_mode">
         <vx-card slot="no-body">
@@ -211,6 +243,9 @@ export default {
       edit_duree: 0,
       edit_mode: false,
       editSelectedCat: [],
+      popupDeleteActive: false,
+      jouet_delete: '',
+      id_delete: 0,
 
       new_game: false,
       game_duration: [],
@@ -271,9 +306,47 @@ export default {
 
       this.edit_mode = true
     },
-    clickDelete() {
-
+    clickDelete(index) {
+      this.jouet_delete = this.jouets[index].name
+      this.id_delete = this.jouets[index].id
+      this.popupDeleteActive = true
     },
+    deleteJouet() {
+      axiosBase.post('/app/jeux/' + this.id_delete, {},
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Jouet archivé',
+            text: "Le jouet a été archivé",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.jouets = []
+          this.getJouets()
+          this.popupDeleteActive = false
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+        this.popupEditActive = false
+      })
+    },
+
     validateForm() {
       return this.jouet !== '' && this.duree !== '' && this.duree > 0
     },
