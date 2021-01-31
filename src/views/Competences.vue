@@ -99,9 +99,6 @@ export default {
   components: {},
 
   methods: {
-    handleChangePage(page) {
-      alert(page)
-    },
     insertCompetence() {
       axiosBase.post('/app/competence/', {
             'name': this.competence,
