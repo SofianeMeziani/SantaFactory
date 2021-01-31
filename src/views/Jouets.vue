@@ -103,27 +103,38 @@
       <div class="vx-col w-full lg:w-1/3 xl:w-1/3" v-if="new_game">
         <vx-card slot="no-body">
           <h4 class="text-center mb-3">Nouveau jouet 🎁</h4>
-          <p class="text-center mb-1">ID #013</p>
+          <p class="text-center mb-1">ID #0{{ this.jouets[this.jouets.length - 1].id + 1 }}</p>
 
-          <vs-input color="success" class="mt-8 w-full" label-placeholder="Nom du jouet"/>
+          <vs-input color="success" class="mt-8 w-full"
+                    label-placeholder="Nom du jouet"
+                    v-validate="'required|alpha_dash|min:1'"
+                    name="jouet"
+                    v-model="jouet"/>
 
-          <vs-input color="success" class="mt-8 w-full" label-placeholder="Durée de réalisation (minutes)"/>
+          <vs-input color="success" class="mt-8 w-full"
+                    label-placeholder="Durée de réalisation (minutes)"
+                    v-validate="'digits'"
+                    name="duree"
+                    type="number"
+                    v-model="duree"/>
 
           <p class="mt-3">Catégorie</p>
-          <v-select class="mt-2 mb-2" :options="options_categories" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+          <v-select v-model="selectedCat" name="categorie" class="mt-2 mb-2" :options="options_categories"
+                    :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
 
           <p class="mt-3 mb-2">Compétences</p>
-          <v-select multiple :closeOnSelect="false" v-model="selected" :options="options_competences"
+          <v-select name="competences"
+                    multiple
+                    :closeOnSelect="false"
+                    v-model="selectedComp"
+                    :options="options_competences"
                     :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
           <br>
 
           <vs-button size="small" class="mt-3" style="margin: auto" color="success" type="gradient" icon-pack="feather"
                      icon="icon-check"
-                     @click="$vs.notify({
-                      title:'Primary',
-                      position:'top-right',
-                      text:'Valider',
-                      color:'success'})">
+                     :disabled="!validateForm()"
+                     @click="insertJouet()">
             Valider
           </vs-button>
         </vx-card>
@@ -155,7 +166,8 @@ export default {
       jouets_categories: [],
       options_competences: [],
       options_categories: [],
-      selected: [],
+      selectedComp: [],
+      selectedCat: [],
       analyticsData: {},
       options: [],
       series: [58.6, 34.9, 6.5],
@@ -181,7 +193,9 @@ export default {
           }
         }
       },
-      jouets: []
+      jouets: [],
+      jouet: '',
+      duree: 0
     }
   },
   name: "Jouets",
@@ -194,6 +208,48 @@ export default {
   methods: {
     newGame() {
       this.new_game = true
+    },
+    validateForm() {
+      return this.jouet !== '' && this.duree !== '' && this.duree > 0
+    },
+
+    insertJouet() {
+      console.log(this.selectedComp)
+      axiosBase.post('/app/jeux/', {
+            'name': this.jouet,
+            'duree': this.duree,
+            'categorieId': this.selectedCat.id,
+            'competences': this.selectedComp
+          },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Jouet inseré',
+            text: "Le jouet a été inseré",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.jouets.push(response.data.content)
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
     },
 
     getJouets() {
@@ -243,10 +299,8 @@ export default {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
         if (response) {
-          var res = response.data.content
-          for (var elt in res) {
-            this.options_competences.push(res[elt]['name'])
-          }
+          this.options_competences.push(...response.data.content)
+          this.replaceKey(this.options_competences)
         } else {
         }
       }).catch(error => {
