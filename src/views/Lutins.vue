@@ -13,7 +13,7 @@
                   class="mt-5 mb-base"
                   icon="UsersIcon"
                   icon-right
-                  statistic="12"
+                  :statistic="this.lutins.length"
                   statisticTitle="Nombre total de lutins"
                   color="success"/>
             </div>
@@ -23,7 +23,7 @@
                   class="mt-5 mb-base"
                   icon="UserXIcon"
                   icon-right
-                  statistic="12"
+                  :statistic="this.lutins_occupes.length"
                   statisticTitle="Lutins occupés"
                   color="warning"/>
             </div>
@@ -33,7 +33,7 @@
                   class="mt-5 mb-base"
                   icon="UserCheckIcon"
                   icon-right
-                  statistic="12"
+                  :statistic="this.lutins_dispo.length"
                   statisticTitle="Lutins disponibles"
                   color="success"/>
             </div>
@@ -52,21 +52,39 @@
             <h4 class="text-center mb-3">Nouveau Lutin 🧑🏻‍🎄</h4>
             <p class="text-center mb-1">ID #013</p>
 
-            <vs-input color="success" class="mt-8 w-full" label-placeholder="Nom du lutin"/>
+            <vs-input color="success" class="mt-8 w-full"
+                      v-validate="'required|alpha_dash|min:1'"
+                      v-model="name"
+                      label-placeholder="Nom du lutin"/>
 
-            <p class="mt-3 mb-3">Compétences :</p>
-            <v-select multiple :closeOnSelect="false" v-model="selected" :options="options_competences"
+
+            <vs-input color="success"
+                      class="mt-8 w-full"
+                      v-validate="'required|email'"
+                      type="email"
+                      v-model="email"
+                      label-placeholder="Adresse mail"/>
+
+            <vs-input color="success" class="mt-8 w-full"
+                      v-validate="'required|min:6'"
+                      type="password"
+                      v-model="password"
+                      label-placeholder="Mot de passe"/>
+
+            <p class="mt-3 mb-2">Compétences</p>
+            <v-select name="competences"
+                      multiple
+                      :closeOnSelect="false"
+                      v-model="selectedComp"
+                      :options="options_competences"
                       :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
             <br>
 
             <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient"
                        icon-pack="feather"
                        icon="icon-check"
-                       @click="$vs.notify({
-                      title:'Primary',
-                      position:'top-right',
-                      text:'Valider',
-                      color:'success'})">
+                       :disabled="!validateForm()"
+                       @click="insertLutin()">
               Valider
             </vs-button>
           </vx-card>
@@ -155,15 +173,15 @@ import {axiosBase, getAPI} from "@/axios";
 export default {
   data() {
     return {
+      email: '',
+      name: '',
+      password: '',
+      selectedComp: [],
       lutins: [],
       lutins_dispo: [],
       lutins_occupes: [],
       new_lutin: false,
-      options_competences: [
-        {id: 1, label: 'Compétence 1'},
-        {id: 2, label: 'Compétence 2'},
-        {id: 3, label: 'Compétence 3'},
-      ],
+      options_competences: [],
       chartOptions: {
         plotOptions: {
           radialBar: {
@@ -235,6 +253,73 @@ export default {
       this.new_lutin = true
     },
 
+    validateForm() {
+      return this.name !== '' && this.password !== '' && this.email !== ''
+    },
+
+    insertLutin() {
+      axiosBase.post('/app/register/', {
+            'email': this.email,
+            'password': this.password,
+            'name': this.name,
+            'role': 'USER',
+            'competences': this.selectedComp
+          },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Lutin inseré',
+            text: "Le lutin a été inseré",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.getFinalLutin()
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
+    },
+
+    getCompetences() {
+      this.competences = []
+      axiosBase.get('/app/competence', {
+        params: {
+          page: 0,
+          max: 100
+        },
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          this.options_competences.push(...response.data.content)
+          this.replaceKey(this.options_competences)
+        } else {
+        }
+      }).catch(error => {
+      })
+    },
+
+    replaceKey(json) {
+      for (var elt in json) {
+        json[elt]['label'] = json[elt]['name']
+      }
+    },
+
     async getFinalLutin() {
       let DispoLutin = this.getLutinsDispo()
     },
@@ -285,6 +370,7 @@ export default {
 
   created() {
     this.getFinalLutin()
+    this.getCompetences()
   }
 }
 </script>
