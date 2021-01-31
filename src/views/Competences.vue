@@ -24,7 +24,7 @@
                     <span>{{ tr.name }}</span>
                   </vs-td>
                   <vs-td class="text-center">
-                    <span @click="editCompetence(tr.id, tr.name)">
+                    <span @click="editCompetence(tr.id, tr.name, indextr)">
                       <vs-icon icon="edit"></vs-icon>
                     </span>
                   </vs-td>
@@ -94,7 +94,8 @@ export default {
       competences: [],
       competence: '',
       edit_id: 0,
-      competence_edit: ''
+      competence_edit: '',
+      index_edit: 0
     }
   },
   name: "Competences",
@@ -121,7 +122,7 @@ export default {
             color: 'success'
           })
 
-          this.getCompetences()
+          this.competences.push(response.data.content)
         } else {
         }
       }).catch(error => {
@@ -135,13 +136,12 @@ export default {
         })
       })
     },
-
-    editCompetence(id, name) {
+    editCompetence(id, name, index) {
       this.edit_id = id
       this.competence_edit = name
+      this.index_edit = index
       this.popupActive = true
     },
-
     saveCompetence() {
       axiosBase.post('/app/competence/', {
             'id': this.edit_id,
@@ -163,7 +163,7 @@ export default {
             color: 'success'
           })
 
-          this.getCompetences()
+          this.competences[this.index_edit].name = this.competence_edit
           this.popupActive = false
         } else {
         }
