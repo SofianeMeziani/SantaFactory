@@ -197,7 +197,8 @@ export default {
         }
       }).catch(error => {
       })
-    }
+    },
+
   },
 
   created() {

@@ -181,7 +181,7 @@ export default {
     validateEditForm() {
       return this.categorie_edit !== ''
     },
-    getCompetences() {
+    getCategories() {
       this.categories = []
       axiosBase.get('/app/cat', {
         params: {
@@ -200,7 +200,7 @@ export default {
   },
 
   created() {
-    this.getCompetences()
+    this.getCategories()
   }
 }
 </script>

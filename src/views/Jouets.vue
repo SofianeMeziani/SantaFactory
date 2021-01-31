@@ -59,7 +59,7 @@
       <div :class="new_game? 'lg:w-2/3 xl:w-2/3' : ''" class="vx-col w-full">
         <vx-card title="Tous les jouets">
           <div slot="no-body" class="mt-4">
-            <vs-table :data="jouets" class="table-dark-inverted">
+            <vs-table max-items="5" pagination :data="jouets" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
@@ -69,9 +69,9 @@
                 <vs-th>ACTION</vs-th>
               </template>
 
-              <template>
+              <template slot-scope="{data}">
 
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in jouets">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="tr.id">
                     <span>#{{ tr.id }}</span>
                   </vs-td>
@@ -113,7 +113,7 @@
           <v-select class="mt-2 mb-2" :options="options_categories" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
 
           <p class="mt-3 mb-2">Compétences</p>
-          <v-select multiple :closeOnSelect="false" v-model="selected" :options="options"
+          <v-select multiple :closeOnSelect="false" v-model="selected" :options="options_competences"
                     :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
           <br>
 
@@ -153,19 +153,11 @@ export default {
       new_game: false,
       game_duration: [],
       jouets_categories: [],
-      options_competences: [
-        {id: 1, label: 'Compétence 1'},
-        {id: 2, label: 'Compétence 2'},
-        {id: 3, label: 'Compétence 3'},
-      ],
-      options_categories: [
-        {id: 1, label: 'Cat 1'},
-        {id: 2, label: 'Cat 2'},
-        {id: 3, label: 'Cat 3'},
-      ],
+      options_competences: [],
+      options_categories: [],
       selected: [],
       analyticsData: {},
-      options: ['Compétence 1', 'Compétence 2', 'Compétence 3'],
+      options: [],
       series: [58.6, 34.9, 6.5],
       chartOptions: {
         labels: ['Cat 1', 'Cat 2', 'Cat 3'],
@@ -239,11 +231,56 @@ export default {
         }
       });
       console.log(this.jouets_categories)
-    }
+    },
+
+    getCompetences() {
+      this.competences = []
+      axiosBase.get('/app/competence', {
+        params: {
+          page: 0,
+          max: 100
+        },
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          var res = response.data.content
+          for (var elt in res) {
+            this.options_competences.push(res[elt]['name'])
+          }
+        } else {
+        }
+      }).catch(error => {
+      })
+    },
+    getCategories() {
+      this.categories = []
+      axiosBase.get('/app/cat', {
+        params: {
+          page: 0,
+          max: 100
+        },
+        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+      }).then(response => {
+        if (response) {
+          this.options_categories.push(...response.data.content)
+          this.replaceKey(this.options_categories)
+        } else {
+        }
+      }).catch(error => {
+      })
+    },
+
+    replaceKey(json) {
+      for (var elt in json) {
+        json[elt]['label'] = json[elt]['name']
+      }
+    },
   },
 
   created() {
     this.getJouets()
+    this.getCompetences()
+    this.getCategories()
   }
 }
 </script>
