@@ -103,7 +103,7 @@
                   <vs-td>
                     <span>
                       <vs-icon class="mr-2" @click="editJouet(indextr)" icon="edit"></vs-icon>
-                      <vs-icon icon="delete" @click="clickDelete(indextr)"></vs-icon>
+                      <vs-icon color="danger" icon="delete" @click="clickDelete(indextr)"></vs-icon>
                     </span>
                   </vs-td>
                 </vs-tr>

@@ -45,13 +45,15 @@
                   name="lutins.csv">
                 <vs-button class="mt-5 w-full" style="margin: auto" color="success" type="gradient"
                            icon-pack="feather"
-                           icon="icon-download">
+                           icon="icon-download"
+                           :disabled="lutins.length<1">
                   Télécharger CSV
                 </vs-button>
               </download-csv>
               <vs-button @click="downloadPDF()" class="mt-4 w-full" style="margin: auto" color="success" type="gradient"
                          icon-pack="feather"
-                         icon="icon-download">
+                         icon="icon-download"
+                         :disabled="lutins.length<1">
                 Télécharger PDF
               </vs-button>
 
@@ -135,7 +137,7 @@
       <div class="vx-col w-full">
         <vx-card title="Tous les lutins">
           <div slot="no-body" class="mt-4">
-            <vs-table max-items="3" pagination :data="lutins" class="table-dark-inverted">
+            <vs-table max-items="5" pagination :data="lutins" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM</vs-th>
@@ -170,7 +172,10 @@
                     </span>
                   </vs-td>
                   <vs-td>
-                    <span>#0013</span>
+                    <span>
+                      <vs-icon class="mr-2" @click="editLutin(indextr)" icon="edit"></vs-icon>
+                      <vs-icon color="danger" icon="delete" @click="clickDelete(indextr)"></vs-icon>
+                    </span>
                   </vs-td>
                 </vs-tr>
               </template>
@@ -277,6 +282,14 @@ export default {
       this.new_lutin = true
     },
 
+    editLutin() {
+
+    },
+
+    clickDelete() {
+
+    },
+
     validateForm() {
       return this.name !== '' && this.password !== '' && this.email !== ''
     },
@@ -288,7 +301,6 @@ export default {
       for (let key in this.lutins) {
         lutinTab.push([this.lutins[key].id, this.lutins[key].name, this.lutins[key].email, this.lutins[key].available])
       }
-
 
       doc.autoTable({
         head: [['ID', 'Nom', 'Email', 'Disponible']],

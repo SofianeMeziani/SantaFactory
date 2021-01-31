@@ -28,7 +28,7 @@
                   <vs-td :data="tr.id">
                     <span>
                       <vs-icon class="mr-2" @click="editCompetence(tr.id, tr.name, indextr)" icon="edit"></vs-icon>
-                      <vs-icon icon="delete" @click="clickDelete(tr.id, tr.name, indextr)"></vs-icon>
+                      <vs-icon color="danger" icon="delete" @click="clickDelete(tr.id, tr.name, indextr)"></vs-icon>
                     </span>
                   </vs-td>
                 </vs-tr>
