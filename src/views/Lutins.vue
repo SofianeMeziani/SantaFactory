@@ -281,6 +281,9 @@ export default {
             color: 'success'
           })
 
+          this.lutins = []
+          this.lutins_dispo = []
+          this.lutins_occupes = []
           this.getFinalLutin()
         } else {
         }
