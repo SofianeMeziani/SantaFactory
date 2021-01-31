@@ -7,25 +7,28 @@
       <div class="vx-col w-full lg:w-1/2 xl:w-1/2">
         <vx-card title="Toutes les compétences">
           <div slot="no-body" class="mt-4">
-            <vs-table :data="competences" class="table-dark-inverted">
+            <vs-table max-items="5" pagination
+                      :data="competences"
+                      class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>ID</vs-th>
                 <vs-th>NOM DE LA COMPÉTENCE</vs-th>
                 <vs-th>ACTION</vs-th>
               </template>
 
-              <template>
+              <template slot-scope="{data}">
 
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in competences">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="tr.id">
                     <span>#{{ tr.id }}</span>
                   </vs-td>
                   <vs-td :data="tr.name">
                     <span>{{ tr.name }}</span>
                   </vs-td>
-                  <vs-td class="text-center">
-                    <span @click="editCompetence(tr.id, tr.name, indextr)">
-                      <vs-icon icon="edit"></vs-icon>
+                  <vs-td :data="tr.id">
+                    <span>
+                      <vs-icon class="mr-2" @click="editCompetence(tr.id, tr.name, indextr)" icon="edit"></vs-icon>
+                      <vs-icon icon="delete"></vs-icon>
                     </span>
                   </vs-td>
                 </vs-tr>
@@ -57,27 +60,21 @@
 
       </div>
 
-      <vs-popup title="Modification" :active.sync="popupActive">
-
-
+      <vs-popup title="Modification" :active.sync="popupEditActive">
         <h4 class="text-center mb-3">Modification de la compétence 🎯</h4>
         <p class="text-center mb-1">ID #{{ this.edit_id }}</p>
-
         <vs-input color="success"
                   class="mt-8 w-full"
                   v-validate="'required|alpha_dash|min:1'"
                   name="competence"
                   v-model="competence_edit"
                   label-placeholder="Nom de la compétence"/>
-
         <vs-button size="small" class="mt-8" style="margin: auto" color="success" type="gradient" icon-pack="feather"
                    icon="icon-check"
                    :disabled="!validateEditForm()"
                    @click="saveCompetence()">
           Valider
         </vs-button>
-
-
       </vs-popup>
 
     </div>
@@ -90,18 +87,21 @@ import {axiosBase, getAPI} from "@/axios";
 export default {
   data() {
     return {
-      popupActive: false,
+      popupEditActive: false,
       competences: [],
       competence: '',
       edit_id: 0,
       competence_edit: '',
-      index_edit: 0
+      index_edit: 0,
     }
   },
   name: "Competences",
   components: {},
 
   methods: {
+    handleChangePage(page) {
+      alert(page)
+    },
     insertCompetence() {
       axiosBase.post('/app/competence/', {
             'name': this.competence,
@@ -140,7 +140,7 @@ export default {
       this.edit_id = id
       this.competence_edit = name
       this.index_edit = index
-      this.popupActive = true
+      this.popupEditActive = true
     },
     saveCompetence() {
       axiosBase.post('/app/competence/', {
@@ -164,7 +164,7 @@ export default {
           })
 
           this.competences[this.index_edit].name = this.competence_edit
-          this.popupActive = false
+          this.popupEditActive = false
         } else {
         }
       }).catch(error => {
@@ -176,7 +176,7 @@ export default {
           icon: 'icon-alert-circle',
           color: 'danger'
         })
-        this.popupActive = false
+        this.popupEditActive = false
       })
     },
     validateForm() {
