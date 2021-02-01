@@ -109,7 +109,47 @@
               Valider
             </vs-button>
           </vx-card>
-          <vx-card v-else title="Disponibilité des lutins">
+          <vx-card v-if="edit_mode" slot="no-body">
+            <h4 class="text-center mb-3">Modification Lutin 🧑🏻‍🎄</h4>
+            <p class="text-center mb-1">ID #013</p>
+
+            <vs-input color="success" class="mt-8 w-full"
+                      v-validate="'required|alpha_dash|min:1'"
+                      v-model="edit_name"
+                      label-placeholder="Nom du lutin"/>
+
+
+            <vs-input color="success"
+                      class="mt-8 w-full"
+                      v-validate="'required|email'"
+                      type="email"
+                      v-model="edit_email"
+                      label-placeholder="Adresse mail"/>
+
+            <vs-input color="success" class="mt-8 w-full"
+                      v-validate="'required|min:6'"
+                      type="password"
+                      v-model="edit_password"
+                      label-placeholder="Mot de passe"/>
+
+            <p class="mt-3 mb-2">Compétences</p>
+            <v-select name="competences"
+                      multiple
+                      :closeOnSelect="false"
+                      v-model="editSelectedComp"
+                      :options="options_competences"
+                      :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+            <br>
+
+            <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient"
+                       icon-pack="feather"
+                       icon="icon-check"
+                       :disabled="!validateEditForm()"
+                       @click="updateLutin()">
+              Valider
+            </vs-button>
+          </vx-card>
+          <vx-card v-if="!edit_mode && !new_lutin" title="Disponibilité des lutins">
             <!-- CHART -->
             <template slot="no-body">
               <div class="mt-0">
@@ -133,6 +173,26 @@
       </div>
 
     </div>
+    <vs-popup title="Suppression" :active.sync="popupDeleteActive">
+      <h4 class="text-center mb-3">Suppression du lutin ID #{{ this.delete_id }} 🎯</h4>
+      <p class="text-center mb-1">Êtes vous sûr de vouloir supprimer "{{ this.delete_name }}" ?</p>
+      <div class="vx-row">
+        <div class="vx-col w-1/2">
+          <vs-button size="small" class="mt-8" style="margin: auto" color="danger" type="gradient" icon-pack="feather"
+                     icon="icon-check"
+                     @click="deleteLutin()">
+            Supprimer
+          </vs-button>
+        </div>
+        <div class="vx-col w-1/2">
+          <vs-button size="small" class="mt-8" style="margin: auto" color="dark" icon-pack="feather"
+                     icon="icon-check"
+                     @click="popupDeleteActive = false">
+            Annuler
+          </vs-button>
+        </div>
+      </div>
+    </vs-popup>
     <div class="vx-row mt-5">
       <div class="vx-col w-full">
         <vx-card title="Tous les lutins">
@@ -266,7 +326,18 @@ export default {
       },
       series: [0],
       selected: [],
-      downloadImg: require('@/assets/images/lutins.jpg')
+      downloadImg: require('@/assets/images/lutins.jpg'),
+      delete_id: 0,
+      delete_name: '',
+      popupDeleteActive: false,
+      edit_id: 0,
+      edit_name: '',
+      edit_duree: 0,
+      editSelectedComp: [],
+      edit_mode: false,
+      edit_email: '',
+      edit_password: ''
+
     }
   },
   name: "Lutins",
@@ -280,18 +351,111 @@ export default {
   methods: {
     newLutin() {
       this.new_lutin = true
+      this.edit_mode = false
     },
 
-    editLutin() {
+    updateLutin() {
+      axiosBase.post('/app/user/', {
+            'id': this.edit_id,
+            'email': this.edit_email,
+            'password': this.edit_password,
+            'name': this.edit_name,
+            'role': 'USER',
+            'competences': this.editSelectedComp
+          },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Lutin inseré',
+            text: "Le lutin a été inseré",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
 
+          this.lutins = []
+          this.lutins_dispo = []
+          this.lutins_occupes = []
+          this.getFinalLutin()
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
     },
 
-    clickDelete() {
+    editLutin(index) {
+      this.new_lutin = false
 
+      this.edit_id = this.lutins[index].id
+      this.edit_name = this.lutins[index].name
+      this.edit_duree = this.lutins[index].duree
+      this.edit_email = this.lutins[index].email
+
+      this.edit_mode = true
+    },
+
+    clickDelete(index) {
+      this.delete_id = this.lutins[index].id
+      this.delete_name = this.lutins[index].name
+      this.popupDeleteActive = true
+    },
+
+    deleteLutin() {
+      axiosBase.post('/app/user/' + this.delete_id, {},
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Lutin supprimé',
+            text: "Le lutin a été supprimé",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.lutins = []
+          this.getFinalLutin()
+          this.popupDeleteActive = false
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+        this.popupEditActive = false
+      })
     },
 
     validateForm() {
       return this.name !== '' && this.password !== '' && this.email !== ''
+    },
+
+    validateEditForm() {
+      return this.edit_name !== '' && this.edit_password !== '' && this.edit_email !== ''
     },
 
     downloadPDF() {

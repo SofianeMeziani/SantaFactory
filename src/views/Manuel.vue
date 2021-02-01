@@ -1,61 +1,47 @@
 <template>
-    <div style="min-height: 70vh">
-        <Snowf
-                :amount="70"
-                :size="5"
-                :speed="1.5"
-                :wind="0"
-                :opacity="0.8"
-                :swing="1"
-                :image="null"
-                :zIndex="null"
-                :resize="true"
-                color="#ccc"
-        />
+  <div style="min-height: 70vh">
 
-        <p>Manuel</p>
+    <h1 class="v-100 text-center mb-10">Manuel d'utilisation</h1>
 
-        <pdf :src="pdfView" v-for="i in 3"
-             :key="i"
-
-             :page="i"
-  >
-            <template slot="loading">
-                loading content here...
-            </template>
-        </pdf>
+    <pdf :src="pdfView" v-for="i in 7"
+         :key="i"
+         :page="i"
+    >
+      <template slot="loading">
+        Chargement...
+      </template>
+    </pdf>
 
 
-    </div>
+  </div>
 </template>
 
 <script>
-    import pdf from 'pdfvuer';
-    import Snowf from 'vue-snowf';
+import pdf from 'pdfvuer';
+import Snowf from 'vue-snowf';
 
-    // var loadingTask = pdf.createLoadingTask(require('@/assets/Projet_JEE-2.pdf'));
+// var loadingTask = pdf.createLoadingTask(require('@/assets/Projet_JEE-2.pdf'));
 
-    export default {
-        name: "Manuel",
-        components: {
-            Snowf,
-            pdf,
-        },
-        data() {
-            return {
-                numPages: undefined,
-                pdfView: require('@/assets/Projet_JEE-2.pdf'),
-            };
-        },
-        mounted() {
+export default {
+  name: "Manuel",
+  components: {
+    pdf,
+  },
+  data() {
+    return {
+      numPages: undefined,
+      pdfView: require('@/assets/Projet_JEE-2.pdf'),
+    };
+  },
+  mounted() {
 
-            // this.src.promise.then(pdf => {
-            //
-            //     this.numPages = pdf.numPages;
-            // });
-        }
+    // this.src.promise.then(pdf => {
+    //
+    //     this.numPages = pdf.numPages;
+    // });
+  }
 
-    }
+}
 </script>
 
 <style scoped>
