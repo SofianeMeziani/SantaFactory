@@ -1,9 +1,9 @@
 <template>
-  <div class="the-navbar__user-meta flex items-center" v-if="activeUserInfo.username">
+  <div class="the-navbar__user-meta flex items-center" v-if="activeUserInfo.name">
     <div class="text-right leading-tight hidden sm:block">
-      <p style="margin-bottom: 5px" class="font-semibold">@{{ activeUserInfo.username }}</p>
+      <p style="margin-bottom: 5px" class="font-semibold">@{{ activeUserInfo.name }}</p>
       <small>
-        🎅🏻 Père Noël</small>
+        🎅🏻 {{ activeUserInfo.role == 'USER' ? 'Lutin' : 'Admin' }}</small>
     </div>
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
 

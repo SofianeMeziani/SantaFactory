@@ -65,9 +65,9 @@
         </div>
 
         <div class="text-center" style="padding: 0px 15px 10px 10px">
-          <p class="font-semibold">@{{ activeUserInfo.username }}</p>
+          <p class="font-semibold">@{{ activeUserInfo.name }}</p>
           <small>
-            Père Noël 🎅🏻 </small>
+            {{ activeUserInfo.role == 'USER' ? 'Lutin' : 'Admin' }} 🎅🏻 </small>
         </div>
 
 

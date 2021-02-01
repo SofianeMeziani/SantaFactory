@@ -1,28 +1,28 @@
 <template>
   <div>
-    <vs-input
-        v-validate="'required|email'"
-        data-vv-validate-on="blur"
-        name="email"
-        icon-no-border
-        icon="icon icon-user"
-        icon-pack="feather"
-        label-placeholder="Email"
-        v-model="email"
-        class="w-full"/>
+    <vs-input color="success"
+              v-validate="'required|email'"
+              data-vv-validate-on="blur"
+              name="email"
+              icon-no-border
+              icon="icon icon-user"
+              icon-pack="feather"
+              label-placeholder="Email"
+              v-model="email"
+              class="w-full"/>
     <span class="text-danger text-sm">{{ errors.first('email') }}</span>
 
-    <vs-input
-        data-vv-validate-on="blur"
-        v-validate="'required'"
-        type="password"
-        name="password"
-        icon-no-border
-        icon="icon icon-lock"
-        icon-pack="feather"
-        label-placeholder="Mot de passe"
-        v-model="password"
-        class="w-full mt-6"/>
+    <vs-input color="success"
+              data-vv-validate-on="blur"
+              v-validate="'required'"
+              type="password"
+              name="password"
+              icon-no-border
+              icon="icon icon-lock"
+              icon-pack="feather"
+              label-placeholder="Mot de passe"
+              v-model="password"
+              class="w-full mt-6"/>
     <span class="text-danger text-sm">{{ errors.first('password') }}</span>
 
     <div class="flex flex-wrap justify-between my-5">
