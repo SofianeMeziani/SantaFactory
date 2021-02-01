@@ -8,32 +8,4 @@
 ==========================================================================================*/
 
 
-export default [
-    {
-        url: "/",
-        name: "Accueil",
-        slug: "Dashboard",
-        icon: "HomeIcon",
-    },
-    {
-        url: "/bilan",
-        name: "Bilan",
-        slug: "Bilan",
-        icon: "ActivityIcon",
-    },
-    {
-        url: "/contact",
-        name: "Contact",
-        slug: "Contact",
-        icon: "MailIcon",
-    },
-    {
-        url: '/profile',
-        slug: 'page-user-settings',
-        name: 'Profile',
-        icon: 'UserIcon',
-        i18n: 'UserSettings'
-    },
-
-
-]
+export default []
