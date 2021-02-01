@@ -1,7 +1,7 @@
 <template>
   <div>
     <vs-input
-        v-validate="'required|email|min:3'"
+        v-validate="'required|email'"
         data-vv-validate-on="blur"
         name="email"
         icon-no-border
@@ -14,7 +14,7 @@
 
     <vs-input
         data-vv-validate-on="blur"
-        v-validate="'required|min:6'"
+        v-validate="'required'"
         type="password"
         name="password"
         icon-no-border
@@ -53,6 +53,7 @@ export default {
   methods: {
 
     loginJWT() {
+
       // Loading
       this.$vs.loading()
       this.$store.dispatch('auth/loginUser', {
@@ -61,7 +62,6 @@ export default {
       })
           .then(() => {
             this.$vs.loading.close()
-
             this.$router.push({name: 'home'})
           })
           .catch(error => {

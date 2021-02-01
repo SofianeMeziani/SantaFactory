@@ -1,22 +1,7 @@
 <template>
 
-
   <div
-      style="background-color: rgb(22, 29, 49);"
-  >
-    <!--Snowf
-        :amount="8"
-        :size="30"
-        :speed="1.4"
-        :wind="0"
-        :opacity="0.8"
-        :swing="1"
-        :image="'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678132-gift-512.png'"
-        :zIndex="null"
-        :resize="true"
-        color="#ccc"
-    /-->
-
+      style="background-color: rgb(22, 29, 49);">
     <Snowf
         :amount="70"
         :size="5"
@@ -34,13 +19,6 @@
 
       <div class="vx-col flex items-center hidden lg:block lg:w-3/4 xl:3/4"
            :style="'background-image: url(' + background + ')'" style="background-size: cover">
-
-        <!--a style="transform: scale(1); opacity: 0.8" class="weatherwidget-io"
-           href="https://forecast7.com/fr/49d441d10/rouen/"
-           data-label_1="ROUEN"
-           data-label_2="Météo" data-font="Play" data-icons="Climacons Animated" data-days="5"
-           data-theme="original" data-basecolor="rgb(22, 29, 49)" data-highcolor="#ffffff"
-           data-cloudfill="#283046">ROUEN Météo</a-->
       </div>
 
       <div class="vx-col w-full center-card-log  sm:w-full md:w-full lg:w-1/4 xl:1/4"
@@ -54,7 +32,6 @@
              data-theme="original" data-basecolor="rgb(37,47,66)" data-highcolor="#ffffff" data-cloudfill="#283046">ROUEN
             Météo</a>
           <div>
-
 
             <router-link tag="div" class=" mb-10 vx-logo cursor-pointer flex items-center"
                          to="/">
@@ -84,7 +61,6 @@
 import LoginJwt from './LoginJWT.vue'
 import Logo from '../../../layouts/components/Logo'
 import Snowf from "vue-snowf";
-
 
 export default {
   data() {

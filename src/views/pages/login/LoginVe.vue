@@ -14,16 +14,12 @@
         <img :src="imgUrl"/>
       </vs-col>
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="4">
-        <!--                <vs-col vs-type="flex" vs-justify="center" vs-align="center" class="m-auto" vs-lg="12" vs-md="6"-->
-        <!--                vs-sm="8">-->
+
         <div class="vx-card__title mb-10" style="text-align: center">
           <h4 class="mb-4">Connexion</h4>
           <p>Welcome to Vuexy! 👋</p>
         </div>
         <login-jwt></login-jwt>
-
-        <!--                </vs-col>-->
-        <!--                <login-jwt></login-jwt>-->
       </vs-col>
     </vs-row>
   </div>

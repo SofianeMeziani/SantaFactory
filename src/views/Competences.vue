@@ -122,6 +122,7 @@ export default {
 
   methods: {
     insertCompetence() {
+      this.$vs.loading()
       axiosBase.post('/app/competence/', {
             'name': this.competence,
           },
@@ -133,6 +134,7 @@ export default {
             }
           }).then(response => {
         if (response.data.success == true) {
+          this.$vs.loading.close()
           this.$vs.notify({
             title: 'Compétence inserée',
             text: "La compétence a été inserée",
@@ -143,9 +145,11 @@ export default {
 
           this.competences.push(response.data.content)
         } else {
+          this.$vs.loading.close()
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
+        //console.log(error)
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -162,6 +166,7 @@ export default {
       this.popupEditActive = true
     },
     saveCompetence() {
+      this.$vs.loading()
       axiosBase.post('/app/competence/', {
             'id': this.edit_id,
             'name': this.competence_edit,
@@ -174,6 +179,7 @@ export default {
             }
           }).then(response => {
         if (response.data.success == true) {
+          this.$vs.loading.close()
           this.$vs.notify({
             title: 'Compétence modifiée',
             text: "La compétence a été modifiée",
@@ -185,9 +191,10 @@ export default {
           this.competences[this.index_edit].name = this.competence_edit
           this.popupEditActive = false
         } else {
+          this.$vs.loading.close()
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -205,6 +212,7 @@ export default {
       this.popupDeleteActive = true
     },
     deleteCompetence() {
+      this.$vs.loading()
       axiosBase.post('/app/competence/' + this.edit_id, {},
           {
             headers: {
@@ -214,6 +222,7 @@ export default {
             }
           }).then(response => {
         if (response.data.success == true) {
+          this.$vs.loading.close()
           this.$vs.notify({
             title: 'Compétence supprimée',
             text: "La compétence a été supprimeée",
@@ -225,9 +234,10 @@ export default {
           this.getCompetences()
           this.popupDeleteActive = false
         } else {
+          this.$vs.loading.close()
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -245,6 +255,7 @@ export default {
       return this.competence_edit !== ''
     },
     getCompetences() {
+      this.$vs.loading()
       this.competences = []
       axiosBase.get('/app/competence', {
         params: {
@@ -254,10 +265,13 @@ export default {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
         if (response) {
+          this.$vs.loading.close()
           this.competences.push(...response.data.content)
         } else {
+          this.$vs.loading.close()
         }
       }).catch(error => {
+        this.$vs.loading.close()
       })
     },
 

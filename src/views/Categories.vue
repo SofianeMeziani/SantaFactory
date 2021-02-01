@@ -99,6 +99,7 @@ export default {
 
   methods: {
     insertCategorie() {
+      this.$vs.loading()
       axiosBase.post('/app/cat/', {
             'name': this.categorie,
           },
@@ -109,6 +110,7 @@ export default {
                   'application/json',
             }
           }).then(response => {
+        this.$vs.loading.close()
         if (response.data.success == true) {
           this.$vs.notify({
             title: 'Catégorie inserée',
@@ -122,7 +124,7 @@ export default {
         } else {
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -139,6 +141,7 @@ export default {
       this.popupEditActive = true
     },
     saveCategorie() {
+      this.$vs.loading()
       axiosBase.post('/app/cat/', {
             'id': this.edit_id,
             'name': this.categorie_edit,
@@ -150,6 +153,7 @@ export default {
                   'application/json',
             }
           }).then(response => {
+        this.$vs.loading.close()
         if (response.data.success == true) {
           this.$vs.notify({
             title: 'Catégorie modifiée',
@@ -164,7 +168,7 @@ export default {
         } else {
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -182,6 +186,7 @@ export default {
       return this.categorie_edit !== ''
     },
     getCategories() {
+      this.$vs.loading()
       this.categories = []
       axiosBase.get('/app/cat', {
         params: {
@@ -190,11 +195,13 @@ export default {
         },
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
+        this.$vs.loading.close()
         if (response) {
           this.categories.push(...response.data.content)
         } else {
         }
       }).catch(error => {
+        this.$vs.loading.close()
       })
     }
   },

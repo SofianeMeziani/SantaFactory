@@ -474,6 +474,7 @@ export default {
     },
 
     insertLutin() {
+      this.$vs.loading()
       axiosBase.post('/app/register/', {
             'email': this.email,
             'password': this.password,
@@ -489,6 +490,7 @@ export default {
             }
           }).then(response => {
         if (response.data.success == true) {
+          this.$vs.loading.close()
           this.$vs.notify({
             title: 'Lutin inseré',
             text: "Le lutin a été inseré",
@@ -502,8 +504,10 @@ export default {
           this.lutins_occupes = []
           this.getFinalLutin()
         } else {
+          this.$vs.loading.close()
         }
       }).catch(error => {
+        this.$vs.loading.close()
         console.log(error)
         this.$vs.notify({
           title: 'Erreur',
@@ -544,6 +548,7 @@ export default {
     },
 
     getLutins(res) {
+      
       axiosBase.get('/app/users', {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
@@ -556,26 +561,32 @@ export default {
           this.lutins.push(...getLutinsAtt)
         } else {
         }
+        this.$vs.loading.close()
       }).catch(error => {
-        console.log(error)
+        //console.log(error)
+        this.$vs.loading.close()
       })
     },
     async getLutinsDispo() {
+      this.$vs.loading()
       axiosBase.get('/app/availableUsers', {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then((response) => {
+        this.$vs.loading.close()
         if (response) {
           this.lutins_dispo.push(...response.data.content.availaible)
           this.lutins_occupes.push(...response.data.content.notAvailaible)
           this.series = [this.lutins_dispo.length / (this.lutins_dispo.length + this.lutins_occupes.length) * 100]
           return this.addAvailableAttribute(response.data.content.availaible);
         } else {
+          this.$vs.loading.close()
           return []
         }
       }).then(res => {
+        this.$vs.loading.close()
         this.getLutins(res);
       }).catch(error => {
-        alert(error)
+        this.$vs.loading.close()
       })
     },
 

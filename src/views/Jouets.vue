@@ -312,6 +312,7 @@ export default {
       this.popupDeleteActive = true
     },
     deleteJouet() {
+      this.$vs.loading()
       axiosBase.post('/app/jeux/' + this.id_delete, {},
           {
             headers: {
@@ -320,6 +321,7 @@ export default {
                   'application/json',
             }
           }).then(response => {
+        this.$vs.loading.close()
         if (response.data.success == true) {
           this.$vs.notify({
             title: 'Jouet archivé',
@@ -335,7 +337,7 @@ export default {
         } else {
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -355,6 +357,7 @@ export default {
     },
 
     insertJouet() {
+      this.$vs.loading()
       axiosBase.post('/app/jeux/', {
             'name': this.jouet,
             'duree': this.duree,
@@ -368,6 +371,7 @@ export default {
                   'application/json',
             }
           }).then(response => {
+        this.$vs.loading.close()
         if (response.data.success == true) {
           this.$vs.notify({
             title: 'Jouet inseré',
@@ -381,7 +385,7 @@ export default {
         } else {
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -393,6 +397,7 @@ export default {
     },
 
     updateJouet() {
+      this.$vs.loading()
       axiosBase.post('/app/jeux/', {
             'id': this.edit_id,
             'name': this.edit_name,
@@ -407,6 +412,7 @@ export default {
                   'application/json',
             }
           }).then(response => {
+        this.$vs.loading.close()
         if (response.data.success == true) {
           this.$vs.notify({
             title: 'Jouet modifié',
@@ -421,7 +427,7 @@ export default {
         } else {
         }
       }).catch(error => {
-        console.log(error)
+        this.$vs.loading.close()
         this.$vs.notify({
           title: 'Erreur',
           text: error.message,
@@ -441,6 +447,7 @@ export default {
     },
 
     getJouets() {
+      this.$vs.loading()
       axiosBase.get('/app/jeux', {
         params: {
           page: 0,
@@ -448,12 +455,14 @@ export default {
         },
         headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
       }).then(response => {
+        this.$vs.loading.close()
         if (response) {
           this.jouets.push(...response.data.content)
           this.getDurations(response.data.content)
         } else {
         }
       }).catch(error => {
+        this.$vs.loading.close()
       })
     },
 

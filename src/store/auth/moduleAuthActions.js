@@ -88,99 +88,25 @@ export default {
         return new Promise((resolve, reject) => {
             console.log(credentials)
             // send the username and password to the backend API:
-            axiosBase.post('/api/v1/auth/login/', {
+            axiosBase.post('/app/login', {
                 email: credentials.email,
                 password: credentials.password
             })
                 // if successful update local storage:
                 .then(response => {
                     context.commit('updateLocalStorage', {
-                        access: response.data.access_token,
-                        refresh: response.data.refresh_token
-                    }) // store the access and refresh token in localstorage
-
+                        access: response.data.token
+                    })
                     // Update user details
-                    context.commit('UPDATE_USER_INFO', response.data.user, {root: true})
-
+                    context.commit('UPDATE_USER_INFO', response.data.content, {root: true})
                     // Set bearer token in axios
-                    context.commit('SET_BEARER', response.data.access_token)
+                    context.commit('SET_BEARER', response.data.token)
 
                     resolve()
                 })
                 .catch(err => {
-                    console.log('heellloo');
                     reject(err)
                 })
         })
     }
-
-
-// // JWT
-// loginJWT({commit}, payload) {
-//
-//     return new Promise((resolve, reject) => {
-//         jwt.login(payload.userDetails.email, payload.userDetails.password)
-//             .then(response => {
-//                 // console.log('hehehehehehe');
-//                 // console.log(response.data['user']);
-//                 // console.log(response.data.user + 'hello');
-//                 // If there's user data in response
-//                 if (response.data.user) {
-//                     // Navigate User to homepage
-//                     router.push(router.currentRoute.query.to || '/')
-//
-//                     // Set accessToken
-//                     localStorage.setItem('accessToken', response.data.access_token)
-//
-//                     // Update user details
-//                     commit('UPDATE_USER_INFO', response.data.user, {root: true})
-//
-//                     // Set bearer token in axios
-//                     commit('SET_BEARER', response.data.access_token)
-//
-//                     resolve(response)
-//                 } else {
-//                     reject({message: 'Wrong Email or Password'})
-//                 }
-//
-//             })
-//             .catch(error => {
-//                 reject(error)
-//             })
-//     })
-// },
-// registerUserJWT({commit}, payload) {
-//
-//     const {displayName, email, password, confirmPassword} = payload.userDetails
-//
-//     return new Promise((resolve, reject) => {
-//
-//         // Check confirm password
-//         if (password !== confirmPassword) {
-//             reject({message: 'Password doesn\'t match. Please try again.'})
-//         }
-//
-//         jwt.registerUser(displayName, email, password)
-//             .then(response => {
-//                 // Redirect User
-//                 router.push(router.currentRoute.query.to || '/')
-//
-//                 // Update data in localStorage
-//                 localStorage.setItem('accessToken', response.data.accessToken)
-//                 commit('UPDATE_USER_INFO', response.data.userData, {root: true})
-//
-//                 resolve(response)
-//             })
-//             .catch(error => {
-//                 reject(error)
-//             })
-//     })
-// },
-// fetchAccessToken() {
-//     return new Promise((resolve) => {
-//         jwt.refreshToken().then(response => {
-//             resolve(response)
-//         })
-//     })
-// }
 }
