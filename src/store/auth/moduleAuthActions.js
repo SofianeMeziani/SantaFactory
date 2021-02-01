@@ -71,13 +71,13 @@ export default {
                 axiosBase.post('/api/v1/auth/logout/')
                     .then(response => {
                         localStorage.removeItem('access_token')
-                        localStorage.removeItem('refresh_token')
+
                         context.commit('destroyToken')
                         resolve(response)
                     })
                     .catch(err => {
                         localStorage.removeItem('access_token')
-                        localStorage.removeItem('refresh_token')
+
                         context.commit('destroyToken')
                         resolve(err)
                     })

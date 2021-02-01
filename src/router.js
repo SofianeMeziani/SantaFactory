@@ -11,6 +11,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import store from './store/store'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -36,7 +38,7 @@ const router = new Router({
                     name: 'home',
                     component: () => import('./views/Home.vue'),
                     meta: {
-                        requiresAuth: false
+                        requiresAuth: true
                     }
                 },
                 {
@@ -119,48 +121,7 @@ const router = new Router({
                         requiresLogged: true
                     }
                 },
-                {
-                    path: '/pages/register',
-                    name: 'register',
-                    component: () => import('@/views/pages/register/Register.vue'),
-                    meta: {
-                        rule: 'editor',
-                        requiresLogged: true
 
-                    }
-                },
-                {
-                    path: '/pages/forgot-password',
-                    name: 'page-forgot-password',
-                    component: () => import('@/views/pages/ForgotPassword.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/reset-password',
-                    name: 'page-reset-password',
-                    component: () => import('@/views/pages/ResetPassword.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/pages/lock-screen',
-                    name: 'page-lock-screen',
-                    component: () => import('@/views/pages/LockScreen.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/pages/comingsoon',
-                    name: 'page-coming-soon',
-                    component: () => import('@/views/pages/ComingSoon.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
                 {
                     path: '/pages/error-404',
                     name: 'page-error-404',
@@ -169,26 +130,11 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
-                {
-                    path: '/pages/error-500',
-                    name: 'page-error-500',
-                    component: () => import('@/views/pages/Error500.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
+
                 {
                     path: '/pages/not-authorized',
                     name: 'page-not-authorized',
                     component: () => import('@/views/pages/NotAuthorized.vue'),
-                    meta: {
-                        rule: 'editor'
-                    }
-                },
-                {
-                    path: '/pages/maintenance',
-                    name: 'page-maintenance',
-                    component: () => import('@/views/pages/Maintenance.vue'),
                     meta: {
                         rule: 'editor'
                     }
@@ -213,29 +159,29 @@ router.afterEach(() => {
 
 
 router.beforeEach((to, from, next) => {
-    next()
 
-    // // if any of the routes in ./router.js has a meta named 'requiresAuth: true'
-    // // then check if the user is logged in before routing to this path:
-    // if (to.matched.some(record => record.meta.requiresAuth)) {
-    //     console.log(store.getters["auth/loggedIn"])
-    //     if (!store.getters["auth/loggedIn"]) {
-    //         next({name: 'login'})
-    //     } else {
-    //         next()
-    //     }
-    // } else if (to.matched.some(record => record.meta.requiresLogged)) {
-    //     // else if any of the routes in ./router.js has a meta named 'requiresLogged: true'
-    //     // then check if the user is logged in; if true continue to home page else continue routing to the destination path
-    //     // this comes to play if the user is logged in and tries to access the login/register page
-    //     if (store.getters["auth/loggedIn"]) {
-    //         next({name: 'home'})
-    //     } else {
-    //         next()
-    //     }
-    // } else {
-    //     next()
-    // }
+
+    // if any of the routes in ./router.js has a meta named 'requiresAuth: true'
+    // then check if the user is logged in before routing to this path:
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        console.log(store.getters["auth/loggedIn"])
+        if (!store.getters["auth/loggedIn"]) {
+            next({name: 'login'})
+        } else {
+            next()
+        }
+    } else if (to.matched.some(record => record.meta.requiresLogged)) {
+        // else if any of the routes in ./router.js has a meta named 'requiresLogged: true'
+        // then check if the user is logged in; if true continue to home page else continue routing to the destination path
+        // this comes to play if the user is logged in and tries to access the login/register page
+        if (store.getters["auth/loggedIn"]) {
+            next({name: 'home'})
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
 })
 
 

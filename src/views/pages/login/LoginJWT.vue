@@ -66,6 +66,8 @@ export default {
           })
           .catch(error => {
 
+            console.log(error.message)
+
             this.$vs.loading.close()
             this.$vs.notify({
               title: 'Error',

@@ -41,7 +41,7 @@
       <div class="vx-col w-full lg:w-1/2 xl:w-1/2">
         <vx-card slot="no-body">
           <h4 class="text-center mb-3">Nouvelle compétence 🎯</h4>
-          <p class="text-center mb-1">ID #{{ this.competences[this.competences.length - 1].id + 1 }}</p>
+          <p class="text-center mb-1">ID #{{ this.getID() }}</p>
 
           <vs-input color="success"
                     class="mt-8 w-full"
@@ -128,7 +128,6 @@ export default {
           },
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
               'Content-Type':
                   'application/json',
             }
@@ -173,7 +172,6 @@ export default {
           },
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
               'Content-Type':
                   'application/json',
             }
@@ -216,7 +214,6 @@ export default {
       axiosBase.post('/app/competence/' + this.edit_id, {},
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`,
               'Content-Type':
                   'application/json',
             }
@@ -254,15 +251,22 @@ export default {
     validateEditForm() {
       return this.competence_edit !== ''
     },
+
+    getID() {
+      if (this.competences[this.competences.length - 1]) {
+        return this.competences[this.competences.length - 1].id + 1
+      }
+      return 0
+    },
+
     getCompetences() {
       this.$vs.loading()
       this.competences = []
-      axiosBase.get('/app/competence', {
+      axiosBase.get('/app/competence/', {
         params: {
           page: 0,
           max: 100
-        },
-        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
+        }
       }).then(response => {
         if (response) {
           this.$vs.loading.close()
@@ -272,6 +276,7 @@ export default {
         }
       }).catch(error => {
         this.$vs.loading.close()
+        console.log(error)
       })
     },
 

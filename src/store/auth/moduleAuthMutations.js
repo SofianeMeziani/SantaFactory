@@ -7,18 +7,18 @@
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-import {getAPI} from '@/axios'
+import {axiosBase} from '@/axios'
 
 export default {
     SET_BEARER(state, accessToken) {
-        getAPI.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+        axiosBase.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
     },
 
-    updateLocalStorage(state, {access, refresh}) {
+    updateLocalStorage(state, {access}) {
         localStorage.setItem('access_token', access)
-        localStorage.setItem('refresh_token', refresh)
+
         state.accessToken = access
-        state.refreshToken = refresh
+
     },
     updateAccess(state, access) {
         localStorage.setItem('access_token', access)
@@ -27,6 +27,6 @@ export default {
     },
     destroyToken(state) {
         state.accessToken = null
-        state.refreshToken = null
+
     }
 }

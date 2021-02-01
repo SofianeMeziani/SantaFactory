@@ -195,9 +195,7 @@ export default {
     },
 
     getStats() {
-      axiosBase.get('/app/dash', {
-        headers: {Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXBhQGFkbWluLmZyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE2MTI2MDMzMDUsImlhdCI6MTYxMTczOTMwNX0.wFotiSTG3ZXXgnmYZ907o0YB03mfymcLNEvbZXWcnHb0IlJICwW9w2aYh4aawga6JYYGfB1yDfgopS_kV820lA`}
-      }).then(response => {
+      axiosBase.get('/app/dash', ).then(response => {
         if (response) {
           this.stats = response.data.content
 
