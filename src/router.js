@@ -46,7 +46,8 @@ const router = new Router({
                     name: 'categories',
                     component: () => import('./views/Categories.vue'),
                     meta: {
-                        requiresAuth: true
+                        requiresAuth: true,
+                        is_admin: true
                     }
                 },
                 {
@@ -62,7 +63,8 @@ const router = new Router({
                     name: 'competences',
                     component: () => import('./views/Competences.vue'),
                     meta: {
-                        requiresAuth: true
+                        requiresAuth: true,
+                        is_admin: true
                     }
                 },
                 {
@@ -70,7 +72,8 @@ const router = new Router({
                     name: 'jouets',
                     component: () => import('./views/Jouets.vue'),
                     meta: {
-                        requiresAuth: true
+                        requiresAuth: true,
+                        is_admin: true
                     }
                 },
                 {
@@ -78,7 +81,8 @@ const router = new Router({
                     name: 'lutins',
                     component: () => import('./views/Lutins.vue'),
                     meta: {
-                        requiresAuth: true
+                        requiresAuth: true,
+                        is_admin: true
                     }
                 },
                 {
@@ -160,6 +164,16 @@ router.afterEach(() => {
 
 router.beforeEach((to, from, next) => {
 
+
+    if (to.matched.some(record => record.meta.is_admin)) {
+
+        console.log(store.state.AppActiveUser.role)
+        if (store.state.AppActiveUser.role !== 'USER') {
+            next()
+        } else {
+            next({name: 'home'})
+        }
+    }
 
     // if any of the routes in ./router.js has a meta named 'requiresAuth: true'
     // then check if the user is logged in before routing to this path:

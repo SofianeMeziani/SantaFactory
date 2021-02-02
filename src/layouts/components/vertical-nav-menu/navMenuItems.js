@@ -20,30 +20,35 @@ export default [
         name: "Commandes",
         slug: "Commandes",
         icon: "ClipboardIcon",
+
     },
     {
         url: "/lutins",
         name: "Lutins",
         slug: "Lutins",
         icon: "UsersIcon",
+        admin: true
     },
     {
         url: "/jouets",
         name: "Jouets",
         slug: "Jouets",
         icon: "GiftIcon",
+        admin: true
     },
     {
         url: "/categories",
         name: "Catégories",
         slug: "Categories",
         icon: "ServerIcon",
+        admin: true
     },
     {
         url: "/competences",
         name: "Compétences",
         slug: "Competences",
         icon: "CheckCircleIcon",
+        admin: true
     },
     {
         url: '/profile',

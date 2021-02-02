@@ -9,9 +9,9 @@
 ========================================================================================== -->
 
 <template>
-  <div
-      class="vs-sidebar--item"
-      :class="[
+  <div v-show="isAdmin"
+       class="vs-sidebar--item"
+       :class="[
       {'vs-sidebar-item-active'            : activeLink},
       {'disabled-item pointer-events-none' : isDisabled}
     ]">
@@ -50,11 +50,23 @@ export default {
     index: {type: [String, Number], default: null},
     featherIcon: {type: Boolean, default: true},
     target: {type: String, default: '_self'},
-    isDisabled: {type: Boolean, default: false}
+    isDisabled: {type: Boolean, default: false},
+    admin: {type: Boolean, default: false}
   },
   computed: {
     activeLink() {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
+    },
+
+    isAdmin() {
+      console.log(this.admin)
+      if (this.admin === true) {
+        return this.$store.state.AppActiveUser.role !== "USER";
+      } else {
+        return true
+      }
+
+
     }
   }
 }

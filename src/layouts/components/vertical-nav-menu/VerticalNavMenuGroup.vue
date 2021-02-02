@@ -73,7 +73,9 @@
             :href="groupItem.slug === 'external' ? groupItem.url : null"
             :icon="itemIcon(groupIndex + '.' + index)"
             :slug="groupItem.slug"
-            :target="groupItem.target">
+            :target="groupItem.target"
+            :admin="groupItem.admin"
+        >
           <span class="truncate">{{ groupItem.name }}</span>
           <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}
           </vs-chip>

@@ -44,7 +44,7 @@ import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 // mock
 import './fake-db/index.js'
-import {getAPI} from "./axios";
+import {axiosBase} from "./axios";
 import VueHtml2Canvas from "vue-html2canvas/src";
 import './registerServiceWorker'
 
@@ -66,7 +66,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(Vuesax)
 
-Vue.prototype.$http = getAPI
+Vue.prototype.$http = axiosBase
 
 
 Vue.use(VeeValidate)
@@ -94,7 +94,7 @@ require('./assets/css/iconfont.css')
 
 let token = localStorage.getItem('access_token')
 if (token) {
-    getAPI.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
+    axiosBase.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
 }
 
 

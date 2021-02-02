@@ -99,6 +99,7 @@
                   :isDisabled="item.isDisabled"
                   :slug="item.slug"
                   :featherIcon="item.featherIcon"
+                  :admin="item.admin"
               >
                 <span v-show="!verticalNavMenuItemsMin" class="truncate">{{ item.name }}</span>
                 <vs-chip class="ml-auto" :color="item.tagColor"

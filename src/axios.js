@@ -45,6 +45,7 @@ function addSubscriber(callback) {
 
 getAPI.interceptors.response.use(
     (response) => {
+        console.log(config)
         return response;
     },
     (err) => {
