@@ -16,7 +16,7 @@
                  data-theme="original" data-basecolor="rgb(22, 29, 49)" data-highcolor="#ffffff"
                  data-cloudfill="#283046">ROUEN Météo</a>
 
-              <div class="vx-row">
+              <div v-if="isAdmin()" class="vx-row">
                 <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                   <statistics-card-line
                       hideChart
@@ -78,7 +78,7 @@
             </vx-card>
           </div>
 
-          <div style="align-items: center; justify-content: center ; display: flex"
+          <div v-if="isAdmin()" style="align-items: center; justify-content: center ; display: flex"
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('jouets')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
@@ -89,7 +89,7 @@
             </vx-card>
           </div>
 
-          <div style="align-items: center; justify-content: center ; display: flex"
+          <div v-if="isAdmin()" style="align-items: center; justify-content: center ; display: flex"
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('lutins')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
@@ -100,7 +100,7 @@
             </vx-card>
           </div>
 
-          <div style="align-items: center; justify-content: center ; display: flex"
+          <div v-if="isAdmin()" style="align-items: center; justify-content: center ; display: flex"
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('categories')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
@@ -111,7 +111,7 @@
             </vx-card>
           </div>
 
-          <div style="align-items: center; justify-content: center ; display: flex"
+          <div v-if="isAdmin()" style="align-items: center; justify-content: center ; display: flex"
                class="vx-col w-full  mb-base lg:w-1/3 dashboard-card"
                @click="redirectToPage('competences')">
             <vx-card slot="no-body" :class="themeMode?'':'bg-primary-gradient'"
@@ -194,8 +194,12 @@ export default {
       )
     },
 
+    isAdmin() {
+      return !(this.$store.state.AppActiveUser.role == 'USER');
+    },
+
     getStats() {
-      axiosBase.get('/app/dash', ).then(response => {
+      axiosBase.get('/app/dash',).then(response => {
         if (response) {
           this.stats = response.data.content
 

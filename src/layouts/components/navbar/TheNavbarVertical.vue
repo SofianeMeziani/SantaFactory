@@ -18,9 +18,9 @@
                  :color="navbarColorLocal"
                  :class="textColor">
 
-        <!-- SM - OPEN SIDEBAR BUTTON -->
-        <!--                <feather-icon class="sm:inline-flex xl:hidden cursor-pointer p-2" icon="MenuIcon"-->
-        <!--                              @click.stop="showSidebar"/>-->
+        <!--        SM - OPEN SIDEBAR BUTTON-->
+        <feather-icon class="sm:inline-flex xl:hidden cursor-pointer p-2" icon="MenuIcon"
+                      @click.stop="showSidebar"/>
 
         <admin-buttons v-if="true" :navbarColor="navbarColor"/>
 

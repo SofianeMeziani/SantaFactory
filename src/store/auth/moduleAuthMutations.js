@@ -15,6 +15,7 @@ export default {
     },
 
     updateLocalStorage(state, {access}) {
+        console.log('hello local storage')
         localStorage.setItem('access_token', access)
 
         state.accessToken = access

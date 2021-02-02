@@ -94,6 +94,8 @@ export default {
             })
                 // if successful update local storage:
                 .then(response => {
+
+                    console.log('hello')
                     context.commit('updateLocalStorage', {
                         access: response.data.token
                     })

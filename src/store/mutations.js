@@ -109,9 +109,13 @@ const mutations = {
         // Get Data localStorage
         console.log(state.AppActiveUser)
         let userInfo = JSON.parse(localStorage.getItem("userInfo")) || state.AppActiveUser
+        console.log(Object.keys(payload))
 
+        // if (payload.createdBy === null) {
+        payload.createdBy = ""
+        // }
         for (const property of Object.keys(payload)) {
-
+            console.log('hello local user info if')
             if (payload[property] != null) {
                 // If some of user property is null - user default property defined in state.AppActiveUser
                 state.AppActiveUser[property] = payload[property]
@@ -122,8 +126,10 @@ const mutations = {
 
 
         }
+        console.log('hello local user info')
         // Store data in localStorage
         localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        console.log('hello local user info2')
     },
 
 
