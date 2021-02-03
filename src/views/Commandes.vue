@@ -208,7 +208,7 @@
                 <vs-th>DATE DE CRÉATION</vs-th>
                 <vs-th>LUTIN : JOUET</vs-th>
                 <vs-th>STATUS</vs-th>
-                <vs-th>ACTION</vs-th>
+                <vs-th v-if="isAdmin()">ACTION</vs-th>
               </template>
 
               <template slot-scope="{data}">
@@ -237,7 +237,7 @@
                         class="bg-success h-3 w-3 rounded-full mr-2"></div>Terminée
                     </span>
                   </vs-td>
-                  <vs-td>
+                  <vs-td v-if="isAdmin()">
                     <span>
                       <vs-icon class="mr-2" @click="editOrder(indextr)" icon="edit"></vs-icon>
                       <vs-icon color="danger" icon="delete" @click="clickDelete(indextr)"></vs-icon>
@@ -355,7 +355,8 @@ export default {
       delete_name: '',
       comment: '',
       edit_comment: '',
-      popupDeleteActive: false
+      popupDeleteActive: false,
+      api_url: ''
 
     }
   },
@@ -464,18 +465,34 @@ export default {
       this.nbEditGames--
     },
     getCommandes() {
-      axiosBase.get('/app/commande', {
-        params: {
-          page: 0,
-          max: 100
-        }
-      }).then(response => {
-        if (response) {
-          this.commandes.push(...response.data.content)
-        } else {
-        }
-      }).catch(error => {
-      })
+      if (this.isAdmin()) {
+        axiosBase.get('/app/commande/', {
+          params: {
+            page: 0,
+            max: 100
+          }
+        }).then(response => {
+          if (response) {
+            this.commandes.push(...response.data.content)
+          } else {
+          }
+        }).catch(error => {
+        })
+      } else {
+        axiosBase.get('/app/commande/user/' + this.$store.state.AppActiveUser.id, {
+          params: {
+            page: 0,
+            max: 100
+          }
+        }).then(response => {
+          if (response) {
+            this.commandes.push(...response.data.content)
+          } else {
+          }
+        }).catch(error => {
+        })
+      }
+
     },
 
     getJouets() {
@@ -515,6 +532,10 @@ export default {
       }
     },
 
+    isAdmin() {
+      return this.$store.state.AppActiveUser.role == 'ADMIN';
+    },
+
     insertCommande() {
       for (let i = 1; i < this.selectedJouets.length; i++) {
         this.taches.push({jeux: {id: this.selectedJouets[i].id}, lutin: {id: this.selectedLutins[i].id}})
@@ -547,6 +568,10 @@ export default {
           })
 
           this.commande.push(response.data.content)
+          this.commandes = []
+          this.getCommandes()
+          this.new_order = false
+
         } else {
         }
       }).catch(error => {
@@ -604,7 +629,7 @@ export default {
       axiosBase.get('/app/dash',).then(response => {
         if (response) {
           this.stats = response.data.content
-          this.series = [(this.stats.totalCommandes - this.stats.nbrActiveCommande) / (this.stats.totalCommandes) * 100]
+          this.series = [((this.stats.totalCommandes - this.stats.nbrActiveCommande) / (this.stats.totalCommandes) * 100).toFixed(1)]
         } else {
         }
       }).catch(error => {
