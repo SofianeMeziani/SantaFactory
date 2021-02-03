@@ -183,7 +183,7 @@ export default {
         return this.$store.state.theme === "dark" ? false : true;
       },
       set(val) {
-        console.log(val);
+        //console.log(val);
         if (val == false) {
           this.$store.dispatch("updateTheme", "dark");
         } else {

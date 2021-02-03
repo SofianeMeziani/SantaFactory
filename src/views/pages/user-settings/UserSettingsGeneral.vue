@@ -5,22 +5,10 @@
     <vs-input class="w-full mb-base"
               v-validate="'required|alpha_dash|min:3'"
               data-vv-validate-on="blur"
-              label-placeholder="Username"
-              name="Username"
-              placeholder="Username"
-              v-model="username"></vs-input>
-    <vs-input class="w-full mb-base" v-validate="'required|alpha_dash|min:3'"
-              data-vv-validate-on="blur"
               label-placeholder="Nom"
-              name="Nom"
+              name="Name"
               placeholder="Nom"
-              v-model="last_name"></vs-input>
-    <vs-input class="w-full mb-base" v-validate="'required|alpha_dash|min:3'"
-              data-vv-validate-on="blur"
-              label-placeholder="Nom"
-              name="name"
-              placeholder="Prénom"
-              v-model="first_name"></vs-input>
+              v-model="name"></vs-input>
     <vs-input class="w-full" v-validate="'required|email'"
               data-vv-validate-on="blur"
               name="email"
@@ -42,11 +30,9 @@
 export default {
   data() {
     return {
-      username: this.$store.state.AppActiveUser.username,
-      first_name: this.$store.state.AppActiveUser.first_name,
-      last_name: this.$store.state.AppActiveUser.last_name,
+      name: this.$store.state.AppActiveUser.name,
       email: this.$store.state.AppActiveUser.email,
-      // company: 'SnowMash Technologies Pvt Ltd'
+      id: this.$store.state.AppActiveUser.id,
     }
   },
 
@@ -56,35 +42,31 @@ export default {
       if (!this.validateForm) return
 
       this.$store.dispatch('updateProfileApi', {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        username: this.username,
+        id: this.id,
+        name: this.name,
         email: this.email,
       }).then(() => {
         setTimeout(() => {
           this.$vs.loading.close()
           this.$vs.notify({
-            title: 'Success',
-            text: "Profile a été update avec success",
+            title: 'Mise à jour réussie',
+            text: "Profile a été mis à jour avec success",
             iconPack: 'feather',
             icon: 'icon-circle-check',
             color: 'success'
           })
-        }, 2000);
+        }, 50);
+      }).catch(error => {
 
-
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Error',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
       })
-          .catch(error => {
-
-            this.$vs.loading.close()
-            this.$vs.notify({
-              title: 'Error',
-              text: error.message,
-              iconPack: 'feather',
-              icon: 'icon-alert-circle',
-              color: 'danger'
-            })
-          })
 
 
     }
@@ -92,12 +74,11 @@ export default {
   ,
   computed: {
     validateForm() {
-      return !this.errors.any() && (this.username !== '' || this.email !== '')
+      return !this.errors.any() && (this.name !== '' || this.email !== '')
     }
     ,
     activeUserInfo() {
       return this.$store.state.AppActiveUser
-
     }
   }
 }

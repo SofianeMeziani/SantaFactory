@@ -59,7 +59,7 @@ export default {
     },
 
     isAdmin() {
-      console.log(this.admin)
+      //console.log(this.admin)
       if (this.admin === true) {
         return this.$store.state.AppActiveUser.role !== "USER";
       } else {
