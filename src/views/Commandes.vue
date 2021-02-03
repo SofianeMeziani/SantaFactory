@@ -61,11 +61,15 @@
           <vx-card class="mb-5" v-if="new_order" slot="no-body">
             <h4 class="text-center mb-3">Nouvelle commande</h4>
             <p class="text-center mb-1">Numéro #013</p>
-
+            <vs-input class="mt-2 mb-2"
+                      label-placeholder="Nom de la commande"
+                      v-validate="'required|alpha_dash|min:1'"
+                      name="comment"
+                      v-model="comment"/>
             <div :key="i" v-for="i in nbGames" class="mt-5">
               <p>Jouet {{ i }} :</p>
-              <v-select class="mt-2 mb-2" :options="options_jouets" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
-              <v-select class="mt-2 mb-2" :options="options_lutins" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+              <v-select class="mt-2 mb-2" v-model="selectedJouets[i]" :options="jouets" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+              <v-select class="mt-2 mb-2" v-model="selectedLutins[i]" :options="lutins" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
             </div>
 
             <div class="vx-row">
@@ -88,14 +92,55 @@
             <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient"
                        icon-pack="feather"
                        icon="icon-check"
-                       @click="$vs.notify({
-                      title:'Primary',
-                      position:'top-right',
-                      text:'Lorem ipsum dolor sit amet, consectetur',
-                      color:'success'})">
+                       @click="insertCommande()">
               Valider
             </vs-button>
           </vx-card>
+
+          <!-- ________________________________________________________________________________ -->
+
+          <vx-card class="mb-5" v-else-if="edit_mode" slot="no-body">
+            <h4 class="text-center mb-3">Modification commande</h4>
+            <p class="text-center mb-1">Numéro #{{ this.edit_id }}</p>
+            <vs-input class="mt-2 mb-2"
+                      label-placeholder="Nom de la commande"
+                      v-validate="'required|alpha_dash|min:1'"
+                      name="edit_comment"
+                      v-model="edit_comment"/>
+            <div :key="i" v-for="i in nbEditGames" class="mt-5">
+              <p>Jouet {{ i }} :</p>
+              <v-select class="mt-2 mb-2" v-model="editSelectedJouets[i-1]" :options="jouets" label="name"
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+              <v-select class="mt-2 mb-2" v-model="editSelectedLutins[i-1]" :options="lutins" label="name"
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
+            </div>
+
+            <div class="vx-row">
+
+              <vs-button @click="addGame()" size="small" class="mt-5 vx-col " style="width: 40%; margin: auto"
+                         color="#283046"
+                         icon-pack="feather"
+                         icon="icon-plus">
+                Ajouter un jouet
+              </vs-button>
+              <vs-button @click="delGame()" size="small" class="mt-5 vx-col" style="width: 40%; margin: auto"
+                         color="#283046"
+                         icon-pack="feather"
+                         icon="icon-x" :disabled="nbGames < 2">
+                Supprimer un jouet
+              </vs-button>
+            </div>
+
+
+            <vs-button size="small" class="mt-5" style="margin: auto" color="success" type="gradient"
+                       icon-pack="feather"
+                       icon="icon-check"
+                       @click="updateOrder()">
+              Valider
+            </vs-button>
+          </vx-card>
+          <!-- ________________________________________________________________________________ -->
+
           <vx-card v-else title="Commandes terminées">
             <!-- CHART -->
             <template slot="no-body">
@@ -119,8 +164,31 @@
         </div>
       </div>
     </div>
+    <!--  ______________________________________________________________________________ -->
+
+    <vs-popup title="Suppression" :active.sync="popupDeleteActive">
+      <h4 class="text-center mb-3">Suppression de la commande ID #{{ this.delete_id }} 🎯</h4>
+      <p class="text-center mb-1">Êtes vous sûr de vouloir supprimer "{{ this.delete_name }}" ?</p>
+      <div class="vx-row">
+        <div class="vx-col w-1/2">
+          <vs-button size="small" class="mt-8" style="margin: auto" color="danger" type="gradient" icon-pack="feather"
+                     icon="icon-check"
+                     @click="deleteCommande()">
+            Supprimer
+          </vs-button>
+        </div>
+        <div class="vx-col w-1/2">
+          <vs-button size="small" class="mt-8" style="margin: auto" color="dark" icon-pack="feather"
+                     icon="icon-check"
+                     @click="popupDeleteActive = false">
+            Annuler
+          </vs-button>
+        </div>
+      </div>
+    </vs-popup>
+
     <div class="vx-row mt-5">
-      <div class="vx-col w-full">
+      <div :class="new_order||edit_mode ? 'lg:w-2/3 xl:w-2/3' : ''" class="vx-col w-full">
         <vx-card :data="commandes" title="Toutes les commandes">
           <div slot="no-body" class="mt-4">
             <vs-table class="table-dark-inverted">
@@ -159,7 +227,10 @@
                     </span>
                   </vs-td>
                   <vs-td>
-                    <span>#0013</span>
+                    <span>
+                      <vs-icon class="mr-2" @click="editOrder(indextr)" icon="edit"></vs-icon>
+                      <vs-icon color="danger" icon="delete" @click="clickDelete(indextr)"></vs-icon>
+                    </span>
                   </vs-td>
                 </vs-tr>
               </template>
@@ -192,6 +263,8 @@ export default {
         {id: 2, label: 'Lutin 2'},
         {id: 3, label: 'Lutin 3'},
       ],
+      edit_mode: false,
+      nbEditGames: 0,
       new_order: false,
       nbGames: 1,
       chartOptions: {
@@ -249,9 +322,26 @@ export default {
           }
         }
       },
+      taches: [],
+      edit_taches: [],
+      editSelectedOrder: [],
+      editSelectedJouets: [],
+      editSelectedLutins: [],
+      selectedJouets: [],
+      selectedLutins: [],
+      jouets: [],
+      lutins_occupes: [],
+      lutins: [],
       series: [0],
+      edit_id: 0,
       commandes: [],
+      commande: [],
       stats: [],
+      delete_id: 0,
+      delete_name: '',
+      comment: '',
+      edit_comment: '',
+      popupDeleteActive: false
 
     }
   },
@@ -265,7 +355,84 @@ export default {
   methods: {
     newOrder() {
       this.new_order = true
+      this.edit_mode = false
     },
+
+    editOrder(index) {
+      this.new_order = false
+
+      this.edit_comment = this.commandes[index].comment
+      // console.log(this.commandes)
+      this.editSelectedOrder = this.commandes[index].taches
+      this.edit_id = this.commandes[index].id
+      this.edit_mode = true
+      this.nbEditGames = this.commandes[index].taches.length
+      //console.log(this.editSelectedOrder[0].jeux)
+
+      for (let j = 0; j <= this.nbEditGames - 1; j++) {
+        //console.log(j)
+        this.editSelectedJouets[j] = this.editSelectedOrder[j].jeux
+
+        this.editSelectedLutins[j] = this.editSelectedOrder[j].lutin
+
+      }
+      //console.log(this.editSelectedLutins)
+    },
+
+    updateOrder() {
+      console.log("update order")
+      //console.log(this.editSelectedLutins + )
+      for (let i = 0; i < this.editSelectedLutins.length; i++) {
+        console.log(i)
+        console.log("Lutin" + this.editSelectedLutins[i].id)
+        this.edit_taches.push({jeux: {id: this.editSelectedJouets[i].id}, lutin: {id: this.editSelectedLutins[i].id}})
+
+      }
+      console.log(this.edit_taches)
+      //console.log(this.edit_id)
+      this.updatedOrder()
+    },
+
+    updatedOrder() {
+      this.$vs.loading()
+      axiosBase.post('/app/commande/', {
+            'id': this.edit_id,
+            'comment': this.edit_comment,
+            'taches': this.edit_taches
+          },
+          {
+            headers: {
+
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        this.$vs.loading.close()
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Commande modifié',
+            text: "La commande a été mis à jour",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.commandes = []
+          this.getCommandes()
+        } else {
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
+    },
+
     lastOrder() {
       try {
         return this.interpretDate(commandes[commandes.length - 1].dateCreation)
@@ -275,9 +442,11 @@ export default {
     },
     addGame() {
       this.nbGames++
+      this.nbEditGames++
     },
     delGame() {
       this.nbGames--
+      this.nbEditGames--
     },
     getCommandes() {
       axiosBase.get('/app/commande', {
@@ -294,8 +463,130 @@ export default {
       })
     },
 
+    getJouets() {
+      this.jouets = []
+      axiosBase.get('/app/jeux', {
+        params: {
+          page: 0,
+          max: 100
+        }
+      }).then(response => {
+        if (response) {
+          this.jouets.push(...response.data.content)
+          this.replaceKey(this.jouets)
+        } else {
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+      })
+    },
+
+    getLutinsDispo() {
+      this.lutins = []
+      axiosBase.get('/app/availableUsers').then(response => {
+        if (response) {
+          this.lutins.push(...response.data.content.availaible)
+          this.replaceKey(this.lutins)
+        } else {
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+      })
+    },
+
+    replaceKey(json) {
+      for (var elt in json) {
+        json[elt]['label'] = json[elt]['name']
+      }
+    },
+
+    insertCommande() {
+      for (let i = 1; i < this.selectedJouets.length; i++) {
+        this.taches.push({jeux: {id: this.selectedJouets[i].id}, lutin: {id: this.selectedLutins[i].id}})
+      }
+      console.log(this.taches)
+      this.insererCommande()
+    },
+
+    insererCommande() {
+      this.$vs.loading()
+      axiosBase.post('/app/commande', {
+            'comment': this.comment,
+            'taches': this.taches
+          },
+          {
+            headers: {
+
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        this.$vs.loading.close()
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'commande inséré',
+            text: "La tache a été inséré",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+
+          this.commande.push(response.data.content)
+        } else {
+        }
+      }).catch(error => {
+        this.$vs.loading.close()
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      })
+    },
+
+    clickDelete(index) {
+      this.delete_id = this.commandes[index].id
+      this.delete_name = this.commandes[index].comment
+      this.popupDeleteActive = true
+    },
+
+    deleteCommande() {
+      axiosBase.post('/app/commande/' + this.delete_id, {},
+          {
+            headers: {
+
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
+          this.$vs.notify({
+            title: 'Commande supprimé',
+            text: "La commande a été supprimé",
+            iconPack: 'feather',
+            icon: 'icon-circle-check',
+            color: 'success'
+          })
+          this.popupDeleteActive = false
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$vs.notify({
+          title: 'Erreur',
+          text: error.message,
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+        this.popupEditActive = false
+      })
+    },
+
     getStats() {
-      axiosBase.get('/app/dash', ).then(response => {
+      axiosBase.get('/app/dash',).then(response => {
         if (response) {
           this.stats = response.data.content
           this.series = [(this.stats.totalCommandes - this.stats.nbrActiveCommande) / (this.stats.totalCommandes) * 100]
@@ -317,6 +608,9 @@ export default {
   },
 
   created() {
+    //this.insertCommande()
+    this.getLutinsDispo()
+    this.getJouets()
     this.getCommandes()
     this.getStats()
   }
