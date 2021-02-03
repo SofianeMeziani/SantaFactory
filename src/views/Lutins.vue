@@ -572,7 +572,7 @@ export default {
         if (response) {
           this.lutins_dispo.push(...response.data.content.availaible)
           this.lutins_occupes.push(...response.data.content.notAvailaible)
-          this.series = [this.lutins_dispo.length / (this.lutins_dispo.length + this.lutins_occupes.length) * 100]
+          this.series = [(this.lutins_dispo.length / (this.lutins_dispo.length + this.lutins_occupes.length) * 100).toFixed(1)]
           return this.addAvailableAttribute(response.data.content.availaible);
         } else {
           this.$vs.loading.close()
