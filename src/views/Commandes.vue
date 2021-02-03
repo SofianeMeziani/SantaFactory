@@ -202,7 +202,7 @@
       <div :class="new_order||edit_mode ? 'lg:w-2/3 xl:w-2/3' : ''" class="vx-col w-full">
         <vx-card :data="commandes" title="Toutes les commandes">
           <div slot="no-body" class="mt-4">
-            <vs-table class="table-dark-inverted">
+            <vs-table max-items="5" pagination :data="commandes" class="table-dark-inverted">
               <template slot="thead">
                 <vs-th>NUMÉRO</vs-th>
                 <vs-th>DATE DE CRÉATION</vs-th>
@@ -211,8 +211,8 @@
                 <vs-th>ACTION</vs-th>
               </template>
 
-              <template>
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in commandes">
+              <template slot-scope="{data}">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
                   <vs-td :data="tr.id">
                     <span>#{{ tr.id }}</span>
                   </vs-td>
