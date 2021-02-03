@@ -474,6 +474,7 @@ export default {
         }).then(response => {
           if (response) {
             this.commandes.push(...response.data.content)
+            this.getStats()
           } else {
           }
         }).catch(error => {
@@ -609,6 +610,7 @@ export default {
             icon: 'icon-circle-check',
             color: 'success'
           })
+          this.getStats()
           this.popupDeleteActive = false
         } else {
         }
