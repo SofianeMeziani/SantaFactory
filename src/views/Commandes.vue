@@ -58,7 +58,7 @@
               </vs-button>
 
             </div>
-            <div class="vx-col w-full">
+            <div v-if="isAdmin()" class="vx-col w-full">
               <vs-button @click="newOrder()" class="mb-4" style="margin: auto" color="primary" type="gradient"
                          icon-pack="feather"
                          icon="icon-plus" v-if="!new_order">
@@ -72,7 +72,7 @@
           <vx-card class="mb-5" v-if="new_order" slot="no-body">
             <h4 class="text-center mb-3">Nouvelle commande</h4>
             <p class="text-center mb-1">Numéro #013</p>
-            <vs-input class="mt-10 mb-2 w-full"
+            <vs-input class="mt-5 mb-2 w-full"
                       label-placeholder="Nom de la commande"
                       v-validate="'required|alpha_dash|min:1'"
                       name="comment"
@@ -360,12 +360,6 @@ export default {
 
     }
   },
-  computed: {
-    getId() {
-      return this.$store.state.AppActiveUser.id
-    }
-
-  },
   name: "Commandes",
   components: {
     StatisticsCardLine,
@@ -485,8 +479,7 @@ export default {
         }).catch(error => {
         })
       } else {
-        let id = this.getId();
-        axiosBase.get('/app/commande/user/' + id, {
+        axiosBase.get('/app/commande/user/' + this.$store.state.AppActiveUser.id, {
           params: {
             page: 0,
             max: 100
@@ -672,8 +665,11 @@ export default {
 
   created() {
     //this.insertCommande()
-    this.getLutinsDispo()
-    this.getJouets()
+    if (this.isAdmin()) {
+      this.getLutinsDispo()
+      this.getJouets()
+    }
+
     this.getCommandes()
     this.getStats()
   }
