@@ -36,7 +36,7 @@
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end mt-10 pt-10">
-      <vs-button class="ml-auto mt-2" @click="updateProfileApi" :disabled="!validateForm">Enregistrer</vs-button>
+      <vs-button class="ml-auto mt-2" @click="updateProfile()" :disabled="!validateForm">Enregistrer</vs-button>
       <vs-button class="ml-4 mt-2" type="border" color="warning">Annuler</vs-button>
     </div>
   </vx-card>
@@ -82,45 +82,55 @@ export default {
       })
     },
 
-    replaceKey(json) {
-      for (var elt in json) {
-        json[elt]['label'] = json[elt]['name']
-      }
-    },
+    updateProfile() {
+      axiosBase.post('/app/user/', {
+            'id': this.id,
+            'email': this.email,
+            'password': this.password,
+            'name': this.name,
+            'role': this.role,
+            'competences': this.selectedComp
+          },
+          {
+            headers: {
 
-    updateProfileApi() {
-      this.$vs.loading()
-      if (!this.validateForm) return
-
-      this.$store.dispatch('updateProfileApi', {
-        id: this.id,
-        name: this.name,
-        email: this.email,
-      }).then(() => {
-        setTimeout(() => {
-          this.$vs.loading.close()
+              'Content-Type':
+                  'application/json',
+            }
+          }).then(response => {
+        if (response.data.success == true) {
           this.$vs.notify({
-            title: 'Mise à jour réussie',
-            text: "Profile a été mis à jour avec success",
+            title: 'Profil mis à jour',
+            text: "Profil mis à jour",
             iconPack: 'feather',
             icon: 'icon-circle-check',
             color: 'success'
           })
-        }, 50);
-      }).catch(error => {
 
-        this.$vs.loading.close()
+          this.lutins = []
+          this.lutins_dispo = []
+          this.lutins_occupes = []
+          this.getFinalLutin()
+        } else {
+        }
+      }).catch(error => {
+        console.log(error)
         this.$vs.notify({
-          title: 'Error',
+          title: 'Erreur',
           text: error.message,
           iconPack: 'feather',
           icon: 'icon-alert-circle',
           color: 'danger'
         })
       })
-
-
     },
+
+    replaceKey(json) {
+      for (var elt in json) {
+        json[elt]['label'] = json[elt]['name']
+      }
+    },
+
     isAdmin() {
       return this.$store.state.AppActiveUser.role == 'ADMIN';
     },
