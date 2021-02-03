@@ -113,7 +113,7 @@
           <vx-card class="mb-5" v-else-if="edit_mode" slot="no-body">
             <h4 class="text-center mb-3">Modification commande</h4>
             <p class="text-center mb-1">Numéro #{{ this.edit_id }}</p>
-            <vs-input class="mt-2 mb-2"
+            <vs-input class="mt-10 w-full mb-2"
                       label-placeholder="Nom de la commande"
                       v-validate="'required|alpha_dash|min:1'"
                       name="edit_comment"

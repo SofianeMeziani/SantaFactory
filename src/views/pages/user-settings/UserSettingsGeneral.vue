@@ -16,7 +16,7 @@
               label-placeholder="Email"
               placeholder="Email"
               v-model="email"></vs-input>
-    <vs-input class="w-full" v-validate="'required|password'"
+    <vs-input class="w-full"
               data-vv-validate-on="blur"
               name="password"
               type="password"
@@ -36,7 +36,7 @@
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end mt-10 pt-10">
-      <vs-button class="ml-auto mt-2" @click="updateProfile()" :disabled="!validateForm">Enregistrer</vs-button>
+      <vs-button class="ml-auto mt-2" @click="updateProfile()">Enregistrer</vs-button>
       <vs-button class="ml-4 mt-2" type="border" color="warning">Annuler</vs-button>
     </div>
   </vx-card>
@@ -107,10 +107,6 @@ export default {
             color: 'success'
           })
 
-          this.lutins = []
-          this.lutins_dispo = []
-          this.lutins_occupes = []
-          this.getFinalLutin()
         } else {
         }
       }).catch(error => {
@@ -139,7 +135,7 @@ export default {
 
   computed: {
     validateForm() {
-      return !this.errors.any() && (this.name !== '' || this.email !== '')
+      return !(this.name !== '' || this.email !== '' || this.password !== '')
     }
     ,
     activeUserInfo() {
