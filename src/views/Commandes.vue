@@ -72,7 +72,7 @@
           <vx-card class="mb-5" v-if="new_order" slot="no-body">
             <h4 class="text-center mb-3">Nouvelle commande</h4>
             <p class="text-center mb-1">Numéro #013</p>
-            <vs-input class="mt-2 mb-2"
+            <vs-input class="mt-10 mb-2 w-full"
                       label-placeholder="Nom de la commande"
                       v-validate="'required|alpha_dash|min:1'"
                       name="comment"
@@ -360,6 +360,12 @@ export default {
 
     }
   },
+  computed: {
+    getId() {
+      return this.$store.state.AppActiveUser.id
+    }
+
+  },
   name: "Commandes",
   components: {
     StatisticsCardLine,
@@ -479,7 +485,8 @@ export default {
         }).catch(error => {
         })
       } else {
-        axiosBase.get('/app/commande/user/' + this.$store.state.AppActiveUser.id, {
+        let id = this.getId();
+        axiosBase.get('/app/commande/user/' + id, {
           params: {
             page: 0,
             max: 100
@@ -656,7 +663,7 @@ export default {
 
       doc.text("Liste des commandes", 15, 10);
       doc.autoTable({
-        head: [['ID', 'Commentaire', 'Date de création', 'Nombre Taches', 'Statut']],
+        head: [['ID', 'Nom', 'Date de création', 'Nombre Taches', 'Statut']],
         body: commandesTab,
       })
       doc.save('Commandes.pdf');
