@@ -38,14 +38,25 @@
                   color="success"/>
             </div>
             <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2">
-              <statistics-card-line
-                  hideChart
-                  class="mt-5 mb-base"
-                  icon="ArchiveIcon"
-                  icon-right
-                  :statistic="lastOrder()"
-                  statisticTitle="Date de la dernière commande"
-                  color="success"/>
+
+              <download-csv
+                  class="btn-download"
+                  :data="commandes"
+                  name="commandes.csv">
+                <vs-button class="mt-5 w-full" style="margin: auto" color="success" type="gradient"
+                           icon-pack="feather"
+                           icon="icon-download"
+                           :disabled="commandes.length<1">
+                  Télécharger CSV
+                </vs-button>
+              </download-csv>
+              <vs-button @click="downloadPDF()" class="mt-4 w-full" style="margin: auto" color="success" type="gradient"
+                         icon-pack="feather"
+                         icon="icon-download"
+                         :disabled="commandes.length<1">
+                Télécharger PDF
+              </vs-button>
+
             </div>
             <div class="vx-col w-full">
               <vs-button @click="newOrder()" class="mb-4" style="margin: auto" color="primary" type="gradient"
@@ -248,6 +259,9 @@ import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine
 import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
 import {axiosBase} from "@/axios";
+import JsonCSV from 'vue-json-csv'
+import {jsPDF} from "jspdf";
+import 'jspdf-autotable'
 
 export default {
   data() {
@@ -349,7 +363,8 @@ export default {
   components: {
     StatisticsCardLine,
     'v-select': vSelect,
-    VueApexCharts
+    VueApexCharts,
+    'downloadCsv': JsonCSV
   },
 
   methods: {
@@ -388,7 +403,7 @@ export default {
         this.edit_taches.push({jeux: {id: this.editSelectedJouets[i].id}, lutin: {id: this.editSelectedLutins[i].id}})
 
       }
-      console.log(this.edit_taches)
+      //console.log(this.edit_taches)
       //console.log(this.edit_id)
       this.updatedOrder()
     },
@@ -604,7 +619,23 @@ export default {
     interpretDateFull(date) {
       var d = new Date(date)
       return d.getDate() + '/' + d.getMonth() + 1 + '/' + d.getFullYear() + ' à ' + d.getHours() + 'h' + d.getMinutes();
-    }
+    },
+
+    downloadPDF() {
+      let doc = new jsPDF();
+      let commandesTab = []
+
+      for (let key in this.commandes) {
+        commandesTab.push([this.commandes[key].id, this.commandes[key].comment, this.interpretDateFull(this.commandes[key].dateCreation), this.commandes[key].taches.length, this.commandes[key].statut])
+      }
+
+      doc.text("Liste des commandes", 15, 10);
+      doc.autoTable({
+        head: [['ID', 'Commentaire', 'Date de création', 'Nombre Taches', 'Statut']],
+        body: commandesTab,
+      })
+      doc.save('Commandes.pdf');
+    },
   },
 
   created() {

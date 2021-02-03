@@ -466,6 +466,7 @@ export default {
         lutinTab.push([this.lutins[key].id, this.lutins[key].name, this.lutins[key].email, this.lutins[key].available])
       }
 
+      doc.text("Liste des lutins", 15, 10);
       doc.autoTable({
         head: [['ID', 'Nom', 'Email', 'Disponible']],
         body: lutinTab,
