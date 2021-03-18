@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/SofianeMeziani/SantaFactory">
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/public/logo.png" alt="Logo" width="auto" height="80">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Front/public/logo.png" alt="Logo" width="auto" height="80">
   </a>
 
   <h3 align="center">Santa Factory - La fabrique du père Noël</h3>
