@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/SofianeMeziani/SantaFactory">
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/public/logo.png" alt="Logo" width="auto" height="80">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/public/logo.png" alt="Logo" width="auto" height="80" class="rounded-1">
   </a>
 
   <h3 align="center">Santa Factory - La fabrique du père Noël</h3>
@@ -43,10 +43,10 @@ Pour lancer la partie frontend :
   ## Screenshots
   
   <div align="center">
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/1.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/3.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/4.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/5.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/7.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/1.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/3.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/4.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/5.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/7.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
   </div>
