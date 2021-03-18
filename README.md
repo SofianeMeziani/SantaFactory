@@ -1,9 +1,40 @@
-# SantaFactory
-La fabrique du père Noël
+<p align="center">
+  <a href="https://github.com/SofianeMeziani/SantaFactory">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/public/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-Backend : 
-java -jar backend.war
+  <h3 align="center">Santa Factory - La fabrique du père Noël</h3>
 
-Front-end :
-npm i
-npm run serve
+  <p align="center">
+    Plateforme de gestion permettant de gérer la fabrique du père-noël. Cette plateforme sert à gérer à la fois les jouets, leurs catégories, mais aussi les lutins et leurs activités, ainsi que leurs compétences. Le père-noël ainsi que la mère-noël peuvent accéder à une partie administration ainsi qu’à une partie ”dashboard”, les lutins ont accès qu’à leurs tâches et au planning.
+La plateforme permet de gérer plusieurs commandes, possédant un numéro, et une liste d’objets.
+    <br />
+  </p>
+</p>
+
+### Développé avec :
+
+* [VueJS](https://vuejs.org)
+* [Tailwind CSS](https://tailwindcss.com)
+* [Spring Boot](https://spring.io/projects/spring-boot)
+
+
+## Lancer le projet
+
+Pour lancer le projet il suffit d'éxécuter les deux commandes suivantes :
+
+Pour lancer le serveur backend :
+
+  ```sh
+  java -jar backend.war
+  ```
+Pour lancer la partie frontend :
+
+   ```sh
+   git clone https://github.com/github_username/repo_name.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm i
+   npm run serve
+   ```
