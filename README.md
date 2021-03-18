@@ -43,10 +43,10 @@ Pour lancer la partie frontend :
   ## Screenshots
   
   <div align="center">
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/1.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/3.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/4.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/5.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/7.png" alt="Accueil" width="40%" height="auto" style="border-radius: 5px" class="rounded-1">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/1.png" alt="Accueil" width="47%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="47%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/3.png" alt="Accueil" width="47%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/4.png" alt="Accueil" width="47%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/5.png" alt="Accueil" width="47%" height="auto" style="border-radius: 5px" class="rounded-1">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/7.png" alt="Accueil" width="47%" height="auto" style="border-radius: 5px" class="rounded-1">
   </div>
