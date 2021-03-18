@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/SofianeMeziani/SantaFactory">
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/public/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/public/logo.png" alt="Logo" width="auto" height="80">
   </a>
 
   <h3 align="center">Santa Factory - La fabrique du père Noël</h3>
@@ -30,11 +30,7 @@ Pour lancer le serveur backend :
   ```
 Pour lancer la partie frontend :
 
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm i
-   npm run serve
-   ```
+  ```sh
+  npm i
+  npm run serve
+  ```
