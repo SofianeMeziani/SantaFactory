@@ -12,8 +12,8 @@ La plateforme permet de gérer plusieurs commandes, possédant un numéro, et un
   <br />
 
   </p>
-  
-      ![Images-with-rounded-corners-and-shadow](https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png)
+  ![Images-with-rounded-corners-and-shadow](https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png)
+
 </p>
 
 ### Développé avec :
