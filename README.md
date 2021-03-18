@@ -10,7 +10,6 @@
 La plateforme permet de gérer plusieurs commandes, possédant un numéro, et une liste d’objets.
     <br />
   <br />
-  <br />
     <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="70%" height="auto" style="border-radius: 10%" class="rounded-1">
   </p>
   
