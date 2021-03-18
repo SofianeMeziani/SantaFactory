@@ -9,9 +9,10 @@
     Plateforme de gestion permettant de gérer la fabrique du père-noël. Cette plateforme sert à gérer à la fois les jouets, leurs catégories, mais aussi les lutins et leurs activités, ainsi que leurs compétences. Le père-noël ainsi que la mère-noël peuvent accéder à une partie administration ainsi qu’à une partie ”dashboard”, les lutins ont accès qu’à leurs tâches et au planning.
 La plateforme permet de gérer plusieurs commandes, possédant un numéro, et une liste d’objets.
     <br />
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="70%" height="auto">
   </p>
   
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="70%" height="auto">
+  
 </p>
 
 ### Développé avec :
@@ -36,3 +37,13 @@ Pour lancer la partie frontend :
   npm i
   npm run serve
   ```
+  
+  ## Screenshots
+  
+  <div align="center">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
+  </div>
