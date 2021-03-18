@@ -11,7 +11,7 @@ La plateforme permet de gérer plusieurs commandes, possédant un numéro, et un
     <br />
   </p>
   
-  ![Page d'accueil](https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png?raw=true)
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="70%" height="auto">
 </p>
 
 ### Développé avec :
