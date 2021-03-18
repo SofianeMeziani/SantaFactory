@@ -12,10 +12,10 @@ La plateforme permet de gérer plusieurs commandes, possédant un numéro, et un
   <br />
 
   </p>
-  ![Images-with-rounded-corners-and-shadow](https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png)
+
 
 </p>
-
+  ![Images-with-rounded-corners-and-shadow](https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png)
 ### Développé avec :
 
 * [VueJS](https://vuejs.org)
