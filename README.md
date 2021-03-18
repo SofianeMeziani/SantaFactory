@@ -9,7 +9,9 @@
     Plateforme de gestion permettant de gérer la fabrique du père-noël. Cette plateforme sert à gérer à la fois les jouets, leurs catégories, mais aussi les lutins et leurs activités, ainsi que leurs compétences. Le père-noël ainsi que la mère-noël peuvent accéder à une partie administration ainsi qu’à une partie ”dashboard”, les lutins ont accès qu’à leurs tâches et au planning.
 La plateforme permet de gérer plusieurs commandes, possédant un numéro, et une liste d’objets.
     <br />
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="70%" height="auto">
+  <br />
+  <br />
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="70%" height="auto" style="border-radius: 20px">
   </p>
   
   
@@ -41,9 +43,10 @@ Pour lancer la partie frontend :
   ## Screenshots
   
   <div align="center">
-    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
-  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="30%" height="auto">
+    <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/1.png" alt="Accueil" width="50%" height="auto" style="border-radius: 5px">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/2.png" alt="Accueil" width="50%" height="auto" style="border-radius: 5px">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/3.png" alt="Accueil" width="50%" height="auto" style="border-radius: 5px">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/4.png" alt="Accueil" width="50%" height="auto" style="border-radius: 5px">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/5.png" alt="Accueil" width="50%" height="auto" style="border-radius: 5px">
+  <img src="https://github.com/SofianeMeziani/SantaFactory/blob/main/Screenshots/7.png" alt="Accueil" width="50%" height="auto" style="border-radius: 5px">
   </div>
